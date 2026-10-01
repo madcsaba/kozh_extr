@@ -50,7 +50,7 @@ score = 0.34·popularitás + 0.30·frissesség + 0.16·sürgősség
   nagy különbség ne nyomja el a többit
 - **frissesség** — nyitott téma + hátralévő napok; a rövid határidő sürget
 - **sürgősség** — kevés hátralévő nap → magasabb
-- **saját érdeklődés** — a böngésződ `localStorage`-jába tárolt kattintásaid (nem hagyja el a gépet)
+- **saját érdeklődés** — a bejelölt kategóriáid és a kattintásaid, a böngésződ `localStorage`-jában (nem hagyja el a gépet)
 - **tartalmi mélység** — fejezetek/kérdések/cikkek száma
 
 A **Napi ajánlás** a top 6-ból dátumhoz kötött (de determinisztikus) véletlenszerű 3-at választ,

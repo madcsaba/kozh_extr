@@ -73,54 +73,57 @@ const CATS = {
 
 // ————————————————————————————————————————————————————————— súgók
 
-const card = (d) => {
+const place = (d) => d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+const EXT = `target="_blank" rel="noopener"`;
+const ARROW = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>`;
+
+// nyitott egyeztetés: határidő-blokk + leírás + részvételi oldalsáv (mint a főoldalon)
+const openRow = (d) => {
   const label = CATS[d.category]?.label ?? d.category;
-  const img = d.hero || d.photo;
-  const statusLabel = d.status === "open" ? "Nyitott" : "Hamarosan";
-  const place = d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
-  const bits = [];
-  if (d.status === "open") bits.push(`<span><b>${fmt(d.participants)}</b> résztvevő</span>`);
-  else if (d.participants) bits.push(`<span><b>${fmt(d.participants)}</b> érdeklődő</span>`);
-  if (d.daysLeft != null) bits.push(`<span><b>${d.daysLeft}</b> nap hátra</span>`);
-  if (d.stepCount) bits.push(`<span><b>${d.stepCount}</b> kérdés</span>`);
-  if (d.knowledgeCount) bits.push(`<span><b>${d.knowledgeCount}</b> cikk</span>`);
-  const rate = d.status === "open" && d.completionRate > 0
-    ? `<div class="meter" title="Befejezési arány: ${d.completionRate}%"><i style="width:${d.completionRate}%"></i></div>` : "";
-  const cta = d.status === "open" ? "Részvétel →" : "Megnézem →";
-  return `<article class="card">
-    <div class="thumb">
-      <div class="fallback">${esc(pickHu(d.title).slice(0, 2))}</div>
-      ${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
-      <span class="badge ${d.status}">${statusLabel}</span>
-      <span class="cat" style="--cc:var(--c-${d.category}, var(--c-default))">${esc(label)}</span>
+  const facts = [];
+  if (d.chapterCount) facts.push(`${d.chapterCount} fejezet`);
+  if (d.stepCount) facts.push(`${d.stepCount} lépés`);
+  if (d.totalMinutes) facts.push(`kb. ${d.totalMinutes} perc`);
+  if (d.knowledgeCount) facts.push(`${d.knowledgeCount} háttércikk`);
+  const rate = d.completionRate || 0;
+  return `<article class="panel open-row">
+    <div class="days"><b>${d.daysLeft ?? "—"}</b><span>nap van hátra</span></div>
+    <div class="open-body">
+      <span class="kicker">${esc(label)} · ${esc(place(d))}</span>
+      <h3><a href="${esc(d.url)}" ${EXT}>${esc(pickHu(d.title))}</a></h3>
+      <p>${esc(pickHu(d.description))}</p>
+      ${facts.length ? `<span class="facts">${facts.join(" · ")}</span>` : ""}
     </div>
-    <div class="body">
-      <h3><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(pickHu(d.title))}</a></h3>
-      <p class="desc">${esc(pickHu(d.description))}</p>
-      <div class="meta"><span>📍 ${esc(place)}</span>${bits.join("")}</div>
-      ${rate}
-      <div class="acts">
-        <a class="btn primary" href="${esc(d.url)}" target="_blank" rel="noopener">${cta}</a>
-        <span class="mini">${d.questions.length ? `${d.questions.length} kérdés a lépéseken` : "hamarosan részletek"}</span>
-      </div>
+    <div class="side">
+      <span>${d.participants ? `<b>${fmt(d.participants)}</b> résztvevő` : `<b>Most indult</b> – légy az elsők között`}</span>
+      ${rate ? `<div class="meter" role="img" aria-label="${rate}% végig is ment"><i style="width:${rate}%"></i></div><small>${rate}% végig is ment</small>` : ""}
+      <a class="btn primary" href="${esc(d.url)}" ${EXT}>Részt veszek</a>
     </div>
   </article>`;
 };
 
+// közelgő egyeztetés: táblázatsor
+const soonRow = (d) => `<div class="t-row">
+    <span class="c-when">${d.daysLeft != null ? `<b>${d.daysLeft} nap</b><span>múlva nyílik</span>` : `<b>Hamarosan</b>`}</span>
+    <span class="c-title">
+      <a href="${esc(d.url)}" ${EXT}>${esc(pickHu(d.title))}</a>
+      <span>${esc(pickHu(d.description))}</span>
+    </span>
+    <span class="c-place">${esc(place(d))}</span>
+    <span class="c-people">${d.participants ? `${fmt(d.participants)} érdeklődő` : "Új téma"}</span>
+    <span class="c-act"><a class="btn small" href="${esc(d.url)}" ${EXT}>Megnézem</a></span>
+  </div>`;
+
 const kitem = (k) => {
   const d = k.date ? new Date(k.date + "T00:00:00") : null;
-  const dateTxt = d && !isNaN(d) ? d.toLocaleDateString("hu-HU", { year: "numeric", month: "short", day: "numeric" }) : "";
-  const title = pickHu(k.title);
+  const dateTxt = d && !isNaN(d) ? d.toLocaleDateString("hu-HU", { month: "short", day: "numeric" }) : "";
+  const src = k.source ? (typeof k.source === "string" ? k.source : pickHu(k.source.name ?? k.source)) : "";
   const lead = pickHu(k.lead);
-  const src = pickHu(k.source);
-  const excerpt = lead.slice(0, 150) + (lead.length > 150 ? "…" : "");
-  const cats = (k.categories || []).map(c => `<span class="tag-s">${esc(CATS[c]?.label ?? c)}</span>`).join("");
-  return `<article class="kitem">
-    <div class="d">${esc(dateTxt)}</div>
-    <h4><a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(title)}</a></h4>
-    <p>${esc(excerpt)}</p>
-    <div class="tags">${src ? `<span class="tag-s">Forrás: ${esc(src)}</span>` : ""}${cats}</div>
-  </article>`;
+  const sub = src || (lead.slice(0, 110) + (lead.length > 110 ? "…" : ""));
+  return `<a class="k-item" href="${esc(k.url)}" ${EXT}>
+    <span class="k-date">${esc(dateTxt)}</span>
+    <span class="k-text"><span class="k-title">${esc(pickHu(k.title))}</span><span class="k-src">${esc(sub)}</span></span>
+  </a>`;
 };
 
 // ——————————————————————————————————————————— kiemelt felhívások (content/kiemelt.json)
@@ -158,16 +161,15 @@ function loadPromo() {
 
 const promoHtml = (p) => {
   const d = p.discussion;
-  const label = CATS[d.category].label;
   return `<section id="kiemelt">
-  <div class="promo" style="--pc:var(--c-${d.category})">
-    <span class="tag">★ ${esc(p.label || "Kiemelt felhívás")}</span>
+  <div class="panel promo">
+    <span class="tag">${esc(p.label || "Kiemelt felhívás")}</span>
     <h3>${esc(p.title)}</h3>
     <p>${esc(p.pitch)}</p>
     ${p.preferred ? `<p class="pref"><b>Ajánlott választás:</b> ${esc(p.preferred)}</p>` : ""}
     <div class="acts">
-      <a class="btn primary" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.cta || "Irány a szavazás")} →</a>
-      <a class="btn ghost" href="${esc(d.url)}" target="_blank" rel="noopener">A teljes egyeztetés</a>
+      <a class="btn primary" href="${esc(p.url)}" ${EXT}>${esc(p.cta || "Irány a szavazás")} ${ARROW}</a>
+      <a class="btn" href="${esc(d.url)}" ${EXT}>A teljes egyeztetés</a>
     </div>
     <p class="discl">Kiemelt szervezői ajánlás (irányított) – a döntés a tiéd. Cél: ${esc(p.target)}. Adat: kozhang.hu</p>
   </div>
@@ -178,7 +180,8 @@ const promoHtml = (p) => {
 
 function page(catKey, discs, knos, promos) {
   const { label, intro } = CATS[catKey];
-  const open = discs.filter(d => d.status === "open").length;
+  const openList = discs.filter(d => d.status === "open").sort((a, b) => (a.daysLeft ?? 99) - (b.daysLeft ?? 99));
+  const soonList = discs.filter(d => d.status !== "open").sort((a, b) => (a.daysLeft ?? 99) - (b.daysLeft ?? 99));
   const questions = discs.reduce((n, d) => n + (d.questions?.length || 0), 0);
   const desc = `${intro} ${discs.length} egyeztetés, ${questions} kérdés – a kozhang.hu nyilvános adataiból.`;
   const gen = new Date(DATA.generatedAt || Date.now());
@@ -188,16 +191,14 @@ function page(catKey, discs, knos, promos) {
     .filter(k => k !== catKey)
     .map(k => `<a class="chip" href="../${k}/">${esc(CATS[k].label)}</a>`).join("");
 
-  const stats = `<div class="stats">
-    <div class="stat"><div class="n">${discs.length}</div><div class="l">egyeztetés</div></div>
-    <div class="stat"><div class="n">${open}</div><div class="l">most nyitott</div></div>
-    <div class="stat"><div class="n">${questions || "—"}</div><div class="l">kérdés</div></div>
-    <div class="stat"><div class="n">${knos.length || "—"}</div><div class="l">Tudástér-cikk</div></div>
-  </div>`;
-
-  const cards = [...discs]
-    .sort((a, b) => (a.status === b.status ? (b.participants || 0) - (a.participants || 0) : a.status === "open" ? -1 : 1))
-    .map(card).join("");
+  const statline = `<div class="statline" aria-label="Számok"><div class="wrap">
+    <span><b>${discs.length}</b> egyeztetés</span>
+    <span><b>${openList.length}</b> most nyitott</span>
+    <span><b>${soonList.length}</b> hamarosan</span>
+    <span><b>${questions || "—"}</b> lépés</span>
+    <span><b>${knos.length || "—"}</b> háttércikk</span>
+    <span class="src">Frissítve: ${esc(genTxt)} · forrás: kozhang.hu</span>
+  </div></div>`;
 
   return `<!doctype html>
 <html lang="hu">
@@ -214,61 +215,105 @@ function page(catKey, discs, knos, promos) {
 <meta property="og:url" content="${SITE}/kategoria/${catKey}/">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="https://kozhang.hu/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../assets/site.css">
 </head>
 <body>
-<div class="wrap">
 
-<header class="top">
-  <nav class="crumbs"><a href="../../index.html">Főoldal</a> <span>›</span> <span>Kategória</span> <span>›</span> <b>${esc(label)}</b></nav>
-  <span class="eyebrow">● kategória-ajánló · ${discs.length} egyeztetés</span>
-  <h1>${esc(label)} – miben érdemes részt venned?</h1>
-  <p class="sub">${esc(intro)}</p>
-  <p class="srcnote">Forrás: <b>kozhang.hu</b> · adatfrissítés: ${esc(genTxt)} · az oldal nem hivatalos, nem a Közhang terméke.</p>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../../">
+      <span class="brand-mark"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h3l3-7 4 14 3-7h3"/></svg></span>
+      <span class="brand-name"><b>Témaajánló</b><span>független segédlet a kozhang.hu egyeztetéseihez</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Fő navigáció">
+      ${openList.length ? `<a href="#nyitott">Most nyitott</a>` : ""}
+      ${soonList.length ? `<a href="#hamarosan">Hamarosan</a>` : ""}
+      ${knos.length ? `<a href="#tudaster">Tudástér</a>` : ""}
+      <a href="../../">Minden téma</a>
+    </nav>
+  </div>
 </header>
+<div class="notice">
+  <div class="wrap">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <span>Nem hivatalos oldal. A válaszadás mindig a <b>kozhang.hu</b>-n történik – mi csak rendezzük és ajánljuk a nyilvános témákat.</span>
+  </div>
+</div>
 
-${stats}
+<div class="hero">
+  <div class="wrap" style="grid-template-columns:1fr">
+    <div class="hero-main">
+      <nav class="crumbs" aria-label="Morzsamenü"><a href="../../">Főoldal</a> <span>›</span> <span>Kategória</span> <span>›</span> <b>${esc(label)}</b></nav>
+      <h1>${esc(label)} – miben érdemes részt venned?</h1>
+      <p class="sub" style="max-width:72ch">${esc(intro)}</p>
+    </div>
+  </div>
+</div>
+${statline}
+
+<main class="wrap">
 ${promos.map(promoHtml).join("\n")}
 
-<section id="egyeztetesek">
-  <div class="sec-head">
-    <h2>Kapcsolódó egyeztetések</h2>
-    <span class="hint">${discs.filter(d => d.status === "open").length} nyitott · ${discs.filter(d => d.status !== "open").length} hamarosan</span>
+${openList.length ? `<section id="nyitott">
+  <div class="sec-head"><div>
+    <h2 class="sec">Most nyitott</h2>
+    <span class="hint">Határidő szerint – ami hamarabb zárul, előrébb van</span>
+  </div></div>
+  <div class="open-list">${openList.map(openRow).join("")}</div>
+</section>` : ""}
+
+${soonList.length ? `<section id="hamarosan">
+  <div class="sec-head"><div>
+    <h2 class="sec">Hamarosan nyílik</h2>
+    <span class="hint">${soonList.length} egyeztetés – a megnyitás előtt is megnézheted őket</span>
+  </div></div>
+  <div class="panel table">
+    <div class="t-head" aria-hidden="true">
+      <span class="c-when">Nyílik</span><span class="c-title">Egyeztetés</span><span class="c-place">Hely</span><span class="c-people">Érdeklődő</span><span class="c-act"></span>
+    </div>
+    ${soonList.map(soonRow).join("")}
   </div>
-  <div class="grid">${cards}</div>
-</section>
+</section>` : ""}
 
 ${knos.length ? `<section id="tudaster">
-  <div class="sec-head">
-    <h2>Tudástér – háttéranyagok</h2>
-    <span class="hint">${knos.length} cikk</span>
-  </div>
-  <div class="klist">${knos.map(kitem).join("")}</div>
+  <div class="sec-head"><div>
+    <h2 class="sec">Mielőtt válaszolsz: Tudástér</h2>
+    <span class="hint">${knos.length} háttércikk a kozhang.hu-ról</span>
+  </div></div>
+  <div class="panel k-group">${[...knos].sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).map(kitem).join("")}</div>
 </section>` : ""}
 
 <section id="tovabbi">
-  <div class="sec-head">
-    <h2>További témák</h2>
+  <div class="sec-head"><div>
+    <h2 class="sec">További témák</h2>
     <span class="hint">Minden kategóriának saját aloldala van</span>
-  </div>
+  </div></div>
   <div class="chips">${others}</div>
-  <a class="backlink" href="../../index.html">← Minden téma és szűrő a főoldalon</a>
+  <p style="margin:24px 0 0"><a class="btn" href="../../">← Minden téma és szűrő a főoldalon</a></p>
 </section>
+</main>
 
-<footer>
-  <p>
-    <b>Forrás:</b> kozhang.hu – adatnyerés a nyilvános JavaScript bundle-ökből, mert a
-    Közhang felületén nincs nyilvános tartalom-API és a böngészőoldali lekérdezést a CORS tiltja.
-    Az oldal nem hivatalos, nem a Közhang terméke.
-  </p>
-  <p>
-    A tartalom és a témaadatok a <a href="https://kozhang.hu" target="_blank" rel="noopener">Közhang Nonprofit Kft.</a>
-    tulajdona. Kérdés: <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>. Közvetlen részvétel:
-    <a href="https://kozhang.hu/egyeztetesek" target="_blank" rel="noopener">kozhang.hu/egyeztetesek</a>.
-  </p>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <span class="brand-foot">Témaajánló</span>
+      <span>Nem hivatalos, nem a Közhang terméke. A tartalom és a témaadatok a <a href="https://kozhang.hu" ${EXT}>Közhang Nonprofit Kft.</a> tulajdona.</span>
+    </div>
+    <div>
+      <b>Adatok</b>
+      <span>A kozhang.hu nyilvános JavaScript bundle-jeiből, mert nincs nyilvános tartalom-API, és a böngészőoldali lekérést a CORS tiltja.</span>
+      <span>Adatfrissítés: ${esc(genTxt)}</span>
+    </div>
+    <div>
+      <b>Kapcsolat</b>
+      <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>
+      <a href="https://kozhang.hu/egyeztetesek" ${EXT}>kozhang.hu/egyeztetesek</a>
+    </div>
+  </div>
 </footer>
-
-</div>
 </body>
 </html>
 `;

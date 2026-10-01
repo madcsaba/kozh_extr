@@ -6,105 +6,180 @@
 <title>Közhang témaajánló – miben vegyél részt?</title>
 <meta name="description" content="Statisztikák alapján ajánlott kozhang.hu egyeztetések, kérdések és Tudástér-cikkek. Kattints, és szólj hozzá te is.">
 <link rel="icon" href="https://kozhang.hu/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="./assets/site.css">
 </head>
 <body>
-<div class="wrap">
 
-<header class="top">
-  <span class="eyebrow">● automatizált témaajánló</span>
-  <h1>Miben érdemes részt venned a <span style="color:var(--accent)">kozhang.hu</span>-n?</h1>
-  <p class="sub">
-    Statisztikák alapján rendezett, folyamatosan frissített ajánló a Közhang nyilvános egyeztetéseiről,
-    kérdéseiről és Tudástér-cikkeiről. Minden kártya a forráshoz visz – egy kattintás, és szólhatsz.
-  </p>
-  <p class="srcnote" id="srcnote">Adatbetöltés…</p>
-</header>
-
-<div class="stats" id="stats"></div>
-
-<section id="daily">
-  <div class="sec-head">
-    <h2>Napi ajánlás</h2>
-    <span class="hint" id="dailyhint">Naponta forgó, statisztikai alapú top 3</span>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="brand-mark"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h3l3-7 4 14 3-7h3"/></svg></span>
+      <span class="brand-name"><b>Témaajánló</b><span>független segédlet a kozhang.hu egyeztetéseihez</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Fő navigáció">
+      <a href="#nyitott">Most nyitott</a>
+      <a href="#hamarosan">Hamarosan</a>
+      <a href="#temak">Témaszavazás</a>
+      <a href="#tudaster">Tudástér</a>
+      <a href="#modszertan">Hogyan rangsorolunk?</a>
+    </nav>
   </div>
-  <div class="picks" id="picks"></div>
+</header>
+<div class="notice">
+  <div class="wrap">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <span>Nem hivatalos oldal. A válaszadás mindig a <b>kozhang.hu</b>-n történik – mi csak rendezzük és ajánljuk a nyilvános témákat.</span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-main">
+      <p class="eyebrow" id="today"></p>
+      <h1>Miben mondd el a véleményed ezen a héten?</h1>
+      <p class="sub" id="herosub">Adatbetöltés…</p>
+      <fieldset class="interests">
+        <legend>Mi érdekel? <span>– több is választható, csak a böngésződ jegyzi meg</span></legend>
+        <div class="chips" id="interests"></div>
+        <p class="match" id="matchline" aria-live="polite"></p>
+      </fieldset>
+    </div>
+    <article class="feature" id="feature" aria-labelledby="feature-title"></article>
+  </div>
+</div>
+
+<div class="statline" aria-label="Számok">
+  <div class="wrap" id="statline"></div>
+</div>
+
+<main class="wrap">
+
+<section id="nyitott">
+  <div class="sec-head">
+    <div>
+      <h2 class="sec">Most nyitott</h2>
+      <span class="hint" id="openhint"></span>
+    </div>
+  </div>
+  <div class="toolbar" style="margin-bottom:20px">
+    <label class="search">
+      <span class="sr-only">Keresés</span>
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Keresés címre, településre…" autocomplete="off">
+    </label>
+    <div class="seg" role="group" aria-label="Szűrés hely szerint" id="scope">
+      <button type="button" data-scope="all" aria-pressed="true">Mind</button>
+      <button type="button" data-scope="national" aria-pressed="false">Országos</button>
+      <button type="button" data-scope="local" aria-pressed="false">Helyi</button>
+    </div>
+    <div class="seg" role="group" aria-label="Rendezés" id="sort">
+      <button type="button" data-sort="due" aria-pressed="true">Határidő</button>
+      <button type="button" data-sort="score" aria-pressed="false">Ajánlott</button>
+      <button type="button" data-sort="participants" aria-pressed="false">Népszerű</button>
+    </div>
+  </div>
+  <div class="open-list" id="openlist"></div>
+  <div class="panel steps-panel" id="steps" hidden></div>
 </section>
 
-<section id="bycat">
+<section id="hamarosan">
   <div class="sec-head">
-    <h2>Témák szerint – ajánló aloldalak</h2>
-    <span class="hint">Minden kategóriának saját, irányított ajánlója van</span>
+    <div>
+      <h2 class="sec">Hamarosan nyílik</h2>
+      <span class="hint" id="soonhint"></span>
+    </div>
+  </div>
+  <div class="panel table">
+    <div class="t-head" aria-hidden="true">
+      <span class="c-when">Nyílik</span>
+      <span class="c-title">Egyeztetés</span>
+      <span class="c-place">Hely</span>
+      <span class="c-people">Érdeklődő</span>
+      <span class="c-act"></span>
+    </div>
+    <div id="soonlist"></div>
+  </div>
+</section>
+
+<section id="kategoriak">
+  <div class="sec-head">
+    <div>
+      <h2 class="sec">Témák szerint</h2>
+      <span class="hint">Minden kategóriának saját ajánló aloldala van</span>
+    </div>
   </div>
   <div class="chips" id="catpages"></div>
 </section>
 
-<section id="topics">
+<section id="temak">
   <div class="sec-head">
-    <h2>Minden egyeztetés</h2>
-    <span class="hint" id="resulthint"></span>
-  </div>
-
-  <div class="controls">
-    <input type="search" id="q" placeholder="Keresés cím vagy leírás szerint…" autocomplete="off">
-    <select id="sort">
-      <option value="score">Ajánlott sorrend</option>
-      <option value="participants">Legtöbb résztvevő</option>
-      <option value="fresh">Legfrissebb</option>
-      <option value="urgent">Legsürgősebb (napok)</option>
-      <option value="name">Név szerint</option>
-    </select>
-  </div>
-
-  <div class="controls" style="margin-top:-4px">
-    <div class="chips" id="statuschips">
-      <button class="chip on" data-s="all">Összes</button>
-      <button class="chip" data-s="open">Nyitott</button>
-      <button class="chip" data-s="soon">Hamarosan</button>
-    </div>
-    <div class="chips" id="catchips">
-      <button class="chip on" data-c="all">Minden kategória</button>
+    <div>
+      <h2 class="sec">Mi legyen a következő téma?</h2>
+      <span class="hint" id="taxohint">A Közhang témaszavazásának teljes palettája</span>
     </div>
   </div>
-
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" style="display:none">Nincs a szűrőknek megfelelő téma.</div>
-
-  <div class="qpanel" id="qpanel" style="display:none"></div>
-</section>
-
-<section id="knowledge">
-  <div class="sec-head">
-    <h2>Tudástér – háttéranyagok</h2>
-    <span class="hint" id="khint"></span>
+  <div class="taxo-grid">
+    <div class="taxo" id="taxo" role="group" aria-label="Fő témák"></div>
+    <div class="panel subs" id="subs" aria-live="polite"></div>
   </div>
-  <div class="klist" id="klist"></div>
 </section>
 
-<section id="taxonomy">
+<section id="tudaster">
   <div class="sec-head">
-    <h2>Témaválasztó – 12 fő téma, 120 altéma</h2>
-    <span class="hint">A Közhang témaszavazásának teljes palettája</span>
+    <div>
+      <h2 class="sec">Mielőtt válaszolsz: Tudástér</h2>
+      <span class="hint" id="khint"></span>
+    </div>
+    <a class="btn small" href="https://kozhang.hu/tudaster" target="_blank" rel="noopener">A Tudástér a kozhang.hu-n</a>
   </div>
-  <div class="taxo" id="taxo"></div>
-  <div class="subs" id="subs"></div>
+  <div class="k-groups" id="kgroups"></div>
 </section>
 
-<footer>
-  <p>
-    <b>Forrás:</b> kozhang.hu – adatnyerés a nyilvános JavaScript bundle-ökből, mert a
-    Közhang felületén nincs nyilvános tartalom-API és a böngészőoldali lekérdezést a CORS tiltja.
-    Az oldal nem hivatalos, nem a Közhang terméke.
-  </p>
-  <p id="footmeta"></p>
-  <p>
-    A tartalom és a témaadatok a <a href="https://kozhang.hu" target="_blank" rel="noopener">Közhang Nonprofit Kft.</a>
-    tulajdona. Kérdés: <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>. Közvetlen részvétel:
-    <a href="https://kozhang.hu/egyeztetesek" target="_blank" rel="noopener">kozhang.hu/egyeztetesek</a>.
-  </p>
+<section id="modszertan">
+  <div class="panel method">
+    <div>
+      <h2>Hogyan rangsorolunk?</h2>
+      <p>Az ajánlás csak nyilvános számokból és a te választásaidból számol – az egyeztetés álláspontját sosem nézi. Az érdeklődésed és a kattintásaid a böngésződben maradnak.</p>
+      <a href="https://github.com/madcsaba/kozhang_ajanlo" target="_blank" rel="noopener"><b>A teljes képlet és a forráskód</b></a>
+    </div>
+    <div>
+      <div class="weights" role="img" aria-label="Súlyok: népszerűség 34, frissesség 30, sürgősség 16, saját érdeklődés 12, tartalmi mélység 8 százalék">
+        <i style="width:34%"></i><i style="width:30%"></i><i style="width:16%"></i><i style="width:12%"></i><i style="width:8%"></i>
+      </div>
+      <div class="w-legend">
+        <div><b>34%</b><strong>Népszerűség</strong><span>résztvevők száma, logaritmikusan</span></div>
+        <div><b>30%</b><strong>Frissesség</strong><span>nyitott-e most</span></div>
+        <div><b>16%</b><strong>Sürgősség</strong><span>hány nap van hátra</span></div>
+        <div><b>12%</b><strong>Érdeklődésed</strong><span>amit bejelöltél, amire kattintottál</span></div>
+        <div><b>8%</b><strong>Mélység</strong><span>fejezetek, kérdések, cikkek</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <span class="brand-foot">Témaajánló</span>
+      <span>Nem hivatalos, nem a Közhang terméke. A tartalom és a témaadatok a <a href="https://kozhang.hu" target="_blank" rel="noopener">Közhang Nonprofit Kft.</a> tulajdona.</span>
+    </div>
+    <div>
+      <b>Adatok</b>
+      <span>A kozhang.hu nyilvános JavaScript bundle-jeiből, mert nincs nyilvános tartalom-API, és a böngészőoldali lekérést a CORS tiltja.</span>
+      <span id="footmeta"></span>
+    </div>
+    <div>
+      <b>Kapcsolat</b>
+      <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>
+      <a href="https://kozhang.hu/egyeztetesek" target="_blank" rel="noopener">kozhang.hu/egyeztetesek</a>
+    </div>
+  </div>
 </footer>
-
-</div>
 
 <script>
 const CAT = {
@@ -120,24 +195,29 @@ const TAXO = {
   environment:"Környezet", municipality:"Önkormányzat", safety:"Közbiztonság",
   culture:"Kultúra", society:"Társadalom"
 };
-const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2b36"/><stop offset="1" stop-color="#12202a"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/></svg>`
-);
+const KIND = { video:"Videó", infographic:"Infografika", question:"Kérdés", cinema:"Videó", tip:"Tipp", likert:"Skála", rating:"Értékelés" };
+const ARROW = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>`;
+const EXT = `target="_blank" rel="noopener"`;
 
 let DATA = null;
-const state = { q:"", status:"all", cat:"all", sort:"score", taxo:null };
+const state = { q:"", scope:"all", sort:"due", taxo:null, steps:null, chapter:null, kOpen:new Set() };
 
 // saját kattintás-analitika (localStorage) – a "dinamikus" viselkedés alapja
-const CLICKS = {
-  key: "kh-clicks-v1",
-  all(){ try{ return JSON.parse(localStorage.getItem(this.key)) || {}; }catch{ return {}; } },
-  add(id){ const c=this.all(); c[id]=(c[id]||0)+1; try{ localStorage.setItem(this.key, JSON.stringify(c)); }catch{} },
-  reset(){ try{ localStorage.removeItem(this.key); }catch{} }
-};
+const store = (key, fallback) => ({
+  get(){ try{ return JSON.parse(localStorage.getItem(key)) ?? fallback; }catch{ return fallback; } },
+  set(v){ try{ localStorage.setItem(key, JSON.stringify(v)); }catch{} },
+});
+const CLICKS = store("kh-clicks-v1", {});
+const INTERESTS = store("kh-interests-v1", []);
+const track = id => { const c = CLICKS.get(); c[id] = (c[id]||0)+1; CLICKS.set(c); };
 
 const fmt = n => n==null ? "—" : new Intl.NumberFormat("hu-HU").format(n);
 const esc = s => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hu = v => typeof v === "string" ? v : (v?.hu || v?.en || "");
 const dayKey = () => new Date().toISOString().slice(0,10);
+const place = d => d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+const isMatch = d => INTERESTS.get().includes(d.category);
+const $ = id => document.getElementById(id);
 
 // dátum-alapú, determinisztikus seed → minden nap más sorrend, de napközben stabil
 function seedFrom(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
@@ -148,257 +228,321 @@ function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.im
  *  - popularitás: logaritmikus résztvevő-szám (a 32 457 és a 0 közötti nagy különbség kiegyenlítése)
  *  - frissesség: nyitott téma + hátralévő napok (a rövidebb határidő sürget)
  *  - sürgősség: kevés hátralévő nap → magasabb
- *  - saját érdeklődés: a te korábbi kattintásaid
+ *  - saját érdeklődés: a bejelölt kategóriáid és a korábbi kattintásaid
  *  - tartalmi mélység: fejezetek/kérdések száma (a nyitott, ép témákat preferálja)
  */
-function score(d, clicks){
+function score(d, clicks = CLICKS.get()){
   const pop  = Math.log10((d.participants||0)+1) / Math.log10(40000);
   const days = d.daysLeft==null ? 20 : d.daysLeft;
   const fresh = d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30;
   const urg  = 1 - Math.min(days,40)/40;
-  const mine = Math.min((clicks[d.id]||0)/5, 1);
+  const mine = Math.max(Math.min((clicks[d.id]||0)/5, 1), isMatch(d) ? 1 : 0);
   const depth= Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0);
   return 0.34*pop + 0.30*fresh + 0.16*urg + 0.12*mine + 0.08*depth;
 }
 
+// fejezetek állapota: elérhető (van lépése és már nyílt), aktuális (az utolsó elérhető), következő
+function chapterInfo(d){
+  const now = Date.now();
+  const chs = (d.chapters||[]).map(ch => {
+    const t = ch.unlocksAt ? Date.parse(ch.unlocksAt) : null;
+    return { ...ch, t, avail: ch.stepCount>0 && (t==null || t<=now) };
+  });
+  const avail = chs.filter(c => c.avail);
+  return { chs, avail, current: avail[avail.length-1] || null, next: chs.find(c => c.t && c.t>now) || null };
+}
+const longDate = t => new Date(t).toLocaleDateString("hu-HU", { month:"long", day:"numeric", weekday:"long" });
+
+function renderHero(){
+  const c = DATA.counts;
+  $("today").textContent = new Date().toLocaleDateString("hu-HU", { year:"numeric", month:"long", day:"numeric", weekday:"long" });
+  $("herosub").textContent = `${c.open} egyeztetés nyitott, ${c.soon} hamarosan indul. Jelöld be, mi érdekel, és az ajánló ezeket teszi előre.`;
+  renderInterests();
+}
+
+function renderInterests(){
+  const picked = INTERESTS.get();
+  $("interests").innerHTML = Object.keys(DATA.categories)
+    .sort((a,b) => (CAT[a]||a).localeCompare(CAT[b]||b, "hu"))
+    .map(k => `<button type="button" class="chip" data-interest="${esc(k)}" aria-pressed="${picked.includes(k)}">${esc(CAT[k]||k)}</button>`)
+    .join("");
+  const n = DATA.discussions.filter(isMatch).length;
+  $("matchline").textContent = picked.length
+    ? `${n} egyeztetés illik az érdeklődésedhez – kiemelve jelöljük, és előrébb kerülnek az ajánlásban.`
+    : "Nincs kiválasztva semmi – minden téma azonos súllyal szerepel.";
+}
+
+function renderFeature(){
+  const pool = DATA.discussions.map(d => ({ d, s:score(d) })).sort((a,b) => b.s-a.s).map(x => x.d);
+  const top = pool[0];
+  if (!top){ $("feature").innerHTML = ""; return; }
+  // az első mindig a legerősebb (a statisztika szól), a „ma még” helyek naponta forognak
+  const rest = pool.slice(1, 6);
+  const rnd = mulberry32(seedFrom(dayKey()));
+  for (let i = rest.length-1; i > 0; i--){ const j = Math.floor(rnd()*(i+1)); [rest[i],rest[j]] = [rest[j],rest[i]]; }
+  const also = rest.slice(0, 2);
+
+  const ci = chapterInfo(top);
+  const open = top.status === "open";
+  const pill = top.daysLeft==null ? "" : open ? `Még ${top.daysLeft} nap` : `${top.daysLeft} nap múlva nyílik`;
+  const nums = [
+    [fmt(top.participants), open ? "résztvevő" : "érdeklődő"],
+    open && top.completionRate ? [`${top.completionRate}%`, "végig is ment"] : [fmt(top.stepCount||0), "lépés"],
+    ci.chs.length ? [`${ci.avail.length} / ${ci.chs.length}`, "fejezet elérhető"] : [`${top.totalMinutes||"—"}`, "perc"],
+  ];
+  const chapterTxt = ci.current
+    ? `<span>Most nyitott fejezet: <b>${ci.current.index+1}. ${esc(hu(ci.current.title))}</b> · ${ci.current.stepCount} lépés · kb. ${ci.current.minutes} perc</span>` : "";
+  const nextTxt = ci.next ? `<span>Következő fejezet: ${esc(longDate(ci.next.t))}.</span>` : "";
+
+  $("feature").innerHTML = `
+    <div class="feature-top">
+      <span class="feature-label">A nap ajánlása</span>
+      ${pill ? `<span class="pill-due">${pill}</span>` : ""}
+    </div>
+    <div>
+      <span class="kicker">${esc(CAT[top.category]||top.category)} · ${esc(place(top))}</span>
+      <h2 id="feature-title"><a href="${esc(top.url)}" ${EXT} data-track="${esc(top.id)}">${esc(hu(top.title))}</a></h2>
+      <p>${esc(hu(top.description))}</p>
+    </div>
+    <div class="feature-nums">${nums.map(([n,l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("")}</div>
+    ${chapterTxt || nextTxt ? `<div class="feature-chapter">${chapterTxt}${nextTxt}</div>` : ""}
+    <div class="acts">
+      <a class="btn light" href="${esc(top.url)}" ${EXT} data-track="${esc(top.id)}">${open ? "Részt veszek a kozhang.hu-n" : "Megnézem a kozhang.hu-n"} ${ARROW}</a>
+      ${top.questions.length ? `<button type="button" class="btn outline-dark" data-q="${esc(top.id)}">Mi vár rám? (${top.questions.length} lépés)</button>` : ""}
+    </div>
+    ${also.length ? `<span class="why">Ma még ajánljuk: ${also.map(d => `<a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}" style="color:#fff">${esc(hu(d.title))}</a>`).join(" · ")}</span>` : ""}`;
+}
+
 function renderStats(){
   const c = DATA.counts;
-  const rows = [
-    [c.discussions, "egyeztetés összesen"],
-    [c.open, "most nyitott"],
-    [c.soon, "hamarosan nyílik"],
-    [c.questions, "kérdés a nyitott témákban"],
-    [c.knowledge, "Tudástér-cikk"],
-    [c.taxonomySubtopics, "altéma a szavazáson"],
-  ];
-  document.getElementById("stats").innerHTML = rows.map(([n,l])=>
-    `<div class="stat"><div class="n">${fmt(n)}</div><div class="l">${l}</div></div>`).join("");
-
   const dt = new Date(DATA.generatedAt);
-  document.getElementById("srcnote").innerHTML =
-    `Forrás: <b>kozhang.hu</b> · utolsó frissítés: <b>${dt.toLocaleString("hu-HU")}</b>` +
-    ` · build <b>${esc(DATA.sourceBuild||"ismeretlen")}</b>` +
-    ` · adatcsomag: ${Math.round(JSON.stringify(DATA).length/1024)} KB`;
-  document.getElementById("footmeta").innerHTML =
-    `Utolsó adatfrissítés: ${dt.toLocaleString("hu-HU")} · build ${esc(DATA.sourceBuild||"—")} · ` +
-    `A csomagot az <code>extract.mjs</code> állítja elő, és a változás-figyelés automatikusan újragenerálja.`;
+  $("statline").innerHTML = [
+    [c.discussions, "egyeztetés"], [c.open, "most nyitott"], [c.soon, "hamarosan"],
+    [c.questions, "lépés a nyitott témákban"], [c.knowledge, "háttércikk"],
+  ].map(([n,l]) => `<span><b>${fmt(n)}</b> ${l}</span>`).join("") +
+    `<span class="src">Frissítve: ${dt.toLocaleString("hu-HU", { month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" })} · forrás: kozhang.hu</span>`;
+  $("footmeta").textContent = `Utolsó adatfrissítés: ${dt.toLocaleString("hu-HU")} · build ${DATA.sourceBuild||"—"}`;
 }
 
-function dailyPicks(){
-  const clicks = CLICKS.all();
-  const pool = DATA.discussions.map(d => ({...d, s:score(d, clicks)}));
-  const rnd = mulberry32(seedFrom(dayKey()));
-  pool.sort((a,b) => b.s - a.s);
-  const top = pool.slice(0, Math.min(6, pool.length));
-  // az első mindig a legerősebb (a statisztika szól), a másik két hely forgó
-  const rest = top.slice(1);
-  for (let i = rest.length - 1; i > 0; i--){ const j = Math.floor(rnd()*(i+1)); [rest[i],rest[j]]=[rest[j],rest[i]]; }
-  const picks = [top[0], ...rest.slice(0,2)].filter(Boolean);
-  document.getElementById("picks").innerHTML = picks.map(d => {
-    const color = `var(--c-${d.category}, var(--c-default))`;
-    const why = d.status==="open"
-      ? `Nyitott · ${fmt(d.participants)} résztvevő · ${d.stepCount? d.stepCount+" kérdés":"részvétel nyitva"}`
-      : `Hamarosan nyílik${d.daysLeft? ` · ${d.daysLeft} nap múlva`:""}`;
-    return `<article class="pick" style="--pc:${color}">
-      <div class="tag">${esc(CAT[d.category]||d.category)}</div>
-      <h4><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h4>
-      <p>${esc(d.description.hu)}</p>
-      <div class="why">${why}</div>
-      <div class="acts">
-        <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
-        ${d.questions.length? `<button class="btn ghost" data-q="${d.id}">${d.questions.length} kérdés megtekintése</button>`:""}
-      </div>
-    </article>`;
-  }).join("");
-}
-
-function filtered(){
-  const clicks = CLICKS.all();
-  let list = DATA.discussions.filter(d => {
-    if (state.status!=="all" && d.status!==state.status) return false;
-    if (state.cat!=="all" && d.category!==state.cat) return false;
+function filtered(status){
+  const clicks = CLICKS.get();
+  const list = DATA.discussions.filter(d => {
+    if (d.status !== status) return false;
+    if (state.scope === "national" && d.locality) return false;
+    if (state.scope === "local" && !d.locality) return false;
     if (state.q){
-      const hay = [d.title.hu,d.title.en,d.description.hu,d.description.en,
-        CAT[d.category]||"", d.locality?.town||"", d.locality?.label?.hu||""]
-        .join(" ").toLowerCase();
+      const hay = [hu(d.title), d.title?.en, hu(d.description), d.description?.en,
+        CAT[d.category]||"", d.locality?.town||"", d.locality?.label?.hu||""].join(" ").toLowerCase();
       if (!hay.includes(state.q)) return false;
     }
     return true;
   });
   const by = {
+    due: (a,b) => (a.daysLeft??99)-(b.daysLeft??99),
     score: (a,b) => score(b,clicks)-score(a,clicks),
     participants: (a,b) => (b.participants||0)-(a.participants||0),
-    fresh: (a,b) => new Date(b.opensAt||0)-new Date(a.opensAt||0) || b.daysLeft-a.daysLeft,
-    urgent: (a,b) => (a.daysLeft??99)-(b.daysLeft??99),
-    name: (a,b) => a.title.hu.localeCompare(b.title.hu,"hu"),
   };
-  return list.sort(by[state.sort] || by.score);
+  return list.sort(by[state.sort] || by.due);
 }
 
-function card(d){
-  const color = `var(--c-${d.category}, var(--c-default))`;
-  const img = d.hero || d.photo;
-  const statusLabel = d.status==="open" ? "Nyitott" : "Hamarosan";
-  const place = d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
-  const bits = [];
-  if (d.status==="open") bits.push(`<span><b>${fmt(d.participants)}</b> résztvevő</span>`);
-  else if (d.participants) bits.push(`<span><b>${fmt(d.participants)}</b> érdeklődő</span>`);
-  if (d.daysLeft!=null) bits.push(`<span><b>${d.daysLeft}</b> nap hátra</span>`);
-  if (d.stepCount) bits.push(`<span><b>${d.stepCount}</b> kérdés</span>`);
-  if (d.knowledgeCount) bits.push(`<span><b>${d.knowledgeCount}</b> cikk</span>`);
-  const rate = d.status==="open" && d.completionRate>0
-    ? `<div class="meter" title="Befejezési arány: ${d.completionRate}%"><i style="width:${d.completionRate}%"></i></div>` : "";
-  return `<article class="card">
-    <div class="thumb">
-      <div class="fallback">${esc((d.title.hu||"").slice(0,2))}</div>
-      ${img? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">`:""}
-      <span class="badge ${d.status}">${statusLabel}</span>
-      <span class="cat" style="--cc:${color}">${esc(CAT[d.category]||d.category)}</span>
+function openRow(d){
+  const match = isMatch(d);
+  const facts = [];
+  if (d.chapterCount) facts.push(`${d.chapterCount} fejezet`);
+  if (d.stepCount) facts.push(`${d.stepCount} lépés`);
+  if (d.totalMinutes) facts.push(`kb. ${d.totalMinutes} perc`);
+  if (d.knowledgeCount) facts.push(`${d.knowledgeCount} háttércikk`);
+  const rate = d.completionRate || 0;
+  return `<article class="panel open-row${match ? " is-match" : ""}">
+    <div class="days"><b>${d.daysLeft ?? "—"}</b><span>nap van hátra</span></div>
+    <div class="open-body">
+      <span class="kicker">${esc(CAT[d.category]||d.category)} · ${esc(place(d))}${match ? `<span class="tag-match">Érdekel</span>` : ""}</span>
+      <h3><a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">${esc(hu(d.title))}</a></h3>
+      <p>${esc(hu(d.description))}</p>
+      ${facts.length ? `<span class="facts">${facts.join(" · ")}</span>` : ""}
     </div>
-    <div class="body">
-      <h3><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h3>
-      <p class="desc">${esc(d.description.hu)}</p>
-      <div class="meta"><span>📍 ${esc(place)}</span>${bits.join("")}</div>
-      ${rate}
-      <div class="acts">
-        <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
-        ${d.questions.length? `<button class="btn" data-q="${d.id}">Kérdések (${d.questions.length})</button>`:
-          `<a class="btn ghost" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Megnézem</a>`}
-      </div>
+    <div class="side">
+      <span>${d.participants ? `<b>${fmt(d.participants)}</b> résztvevő` : `<b>Most indult</b> – légy az elsők között`}</span>
+      ${rate ? `<div class="meter" role="img" aria-label="${rate}% végig is ment"><i style="width:${rate}%"></i></div><small>${rate}% végig is ment</small>` : ""}
+      <a class="btn primary" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Részt veszek</a>
+      ${d.questions.length ? `<button type="button" class="btn small" data-q="${esc(d.id)}" aria-controls="steps">Mi vár rám? (${d.questions.length} lépés)</button>` : ""}
     </div>
   </article>`;
 }
 
-function renderGrid(){
-  const list = filtered();
-  document.getElementById("grid").innerHTML = list.map(card).join("");
-  document.getElementById("empty").style.display = list.length ? "none" : "block";
-  document.getElementById("resulthint").textContent =
-    `${list.length} / ${DATA.discussions.length} téma · rendezés: ${document.getElementById("sort").selectedOptions[0].textContent.toLowerCase()}`;
+function soonRow(d){
+  const match = isMatch(d);
+  return `<div class="t-row${match ? " is-match" : ""}">
+    <span class="c-when">${d.daysLeft!=null ? `<b>${d.daysLeft} nap</b><span>múlva nyílik</span>` : `<b>Hamarosan</b>`}</span>
+    <span class="c-title">
+      <a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">${esc(hu(d.title))}</a>
+      <span>${esc(CAT[d.category]||d.category)} · ${esc(hu(d.description))}</span>
+    </span>
+    <span class="c-place">${esc(place(d))}</span>
+    <span class="c-people">${d.participants ? `${fmt(d.participants)} érdeklődő` : "Új téma"}</span>
+    <span class="c-act"><a class="btn small" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnézem</a></span>
+  </div>`;
 }
 
-function showQuestions(id){
-  const d = DATA.discussions.find(x => x.id===id);
-  const p = document.getElementById("qpanel");
-  if (!d || !d.questions.length){ p.style.display="none"; return; }
-  const KIND = { video:"videó", infographic:"infografika", question:"kérdés", cinema:"videó", tip:"tipp", likert:"skála", rating:"értékelés" };
-  let lastChapter = null, html = "", chapterNo = 0;
-  d.questions.forEach((q,i) => {
-    if (q.chapter !== lastChapter){
-      lastChapter = q.chapter;
-      chapterNo = (q.chapterIndex ?? chapterNo) + 1;
-      if (i) html += `</div>`;
-      html += `<div style="margin-top:14px"><div style="font-size:12.5px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase">${chapterNo}. fejezet · ${esc(q.chapter||"")}</div><div class="qs">`;
-    }
-    html += `<div class="q"><span class="i">${i+1}</span><span class="t">${esc(q.title||q.id)}<span class="ch">${esc(KIND[q.kind]||q.kind||"")}</span></span></div>`;
-  });
-  if (d.questions.length) html += `</div>`;
-  p.innerHTML = `
-    <div class="sec-head" style="margin-bottom:6px">
-      <h4>${esc(d.title.hu)} – a ${d.questions.length} kérdés</h4>
-      <span class="hint">${d.chapterCount} fejezet · ${d.totalMinutes} perc · a részletes oldalon válaszolhatsz</span>
-    </div>
-    <p style="margin:0;font-size:13.5px;color:var(--muted)">
-      A kérdések listája tájékoztató jellegű: az egyes kérdések a bejelentkezést követően érhetők el.
-      A téma nyitott oldala: <a href="${d.url}" target="_blank" rel="noopener">${d.url.replace("https://","")}</a>
-    </p>
-    ${html}
-    <div class="acts" style="margin-top:16px">
-      <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Megnyitás a kozhang.hu-n →</a>
-      <button class="btn ghost" onclick="document.getElementById('qpanel').style.display='none'">Bezárás</button>
-    </div>`;
-  p.style.display = "block";
-  p.scrollIntoView({behavior:"smooth", block:"nearest"});
+function renderLists(){
+  const open = filtered("open"), soon = filtered("soon");
+  const total = (s) => DATA.discussions.filter(d => d.status===s).length;
+  const sortTxt = { due:"határidő szerint", score:"ajánlott sorrendben", participants:"népszerűség szerint" }[state.sort];
+  $("openhint").textContent = `${open.length} / ${total("open")} egyeztetés · ${sortTxt}`;
+  $("soonhint").textContent = `${soon.length} / ${total("soon")} egyeztetés · a megnyitás előtt is megnézheted őket`;
+  $("openlist").innerHTML = open.length ? open.map(openRow).join("") : `<div class="panel empty">Nincs a szűrőknek megfelelő nyitott egyeztetés.</div>`;
+  $("soonlist").innerHTML = soon.length ? soon.map(soonRow).join("") : `<div class="empty">Nincs a szűrőknek megfelelő közelgő egyeztetés.</div>`;
 }
 
-function renderKnowledge(){
-  const list = [...DATA.knowledge].sort((a,b)=> String(b.date||"").localeCompare(String(a.date||"")));
-  document.getElementById("khint").textContent = `${list.length} cikk · linkek a kozhang.hu Tudástérre`;
-  document.getElementById("klist").innerHTML = list.map(k => {
-    const d = k.date ? new Date(k.date+"T00:00:00") : null;
-    const dateTxt = d && !isNaN(d) ? d.toLocaleDateString("hu-HU",{year:"numeric",month:"short",day:"numeric"}) : "";
-    const cats = (k.categories||[]).map(c=>`<span class="tag-s">${esc(CAT[c]||c)}</span>`).join("");
-    const lead = typeof k.lead === "string" ? k.lead : (k.lead?.hu || k.lead?.en || "");
-    const title = typeof k.title === "string" ? k.title : (k.title?.hu || k.title?.en || "");
-    const src = k.source ? (typeof k.source === "string" ? k.source : (k.source?.hu || k.source?.en || "")) : "";
-    const excerpt = lead.slice(0,150) + (lead.length>150 ? "…" : "");
-    return `<article class="kitem">
-      <div class="d">${dateTxt}</div>
-      <h4><a href="${k.url}" target="_blank" rel="noopener" data-track="k:${k.id}">${esc(title)}</a></h4>
-      <p>${esc(excerpt)}</p>
-      <div class="tags">${src?`<span class="tag-s">Forrás: ${esc(src)}</span>`:""}${cats}</div>
-    </article>`;
+function renderSteps(){
+  const p = $("steps");
+  const d = DATA.discussions.find(x => x.id === state.steps);
+  if (!d || !d.questions.length){ p.hidden = true; return; }
+  const ci = chapterInfo(d);
+  const chosen = state.chapter ?? ci.current?.index ?? 0;
+  const ch = ci.chs.find(c => c.index === chosen);
+  const steps = d.questions.filter(q => (q.chapterIndex ?? 0) === chosen);
+
+  const chapters = ci.chs.map(c => {
+    const cls = c.index === chosen ? "now" : c.avail ? "" : "locked";
+    const meta = c.avail
+      ? `${c.stepCount} lépés · kb. ${c.minutes} perc`
+      : c.t ? `Nyílik: ${esc(longDate(c.t))}` : "Később nyílik";
+    const inner = `<span class="ch-dot">${c.index+1}</span><span class="ch-text"><span class="ch-title">${esc(hu(c.title))}</span><span class="ch-meta">${meta}</span></span>`;
+    return `<li class="${cls}">${c.avail
+      ? `<button type="button" data-chapter="${c.index}" aria-pressed="${c.index===chosen}" style="all:unset;display:flex;gap:14px;align-items:center;cursor:pointer;flex:1;min-height:32px">${inner}</button>`
+      : inner}</li>`;
   }).join("");
+
+  p.innerHTML = `
+    <div class="steps-head">
+      <div>
+        <p class="steps-sub">Mi vár rád · ${d.chapterCount} fejezet · ${d.questions.length} lépés · kb. ${d.totalMinutes} perc</p>
+        <h3>${esc(hu(d.title))}</h3>
+      </div>
+      <div class="acts">
+        <a class="btn primary" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnyitás a kozhang.hu-n ${ARROW}</a>
+        <button type="button" class="btn" data-close-steps>Bezárás</button>
+      </div>
+    </div>
+    <ol class="chapters" aria-label="Fejezetek">${chapters}</ol>
+    <div>
+      <p class="steps-sub">${chosen+1}. fejezet${ch ? ` · kb. ${ch.minutes} perc` : ""}</p>
+      <h4 style="margin:0 0 8px;font-family:var(--display);font-size:22px">${esc(hu(ch?.title) || steps[0]?.chapter || "")}</h4>
+      ${steps.map((q,i) => `<a class="step" href="${esc(q.url)}" ${EXT} data-track="${esc(d.id)}">
+          <span class="s-n">${i+1}</span>
+          <span class="s-title">${esc(q.title||q.id)}</span>
+          <span class="s-kind">${esc(KIND[q.kind]||q.kind||"")}</span>
+          <span class="s-min">${q.minutes ? `${q.minutes} perc` : "&lt;1 perc"}</span>
+        </a>`).join("")}
+      <p class="hint" style="margin:12px 0 0;font-size:13.5px">Tájékoztató lista: a lépések a kozhang.hu-n, bejelentkezés után érhetők el.</p>
+    </div>`;
+  p.hidden = false;
+}
+
+function renderCatPages(){
+  $("catpages").innerHTML = Object.keys(DATA.categories)
+    .sort((a,b) => (CAT[a]||a).localeCompare(CAT[b]||b, "hu"))
+    .map(k => `<a class="chip" href="./kategoria/${esc(k)}/">${esc(CAT[k]||k)} <span class="n">${DATA.categories[k]}</span></a>`)
+    .join("");
 }
 
 function renderTaxonomy(){
-  const t = document.getElementById("taxo");
-  t.innerHTML = DATA.taxonomy.map(x =>
-    `<button data-t="${x.key}" class="${state.taxo===x.key?"on":""}">${esc(TAXO[x.key]||x.key)} <span style="opacity:.6">${x.subtopics.length}</span></button>`
-  ).join("");
-  const subs = document.getElementById("subs");
-  const cur = DATA.taxonomy.find(x => x.key===state.taxo);
-  subs.innerHTML = cur
-    ? cur.subtopics.map(s=>`<span>${esc(s.label)}</span>`).join("")
-    : `<span style="border:none;background:none;padding-left:0">Válassz egy fő témát a ${DATA.taxonomy.reduce((n,x)=>n+x.subtopics.length,0)} altéma megjelenítéséhez.</span>`;
+  if (!state.taxo) state.taxo = DATA.taxonomy[0]?.key;
+  const n = DATA.taxonomy.reduce((s,x) => s + x.subtopics.length, 0);
+  $("taxohint").textContent = `A Közhang témaszavazásának ${DATA.taxonomy.length} fő témája és ${n} altémája – válassz egyet.`;
+  $("taxo").innerHTML = DATA.taxonomy.map(x =>
+    `<button type="button" data-t="${esc(x.key)}" aria-pressed="${state.taxo===x.key}">${esc(TAXO[x.key]||x.key)} <span>${x.subtopics.length}</span></button>`).join("");
+  const cur = DATA.taxonomy.find(x => x.key === state.taxo);
+  $("subs").innerHTML = cur ? `
+    <h3>${esc(TAXO[cur.key]||cur.key)} – ${cur.subtopics.length} altéma</h3>
+    <ol>${cur.subtopics.map(s => `<li>${esc(s.label)}</li>`).join("")}</ol>
+    <p style="margin:20px 0 0"><a href="https://kozhang.hu" ${EXT}><b>Szavazok a témára a kozhang.hu-n</b></a></p>` : "";
+}
+
+function renderKnowledge(){
+  const groups = {};
+  for (const k of DATA.knowledge) (groups[k.discussionId || "_"] ??= []).push(k);
+  const entries = Object.entries(groups).sort((a,b) => b[1].length - a[1].length);
+  $("khint").textContent = `${DATA.knowledge.length} háttércikk a kozhang.hu-ról, egyeztetésenként csoportosítva`;
+  $("kgroups").innerHTML = entries.map(([id, list]) => {
+    const d = DATA.discussions.find(x => x.id === id);
+    list.sort((a,b) => String(b.date||"").localeCompare(String(a.date||"")));
+    const all = state.kOpen.has(id);
+    const shown = all ? list : list.slice(0, 5);
+    const items = shown.map(k => {
+      const dt = k.date ? new Date(k.date+"T00:00:00") : null;
+      const dateTxt = dt && !isNaN(dt) ? dt.toLocaleDateString("hu-HU", { month:"short", day:"numeric" }) : "";
+      const src = k.source ? (typeof k.source === "string" ? k.source : hu(k.source.name ?? k.source)) : "";
+      const lead = hu(k.lead);
+      const sub = src || (lead.slice(0, 110) + (lead.length > 110 ? "…" : ""));
+      return `<a class="k-item" href="${esc(k.url)}" ${EXT} data-track="k:${esc(k.id)}">
+        <span class="k-date">${esc(dateTxt)}</span>
+        <span class="k-text"><span class="k-title">${esc(hu(k.title))}</span><span class="k-src">${esc(sub)}</span></span>
+      </a>`;
+    }).join("");
+    const more = list.length > 5
+      ? `<button type="button" class="btn small k-more" data-kgroup="${esc(id)}" aria-expanded="${all}">${all ? "Kevesebb" : `Mind a ${list.length} cikk`}</button>` : "";
+    return `<div class="panel k-group">
+      <h3>${esc(d ? hu(d.title) : "Egyéb")} · ${list.length} cikk</h3>${items}${more}
+    </div>`;
+  }).join("");
 }
 
 function bind(){
-  document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
-  document.getElementById("sort").addEventListener("change", e => { state.sort = e.target.value; renderGrid(); });
+  $("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderLists(); });
 
-  document.getElementById("statuschips").addEventListener("click", e => {
-    const b = e.target.closest("button"); if(!b) return;
-    state.status = b.dataset.s;
-    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
-    renderGrid();
-  });
-
-  const cats = [...new Set(DATA.discussions.map(d=>d.category))];
-  document.getElementById("catchips").innerHTML =
-    `<button class="chip on" data-c="all">Minden kategória</button>` +
-    cats.map(c=>`<button class="chip" data-c="${c}">${esc(CAT[c]||c)}</button>`).join("");
-  document.getElementById("catchips").addEventListener("click", e => {
-    const b = e.target.closest("button"); if(!b) return;
-    state.cat = b.dataset.c;
-    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
-    renderGrid();
-  });
-
-  // kategória-aloldalak (build.mjs generálja őket)
-  document.getElementById("catpages").innerHTML = Object.keys(DATA.categories)
-    .sort((a,b) => (CAT[a]||a).localeCompare(CAT[b]||b, "hu"))
-    .map(k => `<a class="chip" href="./kategoria/${k}/">${esc(CAT[k]||k)} <span style="opacity:.6">${DATA.categories[k]}</span></a>`)
-    .join("");
-
-  document.getElementById("taxo").addEventListener("click", e => {
-    const b = e.target.closest("button"); if(!b) return;
-    state.taxo = state.taxo===b.dataset.t ? null : b.dataset.t;
-    renderTaxonomy();
-  });
-
-  // kattintás-analitika + kérdés-panel (esemény-delegálás)
   document.body.addEventListener("click", e => {
-    const track = e.target.closest("[data-track]");
-    if (track){ CLICKS.add(track.dataset.track); return; }
-    const q = e.target.closest("[data-q]");
-    if (q){ e.preventDefault(); showQuestions(q.dataset.q); }
+    const t = e.target;
+    const tr = t.closest("[data-track]");
+    if (tr){ track(tr.dataset.track); return; }
+
+    const interest = t.closest("[data-interest]");
+    if (interest){
+      const k = interest.dataset.interest, cur = INTERESTS.get();
+      INTERESTS.set(cur.includes(k) ? cur.filter(x => x !== k) : [...cur, k]);
+      renderInterests(); renderFeature(); renderLists();
+      return;
+    }
+    const sc = t.closest("[data-scope]");
+    if (sc){ state.scope = sc.dataset.scope; syncSeg("scope", "scope"); renderLists(); return; }
+    const so = t.closest("[data-sort]");
+    if (so){ state.sort = so.dataset.sort; syncSeg("sort", "sort"); renderLists(); return; }
+
+    const q = t.closest("[data-q]");
+    if (q){
+      state.steps = q.dataset.q; state.chapter = null; renderSteps();
+      $("steps").scrollIntoView({ behavior:"smooth", block:"start" });
+      return;
+    }
+    const ch = t.closest("[data-chapter]");
+    if (ch){ state.chapter = +ch.dataset.chapter; renderSteps(); return; }
+    if (t.closest("[data-close-steps]")){ state.steps = null; renderSteps(); return; }
+
+    const tx = t.closest("[data-t]");
+    if (tx){ state.taxo = tx.dataset.t; renderTaxonomy(); return; }
+    const kg = t.closest("[data-kgroup]");
+    if (kg){ const id = kg.dataset.kgroup; state.kOpen.has(id) ? state.kOpen.delete(id) : state.kOpen.add(id); renderKnowledge(); }
   });
+}
+function syncSeg(groupId, key){
+  for (const b of $(groupId).querySelectorAll("button")) b.setAttribute("aria-pressed", b.dataset[key] === state[key]);
 }
 
 (async function init(){
   try{
     DATA = await (await fetch("./data/recommendations.json")).json();
   }catch(err){
-    document.getElementById("srcnote").innerHTML =
-      `<b style="color:#ff8f5e">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
+    $("herosub").innerHTML = `<b style="color:var(--due)">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
     return;
   }
+  renderHero();
+  renderFeature();
   renderStats();
-  dailyPicks();
-  renderGrid();
-  renderKnowledge();
+  renderLists();
+  renderCatPages();
   renderTaxonomy();
+  renderKnowledge();
   bind();
 })();
 </script>
