@@ -1,3 +1,9 @@
 node_modules/
 .DS_Store
 *.log
+
+# a build-pages.mjs kimenete – a deploy-pages.yml generálja
+public/tema/
+public/feed.xml
+public/naptar.ics
+public/sitemap.xml

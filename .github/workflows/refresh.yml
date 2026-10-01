@@ -15,6 +15,7 @@ on:
     paths:
       - "extract.mjs"
       - "check.mjs"
+      - "build-pages.mjs"
       - "public/index.html"
 
 permissions:
@@ -45,6 +46,10 @@ jobs:
 
       - name: Adatcsomag ellenőrzése
         run: node check.mjs
+
+      # Csak próbaépítés: a kimenetet a deploy-pages.yml állítja elő újra.
+      - name: Témaoldalak próbaépítése
+        run: node build-pages.mjs
 
       - name: Közzététel, ha változott
         run: |

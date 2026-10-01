@@ -506,10 +506,20 @@ async function main() {
     const { generatedAt, ...rest } = o;
     return JSON.stringify(rest);
   };
-  const incoming = strip(payload);
   let previous = null;
   try { previous = await readFile(OUT, "utf8"); } catch { /* még nincs fájl */ }
   const prevJson = previous ? JSON.parse(previous) : null;
+
+  // Első megjelenés: a hírcsatorna ebből tudja, mikor jelent meg egy téma.
+  // Az előző csomagból öröklődik; ami már ott volt, de még nem volt dátuma,
+  // az előző csomag idejét kapja.
+  const prevById = new Map((prevJson?.discussions ?? []).map((x) => [x.id, x]));
+  for (const i of payload.discussions) {
+    const p = prevById.get(i.id);
+    i.firstSeen = p?.firstSeen ?? (p ? prevJson.generatedAt : payload.generatedAt);
+  }
+
+  const incoming = strip(payload);
   const unchanged = prevJson !== null && strip(prevJson) === incoming;
 
   if (unchanged) {

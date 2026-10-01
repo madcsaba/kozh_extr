@@ -21,8 +21,9 @@ Ezért az adatot **szerveroldalon** nyerjük ki a bundle-ökből, és saját JSO
 
 ```bash
 node extract.mjs          # adatcsomag → public/data/recommendations.json
-npm run check             # kinyerés + adatcsomag-ellenőrzés
-npm run serve             # http://localhost:8787
+node build-pages.mjs      # témaoldalak, hírcsatorna, naptár, sitemap → public/
+npm run check             # kinyerés + adatcsomag-ellenőrzés + próbaépítés
+npm run serve             # építés, majd http://localhost:8787
 npm start                 # kinyerés, majs szerver
 ```
 
@@ -68,7 +69,28 @@ soha nem azt, hogy *mit*: a pontszámba nem számít bele, hogy egy téma melyik
 A **Napi ajánlás** a top 6-ból dátumhoz kötött (de determinisztikus) véletlenszerű 3-at választ,
 így napközben stabil, de minden nap más.
 
+## Megosztható oldalak, hírcsatorna, naptár
+
+A `build-pages.mjs` az adatcsomagból statikus kimeneteket állít elő:
+
+| Kimenet | Tartalom |
+|---|---|
+| `tema/<id>/` | témánként saját oldal OpenGraph-kártyával (Facebookon, Messengeren előnézettel osztható), fejezetekkel, lépésekkel, Tudástér-anyagokkal és kapcsolódó témákkal |
+| `feed.xml` | Atom-hírcsatorna: új témák (`firstSeen`) és megnyílt fejezetek |
+| `naptar.ics` | feliratkozható naptár: témanyitások (`opensAt`) és fejezetnyitások (`unlocksAt`), Europe/Budapest időzónában |
+| `sitemap.xml` | a főoldal és a témaoldalak |
+
+A kimenetet nem verziókezeljük: a `deploy-pages.yml` minden kiadás előtt legenerálja. Az abszolút
+URL-ek a Pages címéből jönnek (`SITE_URL`). A naptárba csak valódi időpont kerül; a `daysLeft` a
+bundle-ba égetett szám, abból határidőt nem számolunk.
+
+A főoldal szűrői az URL-ben is megjelennek (`?kat=municipality&statusz=open&rend=quiet&q=tó`),
+így egy szűrt nézet is megosztható.
+
 ## Frissítés
+
+A `refresh.yml` a `GITHUB_TOKEN`-nel commitol, ami nem indít push-eseményt, ezért a
+`deploy-pages.yml` a frissítő sikeres lefutása után (`workflow_run`) is élesít.
 
 Az adat a kozhang.hu build-jéhez kötött (`version.json`), ezért az `extract.mjs` minden futásnál
 újraolvassa a bundle-öket, és a `sourceBuild` mezőben jelzi, melyik buildből származik. Ha a
@@ -88,6 +110,7 @@ kérte a eltávolítását, tedd meg — és érdemes előbb egyeztetni: `info@k
 
 ```
 extract.mjs              adatnyerés a bundle-ökből
+build-pages.mjs          témaoldalak, feed.xml, naptar.ics, sitemap.xml
 public/index.html        az oldal (egyetlen fájl, inline CSS/JS)
 public/data/recommendations.json   generált adatcsomag
 ```

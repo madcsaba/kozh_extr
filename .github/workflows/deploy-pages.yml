@@ -1,10 +1,17 @@
 name: GitHub Pages
 
-# Statikus kiadás: a public/ mappa megy a GitHub Pages-re.
-# A refresh.yml adatfrissítő commitjai ugyanígy újraélesítik az oldalt.
+# Statikus kiadás: a public/ mappa megy a GitHub Pages-re, előtte a
+# build-pages.mjs legenerálja a témaoldalakat, a hírcsatornát és a naptárat.
+#
+# A refresh.yml a GITHUB_TOKEN-nel commitol, ami NEM indít push-eseményt,
+# ezért az adatfrissítés után a workflow_run trigger élesít újra.
 
 on:
   push:
+    branches: [main]
+  workflow_run:
+    workflows: ["Frissítés"]
+    types: [completed]
     branches: [main]
   workflow_dispatch: {}
 
@@ -19,14 +26,28 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # workflow_run esetén is a main legfrissebb állapota kell (a frissítő commitja)
+          ref: main
 
-      - uses: actions/configure-pages@v5
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Témaoldalak, hírcsatorna, naptár
+        run: node build-pages.mjs
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -6,6 +6,11 @@
 <title>Közhang témaajánló – miben vegyél részt?</title>
 <meta name="description" content="Statisztikák alapján ajánlott kozhang.hu egyeztetések, kérdések és Tudástér-cikkek. Kattints, és szólj hozzá te is.">
 <link rel="icon" href="https://kozhang.hu/favicon.svg">
+<link rel="alternate" type="application/atom+xml" title="Közhang témaajánló – új témák" href="feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:title" content="Közhang témaajánló – miben vegyél részt?">
+<meta property="og:description" content="Nem hivatalos ajánló a kozhang.hu nyilvános egyeztetéseihez: a te témáid és a vármegyéd szerint.">
 <style>
 :root{
   --bg:#0b1014; --panel:#121a20; --panel2:#16212a; --line:#223140;
@@ -214,6 +219,8 @@ footer p{margin:0 0 9px;max-width:90ch}
     kérdéseiről és Tudástér-cikkeiről. Minden kártya a forráshoz visz – egy kattintás, és szólhatsz.
   </p>
   <p class="srcnote" id="srcnote">Adatbetöltés…</p>
+  <p class="srcnote">Kövesd az új témákat és fejezetnyitásokat:
+    <a href="feed.xml">hírcsatorna (RSS/Atom)</a> · <a href="naptar.ics">naptár (.ics)</a></p>
 </header>
 
 <div class="stats" id="stats"></div>
@@ -495,7 +502,7 @@ function dailyPicks(){
       <div class="why">${whyLine(d, d.sp)}</div>
       <div class="acts">
         <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
-        ${d.questions.length? `<button class="btn ghost" data-q="${d.id}">${d.questions.length} kérdés megtekintése</button>`:""}
+        <a class="btn ghost" href="tema/${d.id}/">Részletek</a>
       </div>
     </article>`;
   }).join("");
@@ -557,14 +564,47 @@ function card({d, sp}){
       ${whyLine(d, sp)}
       <div class="acts">
         <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
-        ${d.questions.length? `<button class="btn" data-q="${d.id}">Kérdések (${d.questions.length})</button>`:
-          `<a class="btn ghost" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Megnézem</a>`}
+        <a class="btn" href="tema/${d.id}/" title="Megosztható oldal a témáról">Részletek</a>
+        ${d.questions.length? `<button class="btn ghost" data-q="${d.id}">Kérdések (${d.questions.length})</button>`:""}
       </div>
     </div>
   </article>`;
 }
 
+// Szűrők az URL-ben (?kat=…&statusz=…&q=…&rend=…), hogy egy szűrt nézet is megosztható legyen.
+const URL_KEYS = { cat:"kat", status:"statusz", q:"q", sort:"rend" };
+const URL_DEFAULT = { cat:"all", status:"all", q:"", sort:"score" };
+
+function readUrlState(){
+  const u = new URLSearchParams(location.search);
+  const sorts = [...document.getElementById("sort").options].map(o => o.value);
+  const cats = new Set(DATA.discussions.map(d => d.category));
+  const st = u.get(URL_KEYS.status), c = u.get(URL_KEYS.cat), so = u.get(URL_KEYS.sort), q = u.get(URL_KEYS.q);
+  if (["open","soon"].includes(st)) state.status = st;
+  if (cats.has(c)) state.cat = c;
+  if (sorts.includes(so)) state.sort = so;
+  if (q) state.q = q.trim().toLowerCase().slice(0, 100);
+  document.getElementById("q").value = state.q;
+  document.getElementById("sort").value = state.sort;
+  for (const [id, key, val] of [["statuschips","s",state.status], ["catchips","c",state.cat]]){
+    for (const b of document.getElementById(id).children){
+      const on = b.dataset[key]===val;
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    }
+  }
+}
+
+function writeUrlState(){
+  const u = new URLSearchParams(location.search);
+  for (const k in URL_KEYS){
+    if (state[k] && state[k]!==URL_DEFAULT[k]) u.set(URL_KEYS[k], state[k]); else u.delete(URL_KEYS[k]);
+  }
+  const qs = u.toString();
+  try{ history.replaceState(null, "", qs ? `?${qs}${location.hash}` : location.pathname + location.hash); }catch{}
+}
+
 function renderGrid(){
+  writeUrlState();
   const list = filtered();
   document.getElementById("grid").innerHTML = list.map(card).join("");
   document.getElementById("empty").style.display = list.length ? "none" : "block";
@@ -745,6 +785,7 @@ function bind(){
   state.profile = PROFILE.load();
   renderStats();
   bind();
+  readUrlState();
   renderProfile();
   dailyPicks();
   renderGrid();
