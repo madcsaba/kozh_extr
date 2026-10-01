@@ -484,6 +484,19 @@ async function main() {
     media,
   };
 
+  if (DIAG) {
+    console.log("\n── diagnosztika ──");
+    console.log("kategóriák:", JSON.stringify(categories));
+    for (const i of items) {
+      console.log(
+        `  ${i.status.padEnd(5)} ${i.id.padEnd(32)} ${String(i.chapterCount).padStart(2)} fej / ` +
+          `${String(i.stepCount).padStart(2)} kérd / ${String(i.totalMinutes).padStart(3)} perc / ` +
+          `${String(i.participants).padStart(6)} résztvevő / ${i.photo ? "kép ✓" : "kép ✗"}`,
+      );
+    }
+    console.log("taxonómia:", taxonomy.map((t) => `${t.key}(${t.subtopics.length})`).join(", "));
+  }
+
   await mkdir(path.dirname(OUT), { recursive: true });
 
   // Változás-érzékelés: a `generatedAt` minden futásnál más, ezért azt kihagyva
@@ -517,19 +530,6 @@ async function main() {
   );
   console.log(`  ${((Date.now() - t0) / 1000).toFixed(1)} mp, ${(kb / 1024).toFixed(0)} KB`);
   return { changed: true, counts: payload.counts };
-
-  if (DIAG) {
-    console.log("\n── diagnosztika ──");
-    console.log("kategóriák:", JSON.stringify(categories));
-    for (const i of items) {
-      console.log(
-        `  ${i.status.padEnd(5)} ${i.id.padEnd(32)} ${String(i.chapterCount).padStart(2)} fej / ` +
-          `${String(i.stepCount).padStart(2)} kérd / ${String(i.totalMinutes).padStart(3)} perc / ` +
-          `${String(i.participants).padStart(6)} résztvevő / ${i.photo ? "kép ✓" : "kép ✗"}`,
-      );
-    }
-    console.log("taxonómia:", taxonomy.map((t) => `${t.key}(${t.subtopics.length})`).join(", "));
-  }
 }
 
 main().catch((e) => {

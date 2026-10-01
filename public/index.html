@@ -178,6 +178,25 @@ footer p{margin:0 0 9px;max-width:90ch}
   display:inline-flex;gap:6px;align-items:center;font-size:12.5px;color:var(--muted);
   background:#0e161c;border:1px solid var(--line);padding:5px 10px;border-radius:7px
 }
+/* profile / why */
+.prof{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px}
+.prof .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.prof label{font-size:14px;color:var(--muted)}
+.privacy{margin:12px 0 0;font-size:12.5px;color:var(--muted)}
+.near{margin-top:14px;display:grid;gap:8px}
+.near a.item{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--panel2);
+  border:1px solid var(--line);border-radius:10px;padding:10px 13px;color:var(--text);font-size:14.5px
+}
+.near a.item:hover{border-color:#3d5a70;text-decoration:none}
+.near a.item span{color:var(--muted);font-size:13px}
+.why-line{font-size:12.5px;color:var(--muted);line-height:1.45}
+.why-line b{color:#c3d3dd;font-weight:600}
+.flag{
+  display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 8px;
+  border-radius:6px;background:#2a2410;border:1px solid #f2b73f55;color:var(--soon)
+}
+.flag.home{background:#0f2a24;border-color:#2f6f5b;color:var(--accent)}
 @media(max-width:640px){
   .grid,.klist{grid-template-columns:1fr}
   header.top{padding-top:30px}
@@ -199,6 +218,25 @@ footer p{margin:0 0 9px;max-width:90ch}
 
 <div class="stats" id="stats"></div>
 
+<section id="foryou">
+  <div class="sec-head">
+    <h2>Mi érdekel?</h2>
+    <span class="hint" id="profhint"></span>
+  </div>
+  <div class="prof">
+    <div class="chips" id="profchips" role="group" aria-label="Érdeklődési témák"></div>
+    <div class="row">
+      <label for="region">Vármegyéd:</label>
+      <select id="region"><option value="">Nem adom meg</option></select>
+      <button class="btn ghost" id="profreset" type="button">Beállítások törlése</button>
+    </div>
+    <p class="privacy">
+      A választásod csak a böngésződben tárolódik (localStorage), nem küldjük el sehova.
+      Az ajánló azt segít eldönteni, <b>miről</b> érdemes véleményt mondanod – azt soha, hogy <b>mit</b>.
+    </p>
+    <div class="near" id="near"></div>
+  </div>
+</section>
 <section id="daily">
   <div class="sec-head">
     <h2>Napi ajánlás</h2>
@@ -220,15 +258,16 @@ footer p{margin:0 0 9px;max-width:90ch}
       <option value="participants">Legtöbb résztvevő</option>
       <option value="fresh">Legfrissebb</option>
       <option value="urgent">Legsürgősebb (napok)</option>
+      <option value="quiet">Kevés hangot kapott</option>
       <option value="name">Név szerint</option>
     </select>
   </div>
 
   <div class="controls" style="margin-top:-4px">
     <div class="chips" id="statuschips">
-      <button class="chip on" data-s="all">Összes</button>
-      <button class="chip" data-s="open">Nyitott</button>
-      <button class="chip" data-s="soon">Hamarosan</button>
+      <button class="chip on" data-s="all" aria-pressed="true">Összes</button>
+      <button class="chip" data-s="open" aria-pressed="false">Nyitott</button>
+      <button class="chip" data-s="soon" aria-pressed="false">Hamarosan</button>
     </div>
     <div class="chips" id="catchips">
       <button class="chip on" data-c="all">Minden kategória</button>
@@ -292,14 +331,53 @@ const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2b36"/><stop offset="1" stop-color="#12202a"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/></svg>`
 );
 
+// Egyeztetés → a Közhang témaszavazásának 12 fő témája. A kategória adja az
+// alapot; ahol a téma egyértelműen egy másikat is érint, kiegészítjük.
+const CAT_TAXO = {
+  "public-media":["culture","society"], culture:["culture"], transport:["transport"],
+  digital:["digital"], economy:["economy"], municipality:["municipality"],
+  climate:["environment"], environment:["environment"], health:["health"],
+  education:["education"], family:["family"], living:["living"], safety:["safety"],
+  society:["society"]
+};
+const EXTRA_TAXO = {
+  "tarsadalmi-megbekeles":["society"], "kresz-megujitasa":["safety"],
+  "rovid-tavu-lakaskiadas":["living"], "tiszta-kozteruletek":["environment"],
+  "palatinus-to":["environment"]
+};
+const topicsOf = d => [...new Set([...(CAT_TAXO[d.category]||[]), ...(EXTRA_TAXO[d.id]||[])])];
+
+const COUNTIES = [
+  "Budapest","Bács-Kiskun","Baranya","Békés","Borsod-Abaúj-Zemplén","Csongrád-Csanád",
+  "Fejér","Győr-Moson-Sopron","Hajdú-Bihar","Heves","Jász-Nagykun-Szolnok",
+  "Komárom-Esztergom","Nógrád","Pest","Somogy","Szabolcs-Szatmár-Bereg","Tolna",
+  "Vas","Veszprém","Zala"
+];
+
+// Nyitott téma ennél kevesebb résztvevővel: „kevés hangot kapott”
+const QUIET = 1000;
+
 let DATA = null;
-const state = { q:"", status:"all", cat:"all", sort:"score", taxo:null };
+const state = { q:"", status:"all", cat:"all", sort:"score", taxo:null, profile:{topics:[], region:""} };
 
 // saját kattintás-analitika (localStorage) – a "dinamikus" viselkedés alapja
 const CLICKS = {
   key: "kh-clicks-v1",
   all(){ try{ return JSON.parse(localStorage.getItem(this.key)) || {}; }catch{ return {}; } },
   add(id){ const c=this.all(); c[id]=(c[id]||0)+1; try{ localStorage.setItem(this.key, JSON.stringify(c)); }catch{} },
+  reset(){ try{ localStorage.removeItem(this.key); }catch{} }
+};
+
+// érdeklődés + vármegye (localStorage) – nem hagyja el a gépet
+const PROFILE = {
+  key: "kh-profile-v1",
+  load(){
+    try{
+      const p = JSON.parse(localStorage.getItem(this.key)) || {};
+      return { topics: Array.isArray(p.topics) ? p.topics : [], region: COUNTIES.includes(p.region) ? p.region : "" };
+    }catch{ return { topics:[], region:"" }; }
+  },
+  save(p){ try{ localStorage.setItem(this.key, JSON.stringify(p)); }catch{} },
   reset(){ try{ localStorage.removeItem(this.key); }catch{} }
 };
 
@@ -312,21 +390,68 @@ function seedFrom(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.
 function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
 /**
- * Ajánlási pontszám:
- *  - popularitás: logaritmikus résztvevő-szám (a 32 457 és a 0 közötti nagy különbség kiegyenlítése)
- *  - frissesség: nyitott téma + hátralévő napok (a rövidebb határidő sürget)
- *  - sürgősség: kevés hátralévő nap → magasabb
- *  - saját érdeklődés: a te korábbi kattintásaid
- *  - tartalmi mélység: fejezetek/kérdések száma (a nyitott, ép témákat preferálja)
+ * Ajánlási pontszám (0–1), összetevőnként:
+ *  - pop      népszerűség: logaritmikus résztvevőszám (a 32 457 és a 0 közti különbség kiegyenlítése)
+ *  - fresh    frissesség: nyitott téma + hátralévő napok
+ *  - urg      sürgősség: kevés hátralévő nap → magasabb
+ *  - interest a te témád: átfedés a választott fő témáiddal
+ *  - place    a te vármegyéd: helyi egyeztetés a vármegyédben
+ *  - quiet    kevés hangot kapott: nyitott téma kevés résztvevővel (ellensúlyozza a népszerűséget)
+ *  - mine     korábban megnézted: a te kattintásaid
+ *  - depth    tartalmi mélység: kérdések és háttéranyagok
+ * Soha nem számít bele, hogy egy téma melyik álláspont felé hajlik.
  */
-function score(d, clicks){
-  const pop  = Math.log10((d.participants||0)+1) / Math.log10(40000);
+const W = { pop:.20, fresh:.24, urg:.14, interest:.14, place:.10, quiet:.06, mine:.06, depth:.06 };
+const W_LABEL = { pop:"népszerűség", fresh:"frissesség", urg:"sürgősség", interest:"a te témád",
+  place:"a te vármegyéd", quiet:"kevés hang", mine:"korábban megnézted", depth:"tartalmi mélység" };
+
+const isQuiet = d => d.status==="open" && (d.participants||0) < QUIET;
+
+function scoreParts(d, clicks, profile){
   const days = d.daysLeft==null ? 20 : d.daysLeft;
-  const fresh = d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30;
-  const urg  = 1 - Math.min(days,40)/40;
-  const mine = Math.min((clicks[d.id]||0)/5, 1);
-  const depth= Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0);
-  return 0.34*pop + 0.30*fresh + 0.16*urg + 0.12*mine + 0.08*depth;
+  const raw = {
+    pop:   Math.log10((d.participants||0)+1) / Math.log10(40000),
+    fresh: d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30,
+    urg:   1 - Math.min(days,40)/40,
+    interest: topicsOf(d).some(t => profile.topics.includes(t)) ? 1 : 0,
+    place: profile.region && d.locality?.region===profile.region ? 1 : 0,
+    quiet: isQuiet(d) ? 1 : 0,
+    mine:  Math.min((clicks[d.id]||0)/5, 1),
+    depth: Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0),
+  };
+  const parts = {};
+  let total = 0;
+  for (const k in W){ parts[k] = W[k]*Math.min(Math.max(raw[k],0),1); total += parts[k]; }
+  return { total, parts, raw };
+}
+
+/** A 3 legerősebb ok szövegesen – a személyes egyezés mindig elöl. */
+function reasons(d, sp, profile){
+  const r = [];
+  const mine = topicsOf(d).filter(t => profile.topics.includes(t));
+  if (sp.raw.place) r.push([2, `a te vármegyéd (${d.locality.region})`]);
+  if (mine.length) r.push([1.5, `a te témád: ${mine.map(t=>TAXO[t]||t).join(", ")}`]);
+  if (d.status==="open") r.push([sp.parts.fresh+sp.parts.urg, d.daysLeft!=null ? `nyitott, ${d.daysLeft} nap van hátra` : "most nyitott"]);
+  else r.push([sp.parts.fresh, "hamarosan nyílik"]);
+  if (sp.raw.quiet) r.push([1, "kevés hangot kapott eddig"]);
+  else if (d.participants) r.push([sp.parts.pop, `${fmt(d.participants)} ${d.status==="open"?"résztvevő":"érdeklődő"}`]);
+  if (sp.raw.mine) r.push([sp.parts.mine, "korábban megnézted"]);
+  const depth = [d.stepCount && `${d.stepCount} kérdés`, d.knowledgeCount && `${d.knowledgeCount} háttércikk`].filter(Boolean);
+  if (depth.length) r.push([sp.parts.depth, depth.join(" + ")]);
+  return r.sort((a,b) => b[0]-a[0]).slice(0,3).map(x => x[1]);
+}
+
+function whyLine(d, sp){
+  const breakdown = Object.keys(W).filter(k => sp.parts[k] > 0.0005)
+    .map(k => `${W_LABEL[k]} ${sp.parts[k].toFixed(2)}`).join(" + ");
+  return `<div class="why-line" title="Pontszám ${sp.total.toFixed(2)} = ${esc(breakdown)}">` +
+    `<b>Miért ajánljuk?</b> ${esc(reasons(d, sp, state.profile).join(" · "))}</div>`;
+}
+
+/** Pontszámok egyszerre, renderelésenként egyszer. */
+function scored(list){
+  const clicks = CLICKS.all();
+  return list.map(d => ({ d, sp: scoreParts(d, clicks, state.profile) }));
 }
 
 function renderStats(){
@@ -353,10 +478,9 @@ function renderStats(){
 }
 
 function dailyPicks(){
-  const clicks = CLICKS.all();
-  const pool = DATA.discussions.map(d => ({...d, s:score(d, clicks)}));
+  const pool = scored(DATA.discussions).map(({d, sp}) => ({...d, sp}));
   const rnd = mulberry32(seedFrom(dayKey()));
-  pool.sort((a,b) => b.s - a.s);
+  pool.sort((a,b) => b.sp.total - a.sp.total);
   const top = pool.slice(0, Math.min(6, pool.length));
   // az első mindig a legerősebb (a statisztika szól), a másik két hely forgó
   const rest = top.slice(1);
@@ -364,14 +488,11 @@ function dailyPicks(){
   const picks = [top[0], ...rest.slice(0,2)].filter(Boolean);
   document.getElementById("picks").innerHTML = picks.map(d => {
     const color = `var(--c-${d.category}, var(--c-default))`;
-    const why = d.status==="open"
-      ? `Nyitott · ${fmt(d.participants)} résztvevő · ${d.stepCount? d.stepCount+" kérdés":"részvétel nyitva"}`
-      : `Hamarosan nyílik${d.daysLeft? ` · ${d.daysLeft} nap múlva`:""}`;
     return `<article class="pick" style="--pc:${color}">
       <div class="tag">${esc(CAT[d.category]||d.category)}</div>
       <h4><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h4>
       <p>${esc(d.description.hu)}</p>
-      <div class="why">${why}</div>
+      <div class="why">${whyLine(d, d.sp)}</div>
       <div class="acts">
         <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
         ${d.questions.length? `<button class="btn ghost" data-q="${d.id}">${d.questions.length} kérdés megtekintése</button>`:""}
@@ -381,7 +502,6 @@ function dailyPicks(){
 }
 
 function filtered(){
-  const clicks = CLICKS.all();
   let list = DATA.discussions.filter(d => {
     if (state.status!=="all" && d.status!==state.status) return false;
     if (state.cat!=="all" && d.category!==state.cat) return false;
@@ -393,21 +513,26 @@ function filtered(){
     }
     return true;
   });
+  const sc = new Map(scored(list).map(({d, sp}) => [d.id, sp]));
   const by = {
-    score: (a,b) => score(b,clicks)-score(a,clicks),
+    score: (a,b) => sc.get(b.id).total - sc.get(a.id).total,
     participants: (a,b) => (b.participants||0)-(a.participants||0),
     fresh: (a,b) => new Date(b.opensAt||0)-new Date(a.opensAt||0) || b.daysLeft-a.daysLeft,
     urgent: (a,b) => (a.daysLeft??99)-(b.daysLeft??99),
     name: (a,b) => a.title.hu.localeCompare(b.title.hu,"hu"),
+    quiet: (a,b) => (a.status==="open"?0:1)-(b.status==="open"?0:1) || (a.participants||0)-(b.participants||0),
   };
-  return list.sort(by[state.sort] || by.score);
+  return list.sort(by[state.sort] || by.score).map(d => ({ d, sp: sc.get(d.id) }));
 }
 
-function card(d){
+function card({d, sp}){
   const color = `var(--c-${d.category}, var(--c-default))`;
   const img = d.hero || d.photo;
   const statusLabel = d.status==="open" ? "Nyitott" : "Hamarosan";
   const place = d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+  const flags = [];
+  if (sp.raw.place) flags.push(`<span class="flag home">★ A vármegyédben</span>`);
+  if (sp.raw.quiet) flags.push(`<span class="flag" title="Nyitott téma, kevesebb mint ${fmt(QUIET)} résztvevővel">Kevés hangot kapott</span>`);
   const bits = [];
   if (d.status==="open") bits.push(`<span><b>${fmt(d.participants)}</b> résztvevő</span>`);
   else if (d.participants) bits.push(`<span><b>${fmt(d.participants)}</b> érdeklődő</span>`);
@@ -426,8 +551,10 @@ function card(d){
     <div class="body">
       <h3><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h3>
       <p class="desc">${esc(d.description.hu)}</p>
+      ${flags.length ? `<div class="meta" style="margin-top:0">${flags.join("")}</div>` : ""}
       <div class="meta"><span>📍 ${esc(place)}</span>${bits.join("")}</div>
       ${rate}
+      ${whyLine(d, sp)}
       <div class="acts">
         <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
         ${d.questions.length? `<button class="btn" data-q="${d.id}">Kérdések (${d.questions.length})</button>`:
@@ -499,10 +626,52 @@ function renderKnowledge(){
   }).join("");
 }
 
+function renderProfile(){
+  const p = state.profile;
+  document.getElementById("profchips").innerHTML = DATA.taxonomy.map(x => {
+    const on = p.topics.includes(x.key);
+    return `<button type="button" class="chip${on?" on":""}" data-p="${esc(x.key)}" aria-pressed="${on}">${esc(TAXO[x.key]||x.key)}</button>`;
+  }).join("");
+  document.getElementById("region").value = p.region;
+  const n = p.topics.length;
+  document.getElementById("profhint").textContent = n || p.region
+    ? `${n ? `${n} téma` : "nincs téma"}${p.region ? ` · ${p.region}` : ""} · az ajánlások ehhez igazodnak`
+    : "Válassz témákat és a vármegyédet – az ajánlás ehhez igazodik";
+  renderNear();
+}
+
+function renderNear(){
+  const el = document.getElementById("near");
+  const region = state.profile.region;
+  if (!region){ el.innerHTML = ""; return; }
+  const local = DATA.discussions.filter(d => d.locality?.region===region)
+    .sort((a,b) => (a.status==="open"?0:1)-(b.status==="open"?0:1) || (a.daysLeft??99)-(b.daysLeft??99));
+  if (!local.length){
+    el.innerHTML = `<p class="privacy" style="margin-top:4px">${esc(region)}: most nincs helyi egyeztetés. ` +
+      `Az országos témák neked is szólnak – lent a neked ajánlott sorrendben látod őket.</p>`;
+    return;
+  }
+  el.innerHTML = `<div class="why-line"><b>A vármegyédben (${esc(region)})</b></div>` + local.map(d => {
+    const when = d.status==="open"
+      ? `nyitott${d.daysLeft!=null ? ` · ${d.daysLeft} nap van hátra` : ""}${isQuiet(d) ? " · kevés hangot kapott" : ""}`
+      : "hamarosan nyílik";
+    const place = d.locality.label?.hu || d.locality.town || "";
+    return `<a class="item" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">` +
+      `${esc(d.title.hu)}<span>${esc(place)} · ${when}</span></a>`;
+  }).join("");
+}
+
+function saveProfile(){
+  PROFILE.save(state.profile);
+  renderProfile();
+  dailyPicks();
+  renderGrid();
+}
+
 function renderTaxonomy(){
   const t = document.getElementById("taxo");
   t.innerHTML = DATA.taxonomy.map(x =>
-    `<button data-t="${x.key}" class="${state.taxo===x.key?"on":""}">${esc(TAXO[x.key]||x.key)} <span style="opacity:.6">${x.subtopics.length}</span></button>`
+    `<button type="button" data-t="${x.key}" class="${state.taxo===x.key?"on":""}" aria-pressed="${state.taxo===x.key}">${esc(TAXO[x.key]||x.key)} <span style="opacity:.6">${x.subtopics.length}</span></button>`
   ).join("");
   const subs = document.getElementById("subs");
   const cur = DATA.taxonomy.find(x => x.key===state.taxo);
@@ -518,18 +687,18 @@ function bind(){
   document.getElementById("statuschips").addEventListener("click", e => {
     const b = e.target.closest("button"); if(!b) return;
     state.status = b.dataset.s;
-    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+    [...e.currentTarget.children].forEach(c=>{ c.classList.toggle("on", c===b); c.setAttribute("aria-pressed", c===b); });
     renderGrid();
   });
 
   const cats = [...new Set(DATA.discussions.map(d=>d.category))];
   document.getElementById("catchips").innerHTML =
-    `<button class="chip on" data-c="all">Minden kategória</button>` +
-    cats.map(c=>`<button class="chip" data-c="${c}">${esc(CAT[c]||c)}</button>`).join("");
+    `<button class="chip on" data-c="all" aria-pressed="true">Minden kategória</button>` +
+    cats.map(c=>`<button class="chip" data-c="${c}" aria-pressed="false">${esc(CAT[c]||c)}</button>`).join("");
   document.getElementById("catchips").addEventListener("click", e => {
     const b = e.target.closest("button"); if(!b) return;
     state.cat = b.dataset.c;
-    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+    [...e.currentTarget.children].forEach(c=>{ c.classList.toggle("on", c===b); c.setAttribute("aria-pressed", c===b); });
     renderGrid();
   });
 
@@ -537,6 +706,23 @@ function bind(){
     const b = e.target.closest("button"); if(!b) return;
     state.taxo = state.taxo===b.dataset.t ? null : b.dataset.t;
     renderTaxonomy();
+  });
+
+  // érdeklődés + vármegye
+  const region = document.getElementById("region");
+  region.innerHTML = `<option value="">Nem adom meg</option>` +
+    COUNTIES.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  region.addEventListener("change", e => { state.profile.region = e.target.value; saveProfile(); });
+  document.getElementById("profchips").addEventListener("click", e => {
+    const b = e.target.closest("[data-p]"); if(!b) return;
+    const k = b.dataset.p, t = state.profile.topics;
+    state.profile.topics = t.includes(k) ? t.filter(x => x!==k) : [...t, k];
+    saveProfile();
+  });
+  document.getElementById("profreset").addEventListener("click", () => {
+    PROFILE.reset();
+    state.profile = { topics:[], region:"" };
+    saveProfile();
   });
 
   // kattintás-analitika + kérdés-panel (esemény-delegálás)
@@ -556,12 +742,14 @@ function bind(){
       `<b style="color:#ff8f5e">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
     return;
   }
+  state.profile = PROFILE.load();
   renderStats();
+  bind();
+  renderProfile();
   dailyPicks();
   renderGrid();
   renderKnowledge();
   renderTaxonomy();
-  bind();
 })();
 </script>
 </body>
