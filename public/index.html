@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Közhang témaajánló – miben vegyél részt?</title>
 <meta name="description" content="Statisztikák alapján ajánlott kozhang.hu egyeztetések, kérdések és Tudástér-cikkek. Kattints, és szólj hozzá te is.">
+<link rel="alternate" type="application/atom+xml" title="Közhang témaajánló – új témák" href="feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:title" content="Közhang témaajánló – miben vegyél részt?">
+<meta property="og:description" content="Nem hivatalos ajánló a kozhang.hu nyilvános egyeztetéseihez: a te témáid és a vármegyéd szerint.">
 <link rel="icon" href="https://kozhang.hu/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,6 +187,7 @@
       <b>Adatok</b>
       <span>A kozhang.hu nyilvános JavaScript bundle-jeiből, mert nincs nyilvános tartalom-API, és a böngészőoldali lekérést a CORS tiltja.</span>
       <span id="footmeta"></span>
+      <span>Kövesd az új témákat és fejezetnyitásokat: <a href="feed.xml">hírcsatorna (Atom)</a> · <a href="naptar.ics">naptár (.ics)</a></span>
     </div>
     <div>
       <b>Kapcsolat</b>
@@ -239,6 +245,32 @@ const isMatch = d => INTERESTS.get().includes(d.category);
 const isQuiet = d => d.status==="open" && (d.participants||0) < QUIET;
 const isInCounty = d => { const r = COUNTY.get(); return !!(r && d.locality?.region === r); };
 const $ = id => document.getElementById(id);
+
+// Szűrők az URL-ben (?q=…&hely=…&rend=…), hogy egy szűrt nézet is megosztható legyen.
+const URL_KEYS = { q:"q", scope:"hely", sort:"rend" };
+const URL_DEFAULT = { q:"", scope:"all", sort:"due" };
+
+function readUrlState(){
+  const u = new URLSearchParams(location.search);
+  const scopes = [...$("scope").querySelectorAll("button")].map(b => b.dataset.scope);
+  const sorts  = [...$("sort").querySelectorAll("button")].map(b => b.dataset.sort);
+  const q = u.get(URL_KEYS.q), sc = u.get(URL_KEYS.scope), so = u.get(URL_KEYS.sort);
+  if (q) state.q = q.trim().toLowerCase().slice(0, 100);
+  if (scopes.includes(sc)) state.scope = sc;
+  if (sorts.includes(so)) state.sort = so;
+  $("q").value = state.q;
+  syncSeg("scope", "scope");
+  syncSeg("sort", "sort");
+}
+
+function writeUrlState(){
+  const u = new URLSearchParams(location.search);
+  for (const k in URL_KEYS){
+    if (state[k] && state[k] !== URL_DEFAULT[k]) u.set(URL_KEYS[k], state[k]); else u.delete(URL_KEYS[k]);
+  }
+  const qs = u.toString();
+  try{ history.replaceState(null, "", qs ? `?${qs}${location.hash}` : location.pathname + location.hash); }catch{}
+}
 
 // dátum-alapú, determinisztikus seed → minden nap más sorrend, de napközben stabil
 function seedFrom(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
@@ -390,6 +422,7 @@ function renderFeature(){
     ${whyLine(top)}
     <div class="acts">
       <a class="btn light" href="${esc(top.url)}" ${EXT} data-track="${esc(top.id)}">${open ? "Részt veszek a kozhang.hu-n" : "Megnézem a kozhang.hu-n"} ${ARROW}</a>
+      <a class="btn outline-dark" href="tema/${esc(top.id)}/" title="Megosztható oldal a témáról">Részletek</a>
       ${top.questions.length ? `<button type="button" class="btn outline-dark" data-q="${esc(top.id)}">Mi vár rám? (${top.questions.length} lépés)</button>` : ""}
     </div>
     ${also.length ? `<span class="why">Ma még ajánljuk: ${also.map(d => `<a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}" style="color:#fff">${esc(hu(d.title))}</a>`).join(" · ")}</span>` : ""}`;
@@ -452,6 +485,7 @@ function openRow(d){
       <span>${d.participants ? `<b>${fmt(d.participants)}</b> résztvevő` : `<b>Most indult</b> – légy az elsők között`}</span>
       ${rate ? `<div class="meter" role="img" aria-label="${rate}% végig is ment"><i style="width:${rate}%"></i></div><small>${rate}% végig is ment</small>` : ""}
       <a class="btn primary" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Részt veszek</a>
+      <a class="btn small" href="tema/${esc(d.id)}/" title="Megosztható oldal a témáról">Részletek</a>
       ${d.questions.length ? `<button type="button" class="btn small" data-q="${esc(d.id)}" aria-controls="steps">Mi vár rám? (${d.questions.length} lépés)</button>` : ""}
     </div>
   </article>`;
@@ -469,7 +503,10 @@ function soonRow(d){
     </span>
     <span class="c-place">${esc(place(d))}${sp.raw.place ? `<span class="flag home" title="A te vármegyédben">★</span>` : ""}</span>
     <span class="c-people">${d.participants ? `${fmt(d.participants)} érdeklődő` : "Új téma"}</span>
-    <span class="c-act"><a class="btn small" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnézem</a></span>
+    <span class="c-act">
+      <a class="btn small" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnézem</a>
+      <a class="btn small" href="tema/${esc(d.id)}/" title="Megosztható oldal a témáról">Részletek</a>
+    </span>
   </div>`;
 }
 
@@ -579,7 +616,7 @@ function renderKnowledge(){
 }
 
 function bind(){
-  $("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderLists(); });
+  $("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); writeUrlState(); renderLists(); });
 
   const region = $("region");
   region.innerHTML = `<option value="">Nem adom meg</option>` +
@@ -601,9 +638,9 @@ function bind(){
       return;
     }
     const sc = t.closest("[data-scope]");
-    if (sc){ state.scope = sc.dataset.scope; syncSeg("scope", "scope"); renderLists(); return; }
+    if (sc){ state.scope = sc.dataset.scope; syncSeg("scope", "scope"); writeUrlState(); renderLists(); return; }
     const so = t.closest("[data-sort]");
-    if (so){ state.sort = so.dataset.sort; syncSeg("sort", "sort"); renderLists(); return; }
+    if (so){ state.sort = so.dataset.sort; syncSeg("sort", "sort"); writeUrlState(); renderLists(); return; }
 
     const q = t.closest("[data-q]");
     if (q){
@@ -632,6 +669,7 @@ function syncSeg(groupId, key){
     $("herosub").innerHTML = `<b style="color:var(--due)">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
     return;
   }
+  readUrlState();
   renderHero();
   renderFeature();
   renderStats();

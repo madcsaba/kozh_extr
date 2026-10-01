@@ -7,10 +7,10 @@
   "scripts": {
     "extract": "node extract.mjs",
     "extract:diag": "node extract.mjs --diag",
-    "build": "node build.mjs",
-    "serve": "python3 -m http.server 8787 --directory public",
-    "start": "node extract.mjs && node build.mjs && python3 -m http.server 8787 --directory public",
-    "check": "node extract.mjs && node check.mjs"
+    "build": "node build.mjs && node build-pages.mjs",
+    "serve": "node build.mjs && node build-pages.mjs && python3 -m http.server 8787 --directory public",
+    "start": "node extract.mjs && node build.mjs && node build-pages.mjs && python3 -m http.server 8787 --directory public",
+    "check": "node extract.mjs && node check.mjs && node build.mjs && node build-pages.mjs"
   },
   "engines": { "node": ">=18" }
 }

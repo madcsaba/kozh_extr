@@ -16,6 +16,8 @@ on:
       - "extract.mjs"
       - "check.mjs"
       - "public/index.html"
+      - "build.mjs"
+      - "build-pages.mjs"
 
 permissions:
   contents: write
@@ -45,6 +47,10 @@ jobs:
 
       - name: Adatcsomag ellenőrzése
         run: node check.mjs
+
+      - name: Aloldalak próbaépítése
+        # Csak próbaépítés: a végleges kimenetet a deploy-pages.yml állítja elő.
+        run: node build.mjs && node build-pages.mjs
 
       - name: Közzététel, ha változott
         run: |

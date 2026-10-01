@@ -21,9 +21,11 @@ Ezért az adatot **szerveroldalon** nyerjük ki a bundle-ökből, és saját JSO
 
 ```bash
 node extract.mjs          # adatcsomag → public/data/recommendations.json
-npm run check             # kinyerés + adatcsomag-ellenőrzés
-npm run serve             # http://localhost:8787
-npm start                 # kinyerés, majs szerver
+node build.mjs            # kategória-aloldalak + sitemap/robots → public/
+node build-pages.mjs      # témaoldalak, hírcsatorna, naptár, sitemap → public/
+npm run check             # kinyerés + adatcsomag-ellenőrzés + próbaépítés
+npm run serve             # építés, majd http://localhost:8787
+npm start                 # kinyerés, építés, majd szerver
 ```
 
 Nincs függőség, csak Node 18+ (beépített `fetch`).
@@ -68,7 +70,34 @@ soha nem azt, hogy *mit*: a pontszámba nem számít bele, hogy egy téma melyik
 A **nap ajánlása** mindig a legmagasabb pontszámú téma; a mellette lévő két hely a top 6-ból
 dátumhoz kötött (de determinisztikus) véletlenszerű forgás, így napközben stabil, de minden nap más.
 
+## Aloldalak, hírcsatorna, naptár
+
+Két generátor készít oldalakat az adatcsomagból:
+
+**`build.mjs`** — a 7 kategória ajánló aloldala (`kategoria/<kulcs>/`), a `content/kiemelt.json`
+szerinti kiemelt felhívás, valamint `sitemap.xml` és `robots.txt`.
+
+**`build-pages.mjs`** — további megosztható kimenetek:
+
+| Kimenet | Tartalom |
+|---|---|
+| `tema/<id>/` | témánként saját oldal OpenGraph-kártyával (Facebookon, Messengeren előnézettel osztható), fejezetekkel, lépésekkel, Tudástér-anyagokkal és kapcsolódó témákkal |
+| `feed.xml` | Atom-hírcsatorna: új témák (`firstSeen`) és megnyílt fejezetek |
+| `naptar.ics` | feliratkozható naptár: témanyitások (`opensAt`) és fejezetnyitások (`unlocksAt`), Europe/Budapest időzónában |
+| `sitemap.xml` | a főoldal, a 7 kategória-aloldal és a témaoldalak – a `build-pages.mjs` írja felülre, ezért mindig az ő teljes sitemapje érvényes |
+
+A kimenetet nem verziókezeljük: a `deploy-pages.yml` minden kiadás előtt mindkettőt legenerálja.
+Az abszolút URL-ek a Pages címéből jönnek (`SITE_URL`). A naptárba csak valódi időpont kerül; a
+`daysLeft` a bundle-ba égetett szám, abból határidőt nem számolunk.
+
+A főoldal szűrői az URL-ben is megjelennek (`?hely=local&rend=score&q=tó`),
+így egy szűrt nézet is megosztható.
+
 ## Frissítés
+
+A `refresh.yml` a `GITHUB_TOKEN`-nel commitol, ami nem indít push-eseményt, ezért a
+`deploy-pages.yml` a frissítő sikeres lefutása után (`workflow_run`) is élesít — így a napi
+adatfrissítés után az oldal is frissül.
 
 Az adat a kozhang.hu build-jéhez kötött (`version.json`), ezért az `extract.mjs` minden futásnál
 újraolvassa a bundle-öket, és a `sourceBuild` mezőben jelzi, melyik buildből származik. Ha a
@@ -88,6 +117,9 @@ kérte a eltávolítását, tedd meg — és érdemes előbb egyeztetni: `info@k
 
 ```
 extract.mjs              adatnyerés a bundle-ökből
-public/index.html        az oldal (egyetlen fájl, inline CSS/JS)
+build.mjs                kategória-aloldalak + kiemelt felhívás + sitemap.xml/robots.txt
+build-pages.mjs          témaoldalak, feed.xml, naptar.ics, sitemap.xml
+public/index.html        a főoldal (inline JS)
+public/assets/site.css   a megosztott stílus (főoldal + az aloldalak)
 public/data/recommendations.json   generált adatcsomag
 ```

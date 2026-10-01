@@ -2,7 +2,10 @@ node_modules/
 .DS_Store
 *.log
 
-# build.mjs generáltjai (CI-ben készülnek)
+# build.mjs + build-pages.mjs generáltjai (CI-ben készülnek)
 public/kategoria/
+public/tema/
+public/feed.xml
+public/naptar.ics
 public/sitemap.xml
 public/robots.txt

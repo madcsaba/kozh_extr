@@ -167,7 +167,7 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
 .c-title span{font-size:14px;color:var(--muted)}
 .c-place{width:140px;font-size:15px}
 .c-people{width:140px;font-size:15px}
-.c-act{width:130px;display:flex;justify-content:flex-end}
+.c-act{width:130px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;justify-content:center}
 @media(max-width:760px){
   .t-head{display:none}
   .t-row{padding:14px 16px}
