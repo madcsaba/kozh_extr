@@ -42,19 +42,31 @@ Nincs függőség, csak Node 18+ (beépített `fetch`).
 ## Az ajánlási pontszám
 
 ```
-score = 0.34·popularitás + 0.30·frissesség + 0.16·sürgősség
-      + 0.12·saját érdeklődés + 0.08·tartalmi mélység
+score = 0.20·népszerűség + 0.24·frissesség + 0.14·sürgősség
+      + 0.14·a te érdeklődésed + 0.10·a te vármegyéd + 0.06·kevés hang
+      + 0.06·korábban megnézted + 0.06·tartalmi mélység
 ```
 
-- **popularitás** — `log10(résztvevők+1) / log10(40000)`, hogy a 32 457 és a 0 közötti
+- **népszerűség** — `log10(résztvevők+1) / log10(40000)`, hogy a 32 457 és a 0 közötti
   nagy különbség ne nyomja el a többit
 - **frissesség** — nyitott téma + hátralévő napok; a rövid határidő sürget
 - **sürgősség** — kevés hátralévő nap → magasabb
-- **saját érdeklődés** — a bejelölt kategóriáid és a kattintásaid, a böngésződ `localStorage`-jában (nem hagyja el a gépet)
-- **tartalmi mélység** — fejezetek/kérdések/cikkek száma
+- **a te érdeklődésed** — a „Mi érdekel?” részben bejelölt kategóriák egyezése az egyeztetés
+  kategóriájával
+- **a te vármegyéd** — helyi egyeztetés a választott vármegyében (a kiválasztott vármegyében
+  megjelenő téma listája a nyitó blokkban is látszik)
+- **kevés hang** — nyitott téma kevesebb mint 1000 résztvevővel; ellensúlyozza a népszerűséget,
+  hogy a helyi témák ne essenek ki
+- **korábban megnézted** — a böngésződ `localStorage`-jába tárolt kattintásaid
+- **tartalmi mélység** — kérdések és háttércikkek száma
 
-A **Napi ajánlás** a top 6-ból dátumhoz kötött (de determinisztikus) véletlenszerű 3-at választ,
-így napközben stabil, de minden nap más.
+A kategóriák, a vármegye és a kattintások csak a böngészőben tárolódnak, nem hagyják el a gépet.
+Minden ajánlásnál a **„Miért ajánljuk?”** sor a 3 legerősebb okot mutatja; a sorra mutatva látszik
+a teljes pontszám-bontás. Az ajánló azt segít eldönteni, *miről* érdemes véleményt mondanod –
+soha nem azt, hogy *mit*: a pontszámba nem számít bele, hogy egy téma melyik álláspont felé hajlik.
+
+A **nap ajánlása** mindig a legmagasabb pontszámú téma; a mellette lévő két hely a top 6-ból
+dátumhoz kötött (de determinisztikus) véletlenszerű forgás, így napközben stabil, de minden nap más.
 
 ## Frissítés
 

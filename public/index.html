@@ -45,6 +45,12 @@
         <legend>Mi érdekel? <span>– több is választható, csak a böngésződ jegyzi meg</span></legend>
         <div class="chips" id="interests"></div>
         <p class="match" id="matchline" aria-live="polite"></p>
+        <div class="prof-row">
+          <label class="county" for="region">Vármegyéd
+            <select id="region"><option value="">Nem adom meg</option></select>
+          </label>
+        </div>
+        <div class="near" id="near" aria-live="polite"></div>
       </fieldset>
     </div>
     <article class="feature" id="feature" aria-labelledby="feature-title"></article>
@@ -79,6 +85,7 @@
       <button type="button" data-sort="due" aria-pressed="true">Határidő</button>
       <button type="button" data-sort="score" aria-pressed="false">Ajánlott</button>
       <button type="button" data-sort="participants" aria-pressed="false">Népszerű</button>
+      <button type="button" data-sort="quiet" aria-pressed="false">Kevés hang</button>
     </div>
   </div>
   <div class="open-list" id="openlist"></div>
@@ -146,15 +153,18 @@
       <a href="https://github.com/madcsaba/kozhang_ajanlo" target="_blank" rel="noopener"><b>A teljes képlet és a forráskód</b></a>
     </div>
     <div>
-      <div class="weights" role="img" aria-label="Súlyok: népszerűség 34, frissesség 30, sürgősség 16, saját érdeklődés 12, tartalmi mélység 8 százalék">
-        <i style="width:34%"></i><i style="width:30%"></i><i style="width:16%"></i><i style="width:12%"></i><i style="width:8%"></i>
+      <div class="weights" role="img" aria-label="Súlyok: frissesség 24, népszerűség 20, sürgősség 14, az érdeklődésed 14, a vármegyéd 10, kevés hang 6, korábban megnézted 6, tartalmi mélység 6 százalék">
+        <i style="width:24%"></i><i style="width:20%"></i><i style="width:14%"></i><i style="width:14%"></i><i style="width:10%"></i><i style="width:6%"></i><i style="width:6%"></i><i style="width:6%"></i>
       </div>
       <div class="w-legend">
-        <div><b>34%</b><strong>Népszerűség</strong><span>résztvevők száma, logaritmikusan</span></div>
-        <div><b>30%</b><strong>Frissesség</strong><span>nyitott-e most</span></div>
-        <div><b>16%</b><strong>Sürgősség</strong><span>hány nap van hátra</span></div>
-        <div><b>12%</b><strong>Érdeklődésed</strong><span>amit bejelöltél, amire kattintottál</span></div>
-        <div><b>8%</b><strong>Mélység</strong><span>fejezetek, kérdések, cikkek</span></div>
+        <div><b>24%</b><strong>Frissesség</strong><span>nyitott-e most</span></div>
+        <div><b>20%</b><strong>Népszerűség</strong><span>résztvevők száma, logaritmikusan</span></div>
+        <div><b>14%</b><strong>Sürgősség</strong><span>hány nap van hátra</span></div>
+        <div><b>14%</b><strong>Érdeklődésed</strong><span>amit bejelöltél, amire kattintottál</span></div>
+        <div><b>10%</b><strong>Vármegyéd</strong><span>helyi egyeztetés a környékeden</span></div>
+        <div><b>6%</b><strong>Kevés hang</strong><span>kis résztvevőszámú nyitott téma</span></div>
+        <div><b>6%</b><strong>Megnézted</strong><span>korábbi kattintásaid</span></div>
+        <div><b>6%</b><strong>Mélység</strong><span>fejezetek, kérdések, cikkek</span></div>
       </div>
     </div>
   </div>
@@ -196,6 +206,14 @@ const TAXO = {
   culture:"Kultúra", society:"Társadalom"
 };
 const KIND = { video:"Videó", infographic:"Infografika", question:"Kérdés", cinema:"Videó", tip:"Tipp", likert:"Skála", rating:"Értékelés" };
+const COUNTIES = [
+  "Budapest","Bács-Kiskun","Baranya","Békés","Borsod-Abaúj-Zemplén","Csongrád-Csanád",
+  "Fejér","Győr-Moson-Sopron","Hajdú-Bihar","Heves","Jász-Nagykun-Szolnok",
+  "Komárom-Esztergom","Nógrád","Pest","Somogy","Szabolcs-Szatmár-Bereg","Tolna",
+  "Vas","Veszprém","Zala"
+];
+// Nyitott téma ennél kevesebb résztvevővel: „kevés hangot kapott”
+const QUIET = 1000;
 const ARROW = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>`;
 const EXT = `target="_blank" rel="noopener"`;
 
@@ -209,6 +227,7 @@ const store = (key, fallback) => ({
 });
 const CLICKS = store("kh-clicks-v1", {});
 const INTERESTS = store("kh-interests-v1", []);
+const COUNTY = store("kh-county-v1", "");
 const track = id => { const c = CLICKS.get(); c[id] = (c[id]||0)+1; CLICKS.set(c); };
 
 const fmt = n => n==null ? "—" : new Intl.NumberFormat("hu-HU").format(n);
@@ -217,6 +236,8 @@ const hu = v => typeof v === "string" ? v : (v?.hu || v?.en || "");
 const dayKey = () => new Date().toISOString().slice(0,10);
 const place = d => d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
 const isMatch = d => INTERESTS.get().includes(d.category);
+const isQuiet = d => d.status==="open" && (d.participants||0) < QUIET;
+const isInCounty = d => { const r = COUNTY.get(); return !!(r && d.locality?.region === r); };
 const $ = id => document.getElementById(id);
 
 // dátum-alapú, determinisztikus seed → minden nap más sorrend, de napközben stabil
@@ -224,21 +245,60 @@ function seedFrom(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.
 function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
 /**
- * Ajánlási pontszám:
- *  - popularitás: logaritmikus résztvevő-szám (a 32 457 és a 0 közötti nagy különbség kiegyenlítése)
- *  - frissesség: nyitott téma + hátralévő napok (a rövidebb határidő sürget)
- *  - sürgősség: kevés hátralévő nap → magasabb
- *  - saját érdeklődés: a bejelölt kategóriáid és a korábbi kattintásaid
- *  - tartalmi mélység: fejezetek/kérdések száma (a nyitott, ép témákat preferálja)
+ * Ajánlási pontszám (0–1), összetevőnként:
+ *  - pop      népszerűség: logaritmikus résztvevőszám (a 32 457 és a 0 közti különbség kiegyenlítése)
+ *  - fresh    frissesség: nyitott téma + hátralévő napok
+ *  - urg      sürgősség: kevés hátralévő nap → magasabb
+ *  - interest a te érdeklődésed: a bejelölt kategóriáid egyezése
+ *  - place    a te vármegyéd: helyi egyeztetés a vármegyédben
+ *  - quiet    kevés hangot kapott: nyitott téma kevés résztvevővel (ellensúlyozza a népszerűséget)
+ *  - mine     korábban megnézted: a te kattintásaid
+ *  - depth    tartalmi mélység: kérdések és háttéranyagok
+ * Soha nem számít bele, hogy egy téma melyik álláspont felé hajlik.
  */
-function score(d, clicks = CLICKS.get()){
-  const pop  = Math.log10((d.participants||0)+1) / Math.log10(40000);
+const W = { pop:.20, fresh:.24, urg:.14, interest:.14, place:.10, quiet:.06, mine:.06, depth:.06 };
+const W_LABEL = { pop:"népszerűség", fresh:"frissesség", urg:"sürgősség", interest:"a te érdeklődésed",
+  place:"a te vármegyéd", quiet:"kevés hang", mine:"korábban megnézted", depth:"tartalmi mélység" };
+
+function scoreParts(d, clicks = CLICKS.get()){
   const days = d.daysLeft==null ? 20 : d.daysLeft;
-  const fresh = d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30;
-  const urg  = 1 - Math.min(days,40)/40;
-  const mine = Math.max(Math.min((clicks[d.id]||0)/5, 1), isMatch(d) ? 1 : 0);
-  const depth= Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0);
-  return 0.34*pop + 0.30*fresh + 0.16*urg + 0.12*mine + 0.08*depth;
+  const raw = {
+    pop:   Math.log10((d.participants||0)+1) / Math.log10(40000),
+    fresh: d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30,
+    urg:   1 - Math.min(days,40)/40,
+    interest: isMatch(d) ? 1 : 0,
+    place: isInCounty(d) ? 1 : 0,
+    quiet: isQuiet(d) ? 1 : 0,
+    mine:  Math.min((clicks[d.id]||0)/5, 1),
+    depth: Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0),
+  };
+  const parts = {};
+  let total = 0;
+  for (const k in W){ parts[k] = W[k]*Math.min(Math.max(raw[k],0),1); total += parts[k]; }
+  return { total, parts, raw };
+}
+function score(d, clicks = CLICKS.get()){ return scoreParts(d, clicks).total; }
+
+/** A 3 legerősebb ok szövegesen – a személyes egyezés mindig elöl. */
+function reasons(d, sp){
+  const r = [];
+  if (sp.raw.place) r.push([2, `a te vármegyédben (${COUNTY.get()})`]);
+  if (sp.raw.interest) r.push([1.5, `a te érdeklődésed: ${CAT[d.category]||d.category}`]);
+  if (d.status==="open") r.push([sp.parts.fresh+sp.parts.urg, d.daysLeft!=null ? `nyitott, ${d.daysLeft} nap van hátra` : "most nyitott"]);
+  else r.push([sp.parts.fresh, "hamarosan nyílik"]);
+  if (sp.raw.quiet) r.push([1, "kevés hangot kapott eddig"]);
+  else if (d.participants) r.push([sp.parts.pop, `${fmt(d.participants)} ${d.status==="open"?"résztvevő":"érdeklődő"}`]);
+  if (sp.raw.mine) r.push([sp.parts.mine, "korábban megnézted"]);
+  const depth = [d.stepCount && `${d.stepCount} kérdés`, d.knowledgeCount && `${d.knowledgeCount} háttércikk`].filter(Boolean);
+  if (depth.length) r.push([sp.parts.depth, depth.join(" + ")]);
+  return r.sort((a,b) => b[0]-a[0]).slice(0,3).map(x => x[1]);
+}
+
+function whyLine(d, sp = scoreParts(d)){
+  const breakdown = Object.keys(W).filter(k => sp.parts[k] > 0.0005)
+    .map(k => `${W_LABEL[k]} ${sp.parts[k].toFixed(2)}`).join(" + ");
+  return `<div class="why-line" title="Pontszám ${sp.total.toFixed(2)} = ${esc(breakdown)}">` +
+    `<b>Miért ajánljuk?</b> ${esc(reasons(d, sp).join(" · "))}</div>`;
 }
 
 // fejezetek állapota: elérhető (van lépése és már nyílt), aktuális (az utolsó elérhető), következő
@@ -270,6 +330,27 @@ function renderInterests(){
   $("matchline").textContent = picked.length
     ? `${n} egyeztetés illik az érdeklődésedhez – kiemelve jelöljük, és előrébb kerülnek az ajánlásban.`
     : "Nincs kiválasztva semmi – minden téma azonos súllyal szerepel.";
+}
+
+function renderNear(){
+  const el = $("near");
+  const region = COUNTY.get();
+  if (!region){ el.innerHTML = ""; return; }
+  const local = DATA.discussions.filter(d => d.locality?.region===region)
+    .sort((a,b) => (a.status==="open"?0:1)-(b.status==="open"?0:1) || (a.daysLeft??99)-(b.daysLeft??99));
+  if (!local.length){
+    el.innerHTML = `<p class="privacy">${esc(region)}: most nincs helyi egyeztetés. ` +
+      `Az országos témák neked is szólnak – a rangsorban a neked ajánlottak előrébb kerülnek.</p>`;
+    return;
+  }
+  el.innerHTML = `<div class="why-line"><b>A vármegyédben (${esc(region)})</b></div>` + local.map(d => {
+    const when = d.status==="open"
+      ? `nyitott${d.daysLeft!=null ? ` · ${d.daysLeft} nap van hátra` : ""}${isQuiet(d) ? " · kevés hangot kapott" : ""}`
+      : "hamarosan nyílik";
+    const p = d.locality.label?.hu || d.locality.town || "";
+    return `<a class="item" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">` +
+      `${esc(hu(d.title))}<span>${esc(p)} · ${when}</span></a>`;
+  }).join("");
 }
 
 function renderFeature(){
@@ -306,6 +387,7 @@ function renderFeature(){
     </div>
     <div class="feature-nums">${nums.map(([n,l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("")}</div>
     ${chapterTxt || nextTxt ? `<div class="feature-chapter">${chapterTxt}${nextTxt}</div>` : ""}
+    ${whyLine(top)}
     <div class="acts">
       <a class="btn light" href="${esc(top.url)}" ${EXT} data-track="${esc(top.id)}">${open ? "Részt veszek a kozhang.hu-n" : "Megnézem a kozhang.hu-n"} ${ARROW}</a>
       ${top.questions.length ? `<button type="button" class="btn outline-dark" data-q="${esc(top.id)}">Mi vár rám? (${top.questions.length} lépés)</button>` : ""}
@@ -341,6 +423,7 @@ function filtered(status){
     due: (a,b) => (a.daysLeft??99)-(b.daysLeft??99),
     score: (a,b) => score(b,clicks)-score(a,clicks),
     participants: (a,b) => (b.participants||0)-(a.participants||0),
+    quiet: (a,b) => (a.participants||0)-(b.participants||0),
   };
   return list.sort(by[state.sort] || by.due);
 }
@@ -353,13 +436,17 @@ function openRow(d){
   if (d.totalMinutes) facts.push(`kb. ${d.totalMinutes} perc`);
   if (d.knowledgeCount) facts.push(`${d.knowledgeCount} háttércikk`);
   const rate = d.completionRate || 0;
+  const flags = [];
+  if (isInCounty(d)) flags.push(`<span class="flag home">★ A vármegyédben</span>`);
+  if (isQuiet(d)) flags.push(`<span class="flag" title="Nyitott téma, kevesebb mint ${fmt(QUIET)} résztvevővel">Kevés hangot kapott</span>`);
   return `<article class="panel open-row${match ? " is-match" : ""}">
     <div class="days"><b>${d.daysLeft ?? "—"}</b><span>nap van hátra</span></div>
     <div class="open-body">
-      <span class="kicker">${esc(CAT[d.category]||d.category)} · ${esc(place(d))}${match ? `<span class="tag-match">Érdekel</span>` : ""}</span>
+      <span class="kicker">${esc(CAT[d.category]||d.category)} · ${esc(place(d))}${match ? `<span class="tag-match">Érdekel</span>` : ""}${flags.join("")}</span>
       <h3><a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">${esc(hu(d.title))}</a></h3>
       <p>${esc(hu(d.description))}</p>
       ${facts.length ? `<span class="facts">${facts.join(" · ")}</span>` : ""}
+      ${whyLine(d)}
     </div>
     <div class="side">
       <span>${d.participants ? `<b>${fmt(d.participants)}</b> résztvevő` : `<b>Most indult</b> – légy az elsők között`}</span>
@@ -372,13 +459,15 @@ function openRow(d){
 
 function soonRow(d){
   const match = isMatch(d);
+  const sp = scoreParts(d);
+  const why = esc(`Miért ajánljuk? ${reasons(d, sp).join(" · ")}`);
   return `<div class="t-row${match ? " is-match" : ""}">
     <span class="c-when">${d.daysLeft!=null ? `<b>${d.daysLeft} nap</b><span>múlva nyílik</span>` : `<b>Hamarosan</b>`}</span>
     <span class="c-title">
-      <a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">${esc(hu(d.title))}</a>
+      <a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}" title="${why}">${esc(hu(d.title))}</a>
       <span>${esc(CAT[d.category]||d.category)} · ${esc(hu(d.description))}</span>
     </span>
-    <span class="c-place">${esc(place(d))}</span>
+    <span class="c-place">${esc(place(d))}${sp.raw.place ? `<span class="flag home" title="A te vármegyédben">★</span>` : ""}</span>
     <span class="c-people">${d.participants ? `${fmt(d.participants)} érdeklődő` : "Új téma"}</span>
     <span class="c-act"><a class="btn small" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnézem</a></span>
   </div>`;
@@ -387,7 +476,7 @@ function soonRow(d){
 function renderLists(){
   const open = filtered("open"), soon = filtered("soon");
   const total = (s) => DATA.discussions.filter(d => d.status===s).length;
-  const sortTxt = { due:"határidő szerint", score:"ajánlott sorrendben", participants:"népszerűség szerint" }[state.sort];
+  const sortTxt = { due:"határidő szerint", score:"ajánlott sorrendben", participants:"népszerűség szerint", quiet:"kevés hangot kapott téma elöl" }[state.sort];
   $("openhint").textContent = `${open.length} / ${total("open")} egyeztetés · ${sortTxt}`;
   $("soonhint").textContent = `${soon.length} / ${total("soon")} egyeztetés · a megnyitás előtt is megnézheted őket`;
   $("openlist").innerHTML = open.length ? open.map(openRow).join("") : `<div class="panel empty">Nincs a szűrőknek megfelelő nyitott egyeztetés.</div>`;
@@ -491,6 +580,13 @@ function renderKnowledge(){
 
 function bind(){
   $("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderLists(); });
+
+  const region = $("region");
+  region.innerHTML = `<option value="">Nem adom meg</option>` +
+    COUNTIES.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  region.value = COUNTY.get();
+  region.addEventListener("change", e => { COUNTY.set(e.target.value); renderNear(); renderFeature(); renderLists(); });
+  renderNear();
 
   document.body.addEventListener("click", e => {
     const t = e.target;

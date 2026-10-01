@@ -249,6 +249,7 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
 .weights{display:flex;height:44px;border-radius:10px;overflow:hidden;gap:3px;margin-bottom:16px}
 .weights i:nth-child(1){background:#1D3FCF}.weights i:nth-child(2){background:#5C78E6}
 .weights i:nth-child(3){background:#A84A00}.weights i:nth-child(4){background:#E69A52}.weights i:nth-child(5){background:#8A93A1}
+.weights i:nth-child(6){background:#C67B3C}.weights i:nth-child(7){background:#3E7D63}.weights i:nth-child(8){background:#7E8794}
 .w-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;font-size:14px}
 .w-legend div{display:flex;flex-direction:column;gap:2px}
 .w-legend b{font-size:20px}
@@ -266,3 +267,34 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
   .site-nav{flex-wrap:nowrap;overflow-x:auto;width:calc(100% + 16px);margin:0 -8px;scrollbar-width:none}
   .site-nav a{white-space:nowrap;padding:10px 8px}
 }
+
+/* — személyes választások: vármegye + „A vármegyédben” — */
+.prof-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.county{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted)}
+.county select{
+  min-height:38px;padding:0 10px;border:1px solid var(--line);border-radius:8px;
+  background:var(--surface);color:var(--text);font:inherit;font-size:14px;cursor:pointer
+}
+.county select:hover{border-color:var(--text)}
+.near{margin-top:14px;display:grid;gap:8px}
+.near .why-line{margin-top:0}
+.near a.item{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;padding:10px 13px;color:var(--text);font-size:14.5px
+}
+.near a.item:hover{border-color:var(--accent-line);color:var(--text);text-decoration:none}
+.near a.item span{color:var(--muted);font-size:13px}
+.privacy{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+
+/* — „Miért ajánljuk?” sor + zászlók — */
+.why-line{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:8px}
+.why-line b{color:var(--text);font-weight:700}
+.feature .why-line{margin-top:-6px;color:var(--ink-muted)}
+.feature .why-line b{color:#fff}
+.flag{
+  display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 8px;
+  border-radius:6px;background:var(--due-soft);border:1px solid #F2D3AC;color:var(--due-ink);
+  margin-left:8px;vertical-align:1px
+}
+.flag.home{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.c-place .flag{margin-left:6px}
