@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Közhang témaajánló – miben vegyél részt?</title>
+<meta name="description" content="Statisztikák alapján ajánlott kozhang.hu egyeztetések, kérdések és Tudástér-cikkek. Kattints, és szólj hozzá te is.">
+<link rel="icon" href="https://kozhang.hu/favicon.svg">
+<style>
+:root{
+  --bg:#0b1014; --panel:#121a20; --panel2:#16212a; --line:#223140;
+  --text:#e8f0f4; --muted:#93a6b3; --accent:#37d19a; --accent2:#5ea8ff;
+  --soon:#f2b73f; --open:#37d19a; --radius:14px;
+  --c-public-media:#ff8f5e; --c-culture:#c78bff; --c-transport:#5ea8ff;
+  --c-digital:#37d19a; --c-economy:#f2d34f; --c-municipality:#ff7ea6;
+  --c-climate:#5fd0c5; --c-default:#93a6b3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:radial-gradient(1200px 600px at 70% -10%,#16303a 0%,transparent 60%),var(--bg);
+  color:var(--text);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+header.top{padding:44px 0 26px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);border:1px solid #1f4a3c;background:#0e211c;
+  padding:5px 12px;border-radius:999px
+}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.1;margin:16px 0 10px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:17px;max-width:70ch;margin:0}
+.srcnote{margin-top:14px;font-size:13.5px;color:var(--muted)}
+.srcnote b{color:#c3d3dd;font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px}
+.stat .n{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:13px;color:var(--muted);margin-top:6px}
+
+section{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+h2{font-size:22px;margin:0;letter-spacing:-.01em}
+.sec-head .hint{font-size:13.5px;color:var(--muted)}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+input[type=search],select{
+  background:var(--panel);border:1px solid var(--line);color:var(--text);
+  padding:9px 13px;border-radius:10px;font-size:14.5px;outline:none
+}
+input[type=search]{min-width:240px;flex:1 1 240px}
+input[type=search]:focus,select:focus{border-color:#2f6f5b}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  background:var(--panel);border:1px solid var(--line);color:var(--muted);
+  padding:7px 13px;border-radius:999px;font-size:13.5px;cursor:pointer;transition:.15s
+}
+.chip:hover{border-color:#3a4d5f;color:var(--text)}
+.chip.on{background:#0f2a24;border-color:#2f6f5b;color:var(--accent)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;transition:.18s;position:relative
+}
+.card:hover{border-color:#345066;transform:translateY(-3px);box-shadow:0 14px 34px -20px #000}
+.thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1b2b36,#12202a);overflow:hidden}
+.thumb img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.card:hover .thumb img{transform:scale(1.04)}
+.thumb .fallback{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:34px;font-weight:700;color:#ffffff55;letter-spacing:-.03em
+}
+.badge{
+  position:absolute;top:11px;left:11px;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 9px;border-radius:7px;backdrop-filter:blur(6px);
+  background:#0b1014cc;border:1px solid #ffffff22
+}
+.badge.open{color:var(--open);border-color:#37d19a55}
+.badge.soon{color:var(--soon);border-color:#f2b73f55}
+.cat{
+  position:absolute;top:11px;right:11px;font-size:11.5px;font-weight:600;padding:4px 9px;
+  border-radius:7px;background:#0b1014cc;border:1px solid #ffffff22;color:var(--cc,var(--muted))
+}
+.body{padding:16px 17px 17px;display:flex;flex-direction:column;gap:10px;flex:1}
+.body h3{margin:0;font-size:18px;line-height:1.3;letter-spacing:-.01em}
+.body h3 a{color:var(--text)}
+.desc{margin:0;font-size:14.5px;color:#b9c9d4}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:auto}
+.meta span{display:inline-flex;align-items:center;gap:5px}
+.meta b{color:#d6e3ea;font-weight:600}
+.meter{height:5px;border-radius:99px;background:#0b1014;overflow:hidden;border:1px solid #ffffff12}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#2fb3ff)}
+.acts{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;
+  padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);
+  color:var(--text);cursor:pointer;transition:.15s;text-decoration:none
+}
+.btn:hover{border-color:#3d5a70;text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#04120d}
+.btn.primary:hover{background:#47e0aa}
+.btn.ghost{background:transparent}
+
+/* daily picks */
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pick{
+  border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:
+    linear-gradient(180deg,var(--panel2),var(--panel));position:relative;overflow:hidden
+}
+.pick::after{
+  content:"";position:absolute;inset:auto -40px -60px auto;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle,var(--pc,#37d19a)33,transparent 70%);opacity:.5
+}
+.pick .tag{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--pc,var(--accent))}
+.pick h4{margin:9px 0 7px;font-size:17.5px;line-height:1.3;position:relative;z-index:1}
+.pick p{margin:0;font-size:14px;color:#b1c2ce;position:relative;z-index:1}
+.pick .why{margin-top:11px;font-size:12.5px;color:var(--muted);position:relative;z-index:1}
+.pick .acts{position:relative;z-index:1}
+
+/* knowledge list */
+.klist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.kitem{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px;
+  display:flex;flex-direction:column;gap:7px;transition:.15s
+}
+.kitem:hover{border-color:#345066}
+.kitem .d{font-size:12px;color:var(--accent);letter-spacing:.05em}
+.kitem h4{margin:0;font-size:15.5px;line-height:1.35}
+.kitem h4 a{color:var(--text)}
+.kitem p{margin:0;font-size:13.5px;color:var(--muted)}
+.kitem .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tag-s{font-size:11.5px;padding:3px 8px;border-radius:6px;background:#0b1014;border:1px solid var(--line);color:var(--muted)}
+
+/* questions */
+.qpanel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:18px;margin-top:16px}
+.qpanel h4{margin:0 0 4px;font-size:15.5px}
+.qpanel .qs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-top:13px}
+.q{
+  display:flex;gap:9px;align-items:flex-start;font-size:13.5px;background:var(--panel2);
+  border:1px solid var(--line);border-radius:9px;padding:9px 11px
+}
+.q .i{
+  flex:0 0 20px;height:20px;border-radius:50%;background:#0e2a24;color:var(--accent);
+  font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px
+}
+.q .t{color:#cddae3}
+.q .ch{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+
+/* taxonomy */
+.taxo{display:flex;flex-wrap:wrap;gap:8px}
+.taxo button{
+  background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;
+  padding:7px 14px;font-size:13.5px;cursor:pointer;transition:.15s
+}
+.taxo button:hover{border-color:#3a4d5f;color:var(--text)}
+.taxo button.on{background:#0f2a24;border-color:#2f6f5b;color:var(--accent)}
+.subs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.subs span{font-size:12.5px;color:var(--muted);background:#0e161c;border:1px solid var(--line);padding:5px 10px;border-radius:7px}
+
+.empty{
+  border:1px dashed var(--line);border-radius:var(--radius);padding:34px;text-align:center;
+  color:var(--muted);font-size:15px
+}
+footer{
+  margin-top:60px;border-top:1px solid var(--line);padding:26px 0 46px;
+  font-size:13.5px;color:var(--muted)
+}
+footer p{margin:0 0 9px;max-width:90ch}
+.rank{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mini{
+  display:inline-flex;gap:6px;align-items:center;font-size:12.5px;color:var(--muted);
+  background:#0e161c;border:1px solid var(--line);padding:5px 10px;border-radius:7px
+}
+@media(max-width:640px){
+  .grid,.klist{grid-template-columns:1fr}
+  header.top{padding-top:30px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="eyebrow">● automatizált témaajánló</span>
+  <h1>Miben érdemes részt venned a <span style="color:var(--accent)">kozhang.hu</span>-n?</h1>
+  <p class="sub">
+    Statisztikák alapján rendezett, folyamatosan frissített ajánló a Közhang nyilvános egyeztetéseiről,
+    kérdéseiről és Tudástér-cikkeiről. Minden kártya a forráshoz visz – egy kattintás, és szólhatsz.
+  </p>
+  <p class="srcnote" id="srcnote">Adatbetöltés…</p>
+</header>
+
+<div class="stats" id="stats"></div>
+
+<section id="daily">
+  <div class="sec-head">
+    <h2>Napi ajánlás</h2>
+    <span class="hint" id="dailyhint">Naponta forgó, statisztikai alapú top 3</span>
+  </div>
+  <div class="picks" id="picks"></div>
+</section>
+
+<section id="topics">
+  <div class="sec-head">
+    <h2>Minden egyeztetés</h2>
+    <span class="hint" id="resulthint"></span>
+  </div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Keresés cím vagy leírás szerint…" autocomplete="off">
+    <select id="sort">
+      <option value="score">Ajánlott sorrend</option>
+      <option value="participants">Legtöbb résztvevő</option>
+      <option value="fresh">Legfrissebb</option>
+      <option value="urgent">Legsürgősebb (napok)</option>
+      <option value="name">Név szerint</option>
+    </select>
+  </div>
+
+  <div class="controls" style="margin-top:-4px">
+    <div class="chips" id="statuschips">
+      <button class="chip on" data-s="all">Összes</button>
+      <button class="chip" data-s="open">Nyitott</button>
+      <button class="chip" data-s="soon">Hamarosan</button>
+    </div>
+    <div class="chips" id="catchips">
+      <button class="chip on" data-c="all">Minden kategória</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">Nincs a szűrőknek megfelelő téma.</div>
+
+  <div class="qpanel" id="qpanel" style="display:none"></div>
+</section>
+
+<section id="knowledge">
+  <div class="sec-head">
+    <h2>Tudástér – háttéranyagok</h2>
+    <span class="hint" id="khint"></span>
+  </div>
+  <div class="klist" id="klist"></div>
+</section>
+
+<section id="taxonomy">
+  <div class="sec-head">
+    <h2>Témaválasztó – 12 fő téma, 120 altéma</h2>
+    <span class="hint">A Közhang témaszavazásának teljes palettája</span>
+  </div>
+  <div class="taxo" id="taxo"></div>
+  <div class="subs" id="subs"></div>
+</section>
+
+<footer>
+  <p>
+    <b>Forrás:</b> kozhang.hu – adatnyerés a nyilvános JavaScript bundle-ökből, mert a
+    Közhang felületén nincs nyilvános tartalom-API és a böngészőoldali lekérdezést a CORS tiltja.
+    Az oldal nem hivatalos, nem a Közhang terméke.
+  </p>
+  <p id="footmeta"></p>
+  <p>
+    A tartalom és a témaadatok a <a href="https://kozhang.hu" target="_blank" rel="noopener">Közhang Nonprofit Kft.</a>
+    tulajdona. Kérdés: <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>. Közvetlen részvétel:
+    <a href="https://kozhang.hu/egyeztetesek" target="_blank" rel="noopener">kozhang.hu/egyeztetesek</a>.
+  </p>
+</footer>
+
+</div>
+
+<script>
+const CAT = {
+  "public-media":"Közmédia", culture:"Kultúra", transport:"Közlekedés",
+  digital:"Digitális", economy:"Gazdaság", municipality:"Önkormányzat",
+  climate:"Klíma és környezet", environment:"Környezet", health:"Egészség",
+  education:"Oktatás", family:"Család", living:"Lakhatás", safety:"Közbiztonság",
+  society:"Társadalom"
+};
+const TAXO = {
+  education:"Oktatás", health:"Egészség", family:"Család", living:"Lakhatás",
+  economy:"Gazdaság", digital:"Digitális", transport:"Közlekedés",
+  environment:"Környezet", municipality:"Önkormányzat", safety:"Közbiztonság",
+  culture:"Kultúra", society:"Társadalom"
+};
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2b36"/><stop offset="1" stop-color="#12202a"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/></svg>`
+);
+
+let DATA = null;
+const state = { q:"", status:"all", cat:"all", sort:"score", taxo:null };
+
+// saját kattintás-analitika (localStorage) – a "dinamikus" viselkedés alapja
+const CLICKS = {
+  key: "kh-clicks-v1",
+  all(){ try{ return JSON.parse(localStorage.getItem(this.key)) || {}; }catch{ return {}; } },
+  add(id){ const c=this.all(); c[id]=(c[id]||0)+1; try{ localStorage.setItem(this.key, JSON.stringify(c)); }catch{} },
+  reset(){ try{ localStorage.removeItem(this.key); }catch{} }
+};
+
+const fmt = n => n==null ? "—" : new Intl.NumberFormat("hu-HU").format(n);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dayKey = () => new Date().toISOString().slice(0,10);
+
+// dátum-alapú, determinisztikus seed → minden nap más sorrend, de napközben stabil
+function seedFrom(str){ let h=2166136261; for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+
+/**
+ * Ajánlási pontszám:
+ *  - popularitás: logaritmikus résztvevő-szám (a 32 457 és a 0 közötti nagy különbség kiegyenlítése)
+ *  - frissesség: nyitott téma + hátralévő napok (a rövidebb határidő sürget)
+ *  - sürgősség: kevés hátralévő nap → magasabb
+ *  - saját érdeklődés: a te korábbi kattintásaid
+ *  - tartalmi mélység: fejezetek/kérdések száma (a nyitott, ép témákat preferálja)
+ */
+function score(d, clicks){
+  const pop  = Math.log10((d.participants||0)+1) / Math.log10(40000);
+  const days = d.daysLeft==null ? 20 : d.daysLeft;
+  const fresh = d.status==="open" ? 0.55 + 0.45*(1 - Math.min(days,40)/40) : 0.30;
+  const urg  = 1 - Math.min(days,40)/40;
+  const mine = Math.min((clicks[d.id]||0)/5, 1);
+  const depth= Math.min((d.stepCount||0)/30, 1)*0.5 + (d.knowledgeCount?0.15:0);
+  return 0.34*pop + 0.30*fresh + 0.16*urg + 0.12*mine + 0.08*depth;
+}
+
+function renderStats(){
+  const c = DATA.counts;
+  const rows = [
+    [c.discussions, "egyeztetés összesen"],
+    [c.open, "most nyitott"],
+    [c.soon, "hamarosan nyílik"],
+    [c.questions, "kérdés a nyitott témákban"],
+    [c.knowledge, "Tudástér-cikk"],
+    [c.taxonomySubtopics, "altéma a szavazáson"],
+  ];
+  document.getElementById("stats").innerHTML = rows.map(([n,l])=>
+    `<div class="stat"><div class="n">${fmt(n)}</div><div class="l">${l}</div></div>`).join("");
+
+  const dt = new Date(DATA.generatedAt);
+  document.getElementById("srcnote").innerHTML =
+    `Forrás: <b>kozhang.hu</b> · utolsó frissítés: <b>${dt.toLocaleString("hu-HU")}</b>` +
+    ` · build <b>${esc(DATA.sourceBuild||"ismeretlen")}</b>` +
+    ` · adatcsomag: ${Math.round(JSON.stringify(DATA).length/1024)} KB`;
+  document.getElementById("footmeta").innerHTML =
+    `Utolsó adatfrissítés: ${dt.toLocaleString("hu-HU")} · build ${esc(DATA.sourceBuild||"—")} · ` +
+    `A csomagot az <code>extract.mjs</code> állítja elő, és a változás-figyelés automatikusan újragenerálja.`;
+}
+
+function dailyPicks(){
+  const clicks = CLICKS.all();
+  const pool = DATA.discussions.map(d => ({...d, s:score(d, clicks)}));
+  const rnd = mulberry32(seedFrom(dayKey()));
+  pool.sort((a,b) => b.s - a.s);
+  const top = pool.slice(0, Math.min(6, pool.length));
+  // az első mindig a legerősebb (a statisztika szól), a másik két hely forgó
+  const rest = top.slice(1);
+  for (let i = rest.length - 1; i > 0; i--){ const j = Math.floor(rnd()*(i+1)); [rest[i],rest[j]]=[rest[j],rest[i]]; }
+  const picks = [top[0], ...rest.slice(0,2)].filter(Boolean);
+  document.getElementById("picks").innerHTML = picks.map(d => {
+    const color = `var(--c-${d.category}, var(--c-default))`;
+    const why = d.status==="open"
+      ? `Nyitott · ${fmt(d.participants)} résztvevő · ${d.stepCount? d.stepCount+" kérdés":"részvétel nyitva"}`
+      : `Hamarosan nyílik${d.daysLeft? ` · ${d.daysLeft} nap múlva`:""}`;
+    return `<article class="pick" style="--pc:${color}">
+      <div class="tag">${esc(CAT[d.category]||d.category)}</div>
+      <h4><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h4>
+      <p>${esc(d.description.hu)}</p>
+      <div class="why">${why}</div>
+      <div class="acts">
+        <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
+        ${d.questions.length? `<button class="btn ghost" data-q="${d.id}">${d.questions.length} kérdés megtekintése</button>`:""}
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function filtered(){
+  const clicks = CLICKS.all();
+  let list = DATA.discussions.filter(d => {
+    if (state.status!=="all" && d.status!==state.status) return false;
+    if (state.cat!=="all" && d.category!==state.cat) return false;
+    if (state.q){
+      const hay = [d.title.hu,d.title.en,d.description.hu,d.description.en,
+        CAT[d.category]||"", d.locality?.town||"", d.locality?.label?.hu||""]
+        .join(" ").toLowerCase();
+      if (!hay.includes(state.q)) return false;
+    }
+    return true;
+  });
+  const by = {
+    score: (a,b) => score(b,clicks)-score(a,clicks),
+    participants: (a,b) => (b.participants||0)-(a.participants||0),
+    fresh: (a,b) => new Date(b.opensAt||0)-new Date(a.opensAt||0) || b.daysLeft-a.daysLeft,
+    urgent: (a,b) => (a.daysLeft??99)-(b.daysLeft??99),
+    name: (a,b) => a.title.hu.localeCompare(b.title.hu,"hu"),
+  };
+  return list.sort(by[state.sort] || by.score);
+}
+
+function card(d){
+  const color = `var(--c-${d.category}, var(--c-default))`;
+  const img = d.hero || d.photo;
+  const statusLabel = d.status==="open" ? "Nyitott" : "Hamarosan";
+  const place = d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+  const bits = [];
+  if (d.status==="open") bits.push(`<span><b>${fmt(d.participants)}</b> résztvevő</span>`);
+  else if (d.participants) bits.push(`<span><b>${fmt(d.participants)}</b> érdeklődő</span>`);
+  if (d.daysLeft!=null) bits.push(`<span><b>${d.daysLeft}</b> nap hátra</span>`);
+  if (d.stepCount) bits.push(`<span><b>${d.stepCount}</b> kérdés</span>`);
+  if (d.knowledgeCount) bits.push(`<span><b>${d.knowledgeCount}</b> cikk</span>`);
+  const rate = d.status==="open" && d.completionRate>0
+    ? `<div class="meter" title="Befejezési arány: ${d.completionRate}%"><i style="width:${d.completionRate}%"></i></div>` : "";
+  return `<article class="card">
+    <div class="thumb">
+      <div class="fallback">${esc((d.title.hu||"").slice(0,2))}</div>
+      ${img? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">`:""}
+      <span class="badge ${d.status}">${statusLabel}</span>
+      <span class="cat" style="--cc:${color}">${esc(CAT[d.category]||d.category)}</span>
+    </div>
+    <div class="body">
+      <h3><a href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">${esc(d.title.hu)}</a></h3>
+      <p class="desc">${esc(d.description.hu)}</p>
+      <div class="meta"><span>📍 ${esc(place)}</span>${bits.join("")}</div>
+      ${rate}
+      <div class="acts">
+        <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Részvétel →</a>
+        ${d.questions.length? `<button class="btn" data-q="${d.id}">Kérdések (${d.questions.length})</button>`:
+          `<a class="btn ghost" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Megnézem</a>`}
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderGrid(){
+  const list = filtered();
+  document.getElementById("grid").innerHTML = list.map(card).join("");
+  document.getElementById("empty").style.display = list.length ? "none" : "block";
+  document.getElementById("resulthint").textContent =
+    `${list.length} / ${DATA.discussions.length} téma · rendezés: ${document.getElementById("sort").selectedOptions[0].textContent.toLowerCase()}`;
+}
+
+function showQuestions(id){
+  const d = DATA.discussions.find(x => x.id===id);
+  const p = document.getElementById("qpanel");
+  if (!d || !d.questions.length){ p.style.display="none"; return; }
+  const KIND = { video:"videó", infographic:"infografika", question:"kérdés", cinema:"videó", tip:"tipp", likert:"skála", rating:"értékelés" };
+  let lastChapter = null, html = "", chapterNo = 0;
+  d.questions.forEach((q,i) => {
+    if (q.chapter !== lastChapter){
+      lastChapter = q.chapter;
+      chapterNo = (q.chapterIndex ?? chapterNo) + 1;
+      if (i) html += `</div>`;
+      html += `<div style="margin-top:14px"><div style="font-size:12.5px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase">${chapterNo}. fejezet · ${esc(q.chapter||"")}</div><div class="qs">`;
+    }
+    html += `<div class="q"><span class="i">${i+1}</span><span class="t">${esc(q.title||q.id)}<span class="ch">${esc(KIND[q.kind]||q.kind||"")}</span></span></div>`;
+  });
+  if (d.questions.length) html += `</div>`;
+  p.innerHTML = `
+    <div class="sec-head" style="margin-bottom:6px">
+      <h4>${esc(d.title.hu)} – a ${d.questions.length} kérdés</h4>
+      <span class="hint">${d.chapterCount} fejezet · ${d.totalMinutes} perc · a részletes oldalon válaszolhatsz</span>
+    </div>
+    <p style="margin:0;font-size:13.5px;color:var(--muted)">
+      A kérdések listája tájékoztató jellegű: az egyes kérdések a bejelentkezést követően érhetők el.
+      A téma nyitott oldala: <a href="${d.url}" target="_blank" rel="noopener">${d.url.replace("https://","")}</a>
+    </p>
+    ${html}
+    <div class="acts" style="margin-top:16px">
+      <a class="btn primary" href="${d.url}" target="_blank" rel="noopener" data-track="${d.id}">Megnyitás a kozhang.hu-n →</a>
+      <button class="btn ghost" onclick="document.getElementById('qpanel').style.display='none'">Bezárás</button>
+    </div>`;
+  p.style.display = "block";
+  p.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function renderKnowledge(){
+  const list = [...DATA.knowledge].sort((a,b)=> String(b.date||"").localeCompare(String(a.date||"")));
+  document.getElementById("khint").textContent = `${list.length} cikk · linkek a kozhang.hu Tudástérre`;
+  document.getElementById("klist").innerHTML = list.map(k => {
+    const d = k.date ? new Date(k.date+"T00:00:00") : null;
+    const dateTxt = d && !isNaN(d) ? d.toLocaleDateString("hu-HU",{year:"numeric",month:"short",day:"numeric"}) : "";
+    const cats = (k.categories||[]).map(c=>`<span class="tag-s">${esc(CAT[c]||c)}</span>`).join("");
+    const lead = typeof k.lead === "string" ? k.lead : (k.lead?.hu || k.lead?.en || "");
+    const title = typeof k.title === "string" ? k.title : (k.title?.hu || k.title?.en || "");
+    const src = k.source ? (typeof k.source === "string" ? k.source : (k.source?.hu || k.source?.en || "")) : "";
+    const excerpt = lead.slice(0,150) + (lead.length>150 ? "…" : "");
+    return `<article class="kitem">
+      <div class="d">${dateTxt}</div>
+      <h4><a href="${k.url}" target="_blank" rel="noopener" data-track="k:${k.id}">${esc(title)}</a></h4>
+      <p>${esc(excerpt)}</p>
+      <div class="tags">${src?`<span class="tag-s">Forrás: ${esc(src)}</span>`:""}${cats}</div>
+    </article>`;
+  }).join("");
+}
+
+function renderTaxonomy(){
+  const t = document.getElementById("taxo");
+  t.innerHTML = DATA.taxonomy.map(x =>
+    `<button data-t="${x.key}" class="${state.taxo===x.key?"on":""}">${esc(TAXO[x.key]||x.key)} <span style="opacity:.6">${x.subtopics.length}</span></button>`
+  ).join("");
+  const subs = document.getElementById("subs");
+  const cur = DATA.taxonomy.find(x => x.key===state.taxo);
+  subs.innerHTML = cur
+    ? cur.subtopics.map(s=>`<span>${esc(s.label)}</span>`).join("")
+    : `<span style="border:none;background:none;padding-left:0">Válassz egy fő témát a ${DATA.taxonomy.reduce((n,x)=>n+x.subtopics.length,0)} altéma megjelenítéséhez.</span>`;
+}
+
+function bind(){
+  document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
+  document.getElementById("sort").addEventListener("change", e => { state.sort = e.target.value; renderGrid(); });
+
+  document.getElementById("statuschips").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    state.status = b.dataset.s;
+    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+    renderGrid();
+  });
+
+  const cats = [...new Set(DATA.discussions.map(d=>d.category))];
+  document.getElementById("catchips").innerHTML =
+    `<button class="chip on" data-c="all">Minden kategória</button>` +
+    cats.map(c=>`<button class="chip" data-c="${c}">${esc(CAT[c]||c)}</button>`).join("");
+  document.getElementById("catchips").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    state.cat = b.dataset.c;
+    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+    renderGrid();
+  });
+
+  document.getElementById("taxo").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    state.taxo = state.taxo===b.dataset.t ? null : b.dataset.t;
+    renderTaxonomy();
+  });
+
+  // kattintás-analitika + kérdés-panel (esemény-delegálás)
+  document.body.addEventListener("click", e => {
+    const track = e.target.closest("[data-track]");
+    if (track){ CLICKS.add(track.dataset.track); return; }
+    const q = e.target.closest("[data-q]");
+    if (q){ e.preventDefault(); showQuestions(q.dataset.q); }
+  });
+}
+
+(async function init(){
+  try{
+    DATA = await (await fetch("./data/recommendations.json")).json();
+  }catch(err){
+    document.getElementById("srcnote").innerHTML =
+      `<b style="color:#ff8f5e">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
+    return;
+  }
+  renderStats();
+  dailyPicks();
+  renderGrid();
+  renderKnowledge();
+  renderTaxonomy();
+  bind();
+})();
+</script>
+</body>
+</html>

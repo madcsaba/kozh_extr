@@ -1,0 +1,2631 @@
+{
+  "generatedAt": "2026-10-01T20:25:20.034Z",
+  "source": "https://kozhang.hu",
+  "sourceBuild": "K2JBYl8L",
+  "counts": {
+    "discussions": 16,
+    "open": 3,
+    "soon": 13,
+    "knowledge": 19,
+    "taxonomyTopics": 12,
+    "taxonomySubtopics": 120,
+    "questions": 62,
+    "mediaSpeakers": 8
+  },
+  "categories": {
+    "public-media": 1,
+    "culture": 1,
+    "transport": 3,
+    "digital": 1,
+    "economy": 3,
+    "municipality": 5,
+    "climate": 2
+  },
+  "discussions": [
+    {
+      "id": "kozmedia-2030",
+      "title": {
+        "en": "What public media do we want in 2030?",
+        "hu": "Milyen közmédiát szeretnénk 2030-ban?"
+      },
+      "description": {
+        "en": "If you switch on the TV or open an app in 2030, what would you like to see and hear?",
+        "hu": "Ha 2030-ban bekapcsolod a televíziót vagy megnyitsz egy alkalmazást, mit szeretnél látni és hallani?"
+      },
+      "lead": {
+        "en": "Imagine that together we can now redesign Hungary's public media.",
+        "hu": "Képzeld el, hogy most együtt újratervezhetjük Magyarország közmédiáját."
+      },
+      "category": "public-media",
+      "scope": "national",
+      "status": "open",
+      "locality": null,
+      "participants": 32457,
+      "completionRate": 62,
+      "daysLeft": 14,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/topics/media.webp",
+      "hero": null,
+      "chapters": [
+        {
+          "index": 0,
+          "title": {
+            "hu": "A közmédia küldetése",
+            "en": "The mission of public media"
+          },
+          "minutes": 19,
+          "unlocksAt": null,
+          "stepCount": 8
+        },
+        {
+          "index": 1,
+          "title": {
+            "hu": "A közszolgálatiság jelentése és társadalmi értéke",
+            "en": "The meaning and social value of public service"
+          },
+          "minutes": 23,
+          "unlocksAt": "2026-09-07T07:00:00",
+          "stepCount": 8
+        },
+        {
+          "index": 2,
+          "title": {
+            "hu": "Milyen tartalmak hiányoznak a közmédiából?",
+            "en": "What content is missing from public media?"
+          },
+          "minutes": 12,
+          "unlocksAt": "2026-09-14T06:30:00",
+          "stepCount": 9
+        },
+        {
+          "index": 3,
+          "title": {
+            "hu": "A különböző generációk közmédiája",
+            "en": "Public media for different generations"
+          },
+          "minutes": 13,
+          "unlocksAt": "2026-09-21T07:00:00",
+          "stepCount": 8
+        },
+        {
+          "index": 4,
+          "title": {
+            "hu": "Helyi közösségek és a külhoni magyarság",
+            "en": "Local communities and Hungarians beyond the borders"
+          },
+          "minutes": 12,
+          "unlocksAt": "2026-09-28T07:00:00",
+          "stepCount": 8
+        },
+        {
+          "index": 5,
+          "title": {
+            "hu": "A kultúra, az oktatás és a tudomány közvetítése",
+            "en": "Mediating culture, education and science"
+          },
+          "minutes": 12,
+          "unlocksAt": "2026-10-05T07:00:00",
+          "stepCount": 0
+        },
+        {
+          "index": 6,
+          "title": {
+            "hu": "Kisebbségek, közösségek és társadalmi összetartozás",
+            "en": "Minorities, communities and social cohesion"
+          },
+          "minutes": 12,
+          "unlocksAt": null,
+          "stepCount": 0
+        },
+        {
+          "index": 7,
+          "title": {
+            "hu": "Hiteles tájékoztatás és dezinformáció az AI korában",
+            "en": "Credible information and disinformation in the age of AI"
+          },
+          "minutes": 12,
+          "unlocksAt": null,
+          "stepCount": 0
+        },
+        {
+          "index": 8,
+          "title": {
+            "hu": "Hitelesség, pártatlanság és függetlenség",
+            "en": "Credibility, impartiality and independence"
+          },
+          "minutes": 15,
+          "unlocksAt": null,
+          "stepCount": 0
+        },
+        {
+          "index": 9,
+          "title": {
+            "hu": "Tartalmak, platformok és digitális hozzáférés",
+            "en": "Content, platforms and digital access"
+          },
+          "minutes": 12,
+          "unlocksAt": null,
+          "stepCount": 0
+        }
+      ],
+      "chapterCount": 10,
+      "stepCount": 41,
+      "totalMinutes": 142,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [
+        {
+          "id": "a-teljes-ut",
+          "title": "Ismerd meg a teljes utat!",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/a-teljes-ut"
+        },
+        {
+          "id": "miert-fontos",
+          "title": "Miért fontos ez?",
+          "kind": "infographic",
+          "minutes": 1,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/miert-fontos"
+        },
+        {
+          "id": "hogy-latjuk-ma",
+          "title": "Hogy látjuk ma?",
+          "kind": "video",
+          "minutes": 9,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/hogy-latjuk-ma"
+        },
+        {
+          "id": "mashol-a-vilagban",
+          "title": "Hogyan csinálják máshol a világban?",
+          "kind": "infographic",
+          "minutes": 2,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/mashol-a-vilagban"
+        },
+        {
+          "id": "mit-gondolnak-masok",
+          "title": "Mit gondolnak mások?",
+          "kind": "infographic",
+          "minutes": 1,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/mit-gondolnak-masok"
+        },
+        {
+          "id": "sajat-szavaiddal",
+          "title": "Mi a közmédia küldetése?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/sajat-szavaiddal"
+        },
+        {
+          "id": "mi-a-fontosabb",
+          "title": "Mi a fontosabb?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/mi-a-fontosabb"
+        },
+        {
+          "id": "ch1-summary",
+          "title": "Összegzés",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "A közmédia küldetése",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch1-summary"
+        },
+        {
+          "id": "ch2-opening",
+          "title": "Mit jelent ma a közszolgálatiság?",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch2-opening"
+        },
+        {
+          "id": "what-is-public-service",
+          "title": "Mi a közszolgálat?",
+          "kind": "infographic",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/what-is-public-service"
+        },
+        {
+          "id": "three-stories",
+          "title": "Három történet",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/three-stories"
+        },
+        {
+          "id": "when-done-well",
+          "title": "Milyen, amikor jól csinálják?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/when-done-well"
+        },
+        {
+          "id": "ch2-what-others-think",
+          "title": "Mit gondolnak mások?",
+          "kind": "infographic",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch2-what-others-think"
+        },
+        {
+          "id": "hundred-points",
+          "title": "Mi tesz egy médiát valóban közszolgálativá?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/hundred-points"
+        },
+        {
+          "id": "what-to-keep",
+          "title": "Mi az, ami semmiképp sem hiányozhat a közmédiából?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/what-to-keep"
+        },
+        {
+          "id": "ch2-closing",
+          "title": "Köszönjük, hogy megosztottad a véleményedet!",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "A közszolgálatiság jelentése és társadalmi értéke",
+          "chapterIndex": 1,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch2-closing"
+        },
+        {
+          "id": "ch3-opening",
+          "title": "Miből szeretnénk többet vagy kevesebbet, és mi működik már most is jól?",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch3-opening"
+        },
+        {
+          "id": "what-would-you-watch",
+          "title": "Mit néznél vagy hallgatnál szívesen?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/what-would-you-watch"
+        },
+        {
+          "id": "schedule-builder",
+          "title": "A te műsorod",
+          "kind": "question",
+          "minutes": 4,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/schedule-builder"
+        },
+        {
+          "id": "idea-title",
+          "title": "Mi lenne a te műsorötleted?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/idea-title"
+        },
+        {
+          "id": "create-your-idea",
+          "title": "Hozz létre egy új műsorötletet!",
+          "kind": "question",
+          "minutes": 4,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/create-your-idea"
+        },
+        {
+          "id": "idea-placement",
+          "title": "Helyezzük el a kínálatban!",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/idea-placement"
+        },
+        {
+          "id": "idea-summary",
+          "title": "Küldd be a műsorötleted!",
+          "kind": "infographic",
+          "minutes": 2,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/idea-summary"
+        },
+        {
+          "id": "ch3-closing",
+          "title": "Támogasd a neked tetsző műsorokat!",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch3-closing"
+        },
+        {
+          "id": "ch3-summary",
+          "title": "Összegzés",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "Milyen tartalmak hiányoznak a közmédiából?",
+          "chapterIndex": 2,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/ch3-summary"
+        },
+        {
+          "id": "kozmedia-mindannyiunke",
+          "title": "A közmédia mindannyiunké",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/kozmedia-mindannyiunke"
+        },
+        {
+          "id": "napi-mediaido",
+          "title": "Napi médiaidő",
+          "kind": "question",
+          "minutes": 1,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/napi-mediaido"
+        },
+        {
+          "id": "milyen-gyakran",
+          "title": "Mennyire vannak ott a mindennapjaidban?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/milyen-gyakran"
+        },
+        {
+          "id": "egy-napod-a-mediaban",
+          "title": "Egy napod a médiában",
+          "kind": "infographic",
+          "minutes": 3,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/egy-napod-a-mediaban"
+        },
+        {
+          "id": "melyik-musort-hol",
+          "title": "Melyik műsort milyen platformon fogyasztod a legszívesebben?",
+          "kind": "infographic",
+          "minutes": 3,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/melyik-musort-hol"
+        },
+        {
+          "id": "tudtad",
+          "title": "Tudtad?",
+          "kind": "infographic",
+          "minutes": 2,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/tudtad"
+        },
+        {
+          "id": "hol-legyen-jelen",
+          "title": "Hol kellene jelen lennie a közmédiának?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/hol-legyen-jelen"
+        },
+        {
+          "id": "osszegzes-generaciok",
+          "title": "Összegzés",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "A különböző generációk közmédiája",
+          "chapterIndex": 3,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/osszegzes-generaciok"
+        },
+        {
+          "id": "helyi-tortenetek",
+          "title": "Mi a szerepe a helyi történeteknek a közmédiában?",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/helyi-tortenetek"
+        },
+        {
+          "id": "fontos-e-szamodra",
+          "title": "Fontos-e számodra?",
+          "kind": "question",
+          "minutes": 1,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/fontos-e-szamodra"
+        },
+        {
+          "id": "mitol-fontos",
+          "title": "Mitől lesz fontos egy helyi történet?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/mitol-fontos"
+        },
+        {
+          "id": "mennyire-informalt",
+          "title": "Mennyire vagy informált a helyi ügyekben?",
+          "kind": "question",
+          "minutes": 2,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/mennyire-informalt"
+        },
+        {
+          "id": "helyi-temak",
+          "title": "Mely helyi történeteket látnád szívesen a közmédiában?",
+          "kind": "question",
+          "minutes": 1,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/helyi-temak"
+        },
+        {
+          "id": "masok-gondolatai",
+          "title": "Mit gondolnak mások?",
+          "kind": "infographic",
+          "minutes": 1,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/masok-gondolatai"
+        },
+        {
+          "id": "helyi-hiroldal",
+          "title": "Tervezd meg a saját helyi híroldaladat!",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/helyi-hiroldal"
+        },
+        {
+          "id": "osszegzes-helyi",
+          "title": "Összegzés",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "Helyi közösségek és a külhoni magyarság",
+          "chapterIndex": 4,
+          "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030/lepes/osszegzes-helyi"
+        }
+      ],
+      "mediaCount": 8,
+      "url": "https://kozhang.hu/egyeztetesek/kozmedia-2030",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/kozmedia-2030/otletek"
+    },
+    {
+      "id": "tarsadalmi-megbekeles",
+      "title": {
+        "hu": "Társadalmi megbékélés",
+        "en": "Social reconciliation"
+      },
+      "description": {
+        "hu": "Mit tehetünk egy összetartóbb társadalomért?",
+        "en": "What can we do for a more cohesive society?"
+      },
+      "lead": {
+        "hu": "Mit tehetünk egy összetartóbb társadalomért?",
+        "en": "What can we do for a more cohesive society?"
+      },
+      "category": "culture",
+      "scope": "national",
+      "status": "soon",
+      "locality": null,
+      "participants": 9840,
+      "completionRate": 0,
+      "daysLeft": 11,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/topics/culture.webp",
+      "hero": null,
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/tarsadalmi-megbekeles",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/tarsadalmi-megbekeles/otletek"
+    },
+    {
+      "id": "kresz-megujitasa",
+      "title": {
+        "hu": "A KRESZ megújítása",
+        "en": "Renewing the highway code"
+      },
+      "description": {
+        "hu": "Hogyan lehet korszerűbb és biztonságosabb a közlekedés?",
+        "en": "How can traffic become more modern and safer?"
+      },
+      "lead": {
+        "hu": "Hogyan lehet korszerűbb és biztonságosabb a közlekedés?",
+        "en": "How can traffic become more modern and safer?"
+      },
+      "category": "transport",
+      "scope": "national",
+      "status": "soon",
+      "locality": null,
+      "participants": 14620,
+      "completionRate": 0,
+      "daysLeft": 18,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/topics/transport.webp",
+      "hero": null,
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/kresz-megujitasa",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/kresz-megujitasa/otletek"
+    },
+    {
+      "id": "kozos-platform",
+      "title": {
+        "en": "What should Közhang be like?",
+        "hu": "Milyen legyen a Közhang?"
+      },
+      "description": {
+        "en": "Democracy cannot end on election day.",
+        "hu": "A demokrácia nem érhet véget a választások napján."
+      },
+      "lead": {
+        "en": "Democracy cannot end on election day.",
+        "hu": "A demokrácia nem érhet véget a választások napján."
+      },
+      "category": "digital",
+      "scope": "national",
+      "status": "open",
+      "locality": null,
+      "participants": 9530,
+      "completionRate": 34,
+      "daysLeft": 20,
+      "opensAt": "2026-09-15T07:00:00",
+      "badgeStyle": "heart",
+      "brand": true,
+      "photo": null,
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-common-platform.webp",
+      "chapters": [
+        {
+          "index": 0,
+          "title": {
+            "en": "What should Közhang be like?",
+            "hu": "Milyen legyen a Közhang?"
+          },
+          "minutes": 27,
+          "unlocksAt": null,
+          "stepCount": 10
+        }
+      ],
+      "chapterCount": 1,
+      "stepCount": 10,
+      "totalMinutes": 27,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [
+        {
+          "id": "why-not-ask-more-often",
+          "title": "Társadalmi egyeztetés",
+          "kind": "video",
+          "minutes": 2,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/why-not-ask-more-often"
+        },
+        {
+          "id": "how-it-works",
+          "title": "Mi történik a véleményeddel?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/how-it-works"
+        },
+        {
+          "id": "more-than-a-consultation",
+          "title": "Mitől más a Közhang?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/more-than-a-consultation"
+        },
+        {
+          "id": "what-drives-you",
+          "title": "Miért érdemes részt venni?",
+          "kind": "question",
+          "minutes": 4,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/what-drives-you"
+        },
+        {
+          "id": "what-builds-trust",
+          "title": "Mitől bíznál benne?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/what-builds-trust"
+        },
+        {
+          "id": "whats-next",
+          "title": "Mi az, ami hiányzik?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/whats-next"
+        },
+        {
+          "id": "how-would-you-use-it",
+          "title": "Merre fejlődjön tovább?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/how-would-you-use-it"
+        },
+        {
+          "id": "what-should-it-know",
+          "title": "Milyen legyen használni?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/what-should-it-know"
+        },
+        {
+          "id": "your-questions",
+          "title": "Mitől lehetne jobb?",
+          "kind": "question",
+          "minutes": 3,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/your-questions"
+        },
+        {
+          "id": "cp-summary",
+          "title": "Összegzés",
+          "kind": "infographic",
+          "minutes": 0,
+          "chapter": "Milyen legyen a Közhang?",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/kozos-platform/lepes/cp-summary"
+        }
+      ],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/kozos-platform",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/kozos-platform/otletek"
+    },
+    {
+      "id": "magyar-gazdasag-jovoje",
+      "title": {
+        "hu": "Magyar gazdaság jövője",
+        "en": "The future of the Hungarian economy"
+      },
+      "description": {
+        "hu": "Hogyan tehetjük erősebbé a magyar gazdaságot?",
+        "en": "How can we make the Hungarian economy stronger?"
+      },
+      "lead": {
+        "hu": "Hogyan tehetjük erősebbé a magyar gazdaságot?",
+        "en": "How can we make the Hungarian economy stronger?"
+      },
+      "category": "economy",
+      "scope": "national",
+      "status": "soon",
+      "locality": null,
+      "participants": 16330,
+      "completionRate": 0,
+      "daysLeft": 31,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/topics/economy.webp",
+      "hero": null,
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/magyar-gazdasag-jovoje",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/magyar-gazdasag-jovoje/otletek"
+    },
+    {
+      "id": "palatinus-to",
+      "title": {
+        "hu": "Az esztergomi Palatinus-tó megújítása",
+        "en": "The renewal of the Palatinus lake in Esztergom"
+      },
+      "description": {
+        "hu": "Hogyan alakítsuk együtt a Palatinus-tó jövőjét?",
+        "en": "How should we shape the future of the Palatinus lake together?"
+      },
+      "lead": {
+        "hu": "A tó nem egyetlen csoporté — döntsd el velünk, mi legyen belőle.",
+        "en": "The lake belongs to no single group — decide with us what it becomes."
+      },
+      "category": "municipality",
+      "scope": "local",
+      "status": "open",
+      "locality": {
+        "town": "Esztergom",
+        "label": {
+          "hu": "Esztergom – OEVK 2.",
+          "en": "Esztergom – Constituency 2"
+        },
+        "region": "Komárom-Esztergom",
+        "towns": [
+          "Annavölgy",
+          "Bajna",
+          "Bajót",
+          "Csolnok",
+          "Dág",
+          "Dömös",
+          "Dorog",
+          "Epöl",
+          "Esztergom",
+          "Gyermely",
+          "Héreg",
+          "Kesztölc",
+          "Lábatlan",
+          "Leányvár",
+          "Máriahalom",
+          "Mogyorósbánya",
+          "Nagysáp",
+          "Nyergesújfalu",
+          "Piliscsév",
+          "Pilismarót",
+          "Sárisáp",
+          "Süttő",
+          "Szomor",
+          "Tardos",
+          "Tarján",
+          "Tát",
+          "Tokod",
+          "Tokodaltáró",
+          "Úny",
+          "Vértestolna",
+          "Piliscsaba",
+          "Pilisjászfalu",
+          "Tinnye",
+          "Pilisszántó",
+          "Pilisvörösvár",
+          "Pilisszentiván",
+          "Pilisszentkereszt"
+        ]
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 21,
+      "opensAt": "2026-09-24T07:00:00",
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-palatinus.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-palatinus-sup.webp",
+      "chapters": [
+        {
+          "index": 0,
+          "title": {
+            "hu": "A Palatinus-tó jövője",
+            "en": "The future of Lake Palatinus"
+          },
+          "minutes": 15,
+          "unlocksAt": null,
+          "stepCount": 11
+        }
+      ],
+      "chapterCount": 1,
+      "stepCount": 11,
+      "totalMinutes": 15,
+      "knowledgeCount": 1,
+      "knowledgeIds": [
+        "palatinus-vizminoseg"
+      ],
+      "questions": [
+        {
+          "id": "bevezeto",
+          "title": "Hogyan alakítsuk együtt a Palatinus-tó jövőjét?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/bevezeto"
+        },
+        {
+          "id": "kapcsolodasod",
+          "title": "Te hogyan kapcsolódsz a Palatinushoz?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/kapcsolodasod"
+        },
+        {
+          "id": "a-to-allapota",
+          "title": "Te hogy látod ma a Palatinus-tó állapotát?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/a-to-allapota"
+        },
+        {
+          "id": "mi-tortenik-a-toval",
+          "title": "Mi történik a Palatinus-tóval?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/mi-tortenik-a-toval"
+        },
+        {
+          "id": "mi-a-legsurgosebb",
+          "title": "Mi a legsürgősebb?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/mi-a-legsurgosebb"
+        },
+        {
+          "id": "nezopontok",
+          "title": "Egy tó sokféle nézőpont.",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/nezopontok"
+        },
+        {
+          "id": "mit-fejlesztenel",
+          "title": "Mit fejlesztenél?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/mit-fejlesztenel"
+        },
+        {
+          "id": "hol-kellenek-szabalyok",
+          "title": "Hol lenne szükség egyértelműbb szabályokra?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/hol-kellenek-szabalyok"
+        },
+        {
+          "id": "hol-a-hatar",
+          "title": "Hol húznád meg a határt?",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/hol-a-hatar"
+        },
+        {
+          "id": "palatinus-2036",
+          "title": "Képzeld el a Palatinust 2036-ban.",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/palatinus-2036"
+        },
+        {
+          "id": "osszegzes",
+          "title": "Ezt mondtad",
+          "kind": "question",
+          "chapter": "A Palatinus-tó jövője",
+          "chapterIndex": 0,
+          "url": "https://kozhang.hu/egyeztetesek/palatinus-to/lepes/osszegzes"
+        }
+      ],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/palatinus-to",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/palatinus-to/otletek"
+    },
+    {
+      "id": "rovid-tavu-lakaskiadas",
+      "title": {
+        "en": "The future of short-term letting",
+        "hu": "A rövid távú lakáskiadás jövője"
+      },
+      "description": {
+        "en": "How should we regulate short-term letting in the inner city?",
+        "hu": "Hogyan szabályozzuk a rövid távú lakáskiadást a belvárosban?"
+      },
+      "lead": {
+        "en": "Housing and tourism compete for the same flats — tell us where you would draw the line.",
+        "hu": "A lakhatás és a turizmus ugyanazokért a lakásokért versenyez – mondd el, hol húznád meg a határt."
+      },
+      "category": "municipality",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Budapest",
+        "label": {
+          "en": "Budapest – Inner City",
+          "hu": "Budapest – Belváros"
+        },
+        "region": "Budapest"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 12,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-short-term-rental.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-short-term-rental.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/rovid-tavu-lakaskiadas",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/rovid-tavu-lakaskiadas/otletek"
+    },
+    {
+      "id": "tiszta-kozteruletek",
+      "title": {
+        "en": "Clean and liveable public spaces",
+        "hu": "Tiszta és élhető közterületek"
+      },
+      "description": {
+        "en": "How can we improve street cleanliness in the inner city?",
+        "hu": "Hogyan javíthatjuk a köztisztaságot a belvárosban?"
+      },
+      "lead": {
+        "en": "A public space is only as clean as we keep it together — show us where it pinches most.",
+        "hu": "A közterület annyira tiszta, amennyire közösen tartjuk – mutasd meg, hol szorít a legjobban."
+      },
+      "category": "municipality",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Budapest",
+        "label": {
+          "en": "Budapest – Inner City",
+          "hu": "Budapest – Belváros"
+        },
+        "region": "Budapest"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 14,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-clean-public-spaces.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-clean-public-spaces.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/tiszta-kozteruletek",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/tiszta-kozteruletek/otletek"
+    },
+    {
+      "id": "ferto-to",
+      "title": {
+        "en": "The future of Lake Fertő and its shore",
+        "hu": "A Fertő tó és a Fertő-part jövője"
+      },
+      "description": {
+        "en": "What should Lake Fertő and its surroundings become?",
+        "hu": "Milyen legyen a Fertő tó és környéke a jövőben?"
+      },
+      "lead": {
+        "en": "A national park, a holiday shore and a living landscape at once — let us decide together what it becomes.",
+        "hu": "Nemzeti park, üdülőpart és élő táj egyszerre – döntsük el együtt, mi legyen belőle."
+      },
+      "category": "climate",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Sopron",
+        "label": {
+          "en": "Sopron – Győr-Moson-Sopron County",
+          "hu": "Sopron – Győr-Moson-Sopron vármegye"
+        },
+        "region": "Győr-Moson-Sopron"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 16,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-ferto-lake.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-ferto-lake.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/ferto-to",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/ferto-to/otletek"
+    },
+    {
+      "id": "tolnai-gazdalkodas",
+      "title": {
+        "en": "Farming and livelihoods in Tolna",
+        "hu": "Gazdálkodás és megélhetés Tolnában"
+      },
+      "description": {
+        "en": "How can we strengthen local production and the food economy?",
+        "hu": "Hogyan erősíthetjük meg a helyi termelést és élelmiszer-gazdaságot?"
+      },
+      "lead": {
+        "en": "Those who farm here live here too — tell us what would make it worth it.",
+        "hu": "Aki itt termel, itt is él – mondd el, mi kellene ahhoz, hogy megérje."
+      },
+      "category": "economy",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Szekszárd",
+        "label": {
+          "en": "Szekszárd – Tolna County",
+          "hu": "Szekszárd – Tolna vármegye"
+        },
+        "region": "Tolna"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 19,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-tolna-farming.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-tolna-farming.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/tolnai-gazdalkodas",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/tolnai-gazdalkodas/otletek"
+    },
+    {
+      "id": "sandorfalvi-gyakorloter",
+      "title": {
+        "en": "The future of the training ground",
+        "hu": "A gyakorlótér jövője"
+      },
+      "description": {
+        "en": "How can Sándorfalva's growth and the training ground's operation fit together?",
+        "hu": "Hogyan egyeztethető össze Sándorfalva fejlődése és a gyakorlótér működése?"
+      },
+      "lead": {
+        "en": "A town and a training ground share one boundary — let us find the arrangement that works.",
+        "hu": "Egy határ két oldalán város és gyakorlótér – keressük meg együtt a működő megoldást."
+      },
+      "category": "municipality",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Sándorfalva",
+        "label": {
+          "en": "Sándorfalva – Csongrád-Csanád County",
+          "hu": "Sándorfalva – Csongrád-Csanád vármegye"
+        },
+        "region": "Csongrád-Csanád"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 23,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-sandorfalva-training-ground.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-sandorfalva-training-ground.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/sandorfalvi-gyakorloter",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/sandorfalvi-gyakorloter/otletek"
+    },
+    {
+      "id": "egri-vasut",
+      "title": {
+        "en": "Eger's railway and the Southern Gate",
+        "hu": "Eger vasútja és a Déli Kapu"
+      },
+      "description": {
+        "en": "How could the railway better serve Eger's transport and its growth?",
+        "hu": "Hogyan szolgálhatja a vasút jobban Eger közlekedését és fejlődését?"
+      },
+      "lead": {
+        "en": "The train could do more for the city than it does today — tell us what you would use it for.",
+        "hu": "A vonat többet is hozhat a városnak, mint amennyit ma hoz – mondd el, mire használnád."
+      },
+      "category": "transport",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Eger",
+        "label": {
+          "en": "Eger – Heves County",
+          "hu": "Eger – Heves vármegye"
+        },
+        "region": "Heves"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 25,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-eger-railway.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-eger-railway.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/egri-vasut",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/egri-vasut/otletek"
+    },
+    {
+      "id": "mvm-obudai-campus",
+      "title": {
+        "en": "The MVM campus development in Óbuda",
+        "hu": "Az MVM óbudai campus fejlesztése"
+      },
+      "description": {
+        "en": "On what terms should the MVM development in Óbuda go ahead?",
+        "hu": "Milyen feltételekkel valósuljon meg az MVM óbudai fejlesztése?"
+      },
+      "lead": {
+        "en": "A major investment in your neighbourhood — tell us on what terms you would accept it.",
+        "hu": "Egy nagyberuházás a szomszédságodban – mondd el, milyen feltételekkel fogadnád el."
+      },
+      "category": "economy",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Budapest",
+        "label": {
+          "en": "Budapest – Óbuda",
+          "hu": "Budapest – Óbuda"
+        },
+        "region": "Budapest"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 27,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-mvm-obuda-campus.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-mvm-obuda-campus.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/mvm-obudai-campus",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/mvm-obudai-campus/otletek"
+    },
+    {
+      "id": "hevizi-to",
+      "title": {
+        "en": "The future of Lake Hévíz",
+        "hu": "A Hévízi-tó jövője"
+      },
+      "description": {
+        "en": "How can we preserve the values of Lake Hévíz and secure the region's future?",
+        "hu": "Hogyan őrizhetjük meg a Hévízi-tó értékeit és biztosíthatjuk a térség jövőjét?"
+      },
+      "lead": {
+        "en": "The lake is the region's livelihood and its natural treasure at once — let us decide how it stays both.",
+        "hu": "A tó a térség megélhetése és természeti kincse egyszerre – döntsük el, hogyan maradhat mindkettő."
+      },
+      "category": "climate",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Hévíz",
+        "label": {
+          "en": "Hévíz – Zala County",
+          "hu": "Hévíz – Zala vármegye"
+        },
+        "region": "Zala"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 29,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-heviz-lake.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-heviz-lake.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/hevizi-to",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/hevizi-to/otletek"
+    },
+    {
+      "id": "paksi-zartkertek",
+      "title": {
+        "en": "The future of the closed gardens in Paks",
+        "hu": "A paksi zártkertek jövője"
+      },
+      "description": {
+        "en": "How can the use, development and protection of the closed gardens be reconciled?",
+        "hu": "Hogyan egyeztethető össze a zártkertek használata, fejlesztése és védelme?"
+      },
+      "lead": {
+        "en": "A holiday plot, a smallholding or a home — tell us what the closed gardens should stay.",
+        "hu": "Nyaraló, gazdaság vagy otthon – mondd el, minek tartsuk meg a zártkerteket."
+      },
+      "category": "municipality",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Paks",
+        "label": {
+          "en": "Paks – Tolna County",
+          "hu": "Paks – Tolna vármegye"
+        },
+        "region": "Tolna"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 33,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-paks-closed-gardens.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-paks-closed-gardens.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/paksi-zartkertek",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/paksi-zartkertek/otletek"
+    },
+    {
+      "id": "budafok-tetenyi-kozlekedes",
+      "title": {
+        "en": "The future of transport in Budafok-Tétény",
+        "hu": "Budafok-Tétény közlekedésének jövője"
+      },
+      "description": {
+        "en": "How should we improve the transport links of Budafok-Tétény?",
+        "hu": "Hogyan javítsuk Budafok-Tétény közlekedési kapcsolatait?"
+      },
+      "lead": {
+        "en": "Tram, bus, suburban rail and car on the same road — tell us where your morning gets stuck.",
+        "hu": "Villamos, busz, HÉV és autó ugyanazon az úton – mondd el, hol akad el a reggeled."
+      },
+      "category": "transport",
+      "scope": "local",
+      "status": "soon",
+      "locality": {
+        "town": "Budapest",
+        "label": {
+          "en": "Budapest – Budafok-Tétény",
+          "hu": "Budapest – Budafok-Tétény"
+        },
+        "region": "Budapest"
+      },
+      "participants": 0,
+      "completionRate": 0,
+      "daysLeft": 36,
+      "opensAt": null,
+      "badgeStyle": null,
+      "brand": false,
+      "photo": "https://kozhang.hu/kozhang/img/webapp/discussion-budafok-tetany-transport.webp",
+      "hero": "https://kozhang.hu/kozhang/img/webapp/discussion-hero-budafok-tetany-transport.webp",
+      "chapters": [],
+      "chapterCount": 0,
+      "stepCount": 0,
+      "totalMinutes": 0,
+      "knowledgeCount": 0,
+      "knowledgeIds": [],
+      "questions": [],
+      "mediaCount": 0,
+      "url": "https://kozhang.hu/egyeztetesek/budafok-tetenyi-kozlekedes",
+      "ideasUrl": "https://kozhang.hu/egyeztetesek/budafok-tetenyi-kozlekedes/otletek"
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "palatinus-vizminoseg",
+      "title": {
+        "en": "Why does the water quality of Lake Palatinus matter?",
+        "hu": "Miért fontos a Palatinus-tó vízminősége?"
+      },
+      "lead": {
+        "en": "Water quality does not only decide whether you can swim in the lake. The state of the fish stock, the reed beds and the shoreline wildlife depends on it too, and in the end so does what the lake can be used for. For a quarry lake it is an especially sensitive question, because water can flow in and out only to a limited extent.",
+        "hu": "A vízminőség nemcsak azt dönti el, lehet-e fürödni a tóban. Ettől függ a halállomány, a nádasok és a parti élővilág állapota is, és végső soron az, hogy mire lehet használni a tavat. Egy bányató esetében pedig különösen érzékeny kérdés, mert a víz ki- és beáramlása korlátozott."
+      },
+      "categories": [
+        "municipality",
+        "climate"
+      ],
+      "date": "2026-09-21",
+      "discussionId": "palatinus-to",
+      "photo": "https://kozhang.hu/kozhang/img/palatinus/perspectives-lake-aerial.webp",
+      "source": null,
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/palatinus-vizminoseg"
+    },
+    {
+      "id": "mit-jelent-ma-a-kozszolgalatisag",
+      "title": {
+        "en": "What does public service mean today?",
+        "hu": "Mit jelent ma a közszolgálatiság?"
+      },
+      "lead": {
+        "en": "Public service is not simply a matter of a media outlet being funded from public money. According to the professional opinions received, public media genuinely fulfils its mission when it represents the public interest, operates with editorial autonomy, informs credibly and diversely, is accessible to everyone, and gives space to the diversity of society and cultural life.",
+        "hu": "A közszolgálatiság nem egyszerűen azt jelenti, hogy egy médium közpénzből működik. A beérkezett szakmai vélemények szerint a közmédia akkor tölti be valóban a küldetését, ha a közérdeket képviseli, szerkesztői autonómiával működik, hitelesen és sokszínűen tájékoztat, mindenki számára hozzáférhető, és teret ad a társadalom, valamint a kulturális élet sokféleségének."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-09-07",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "en": "PDSZ · Hungarian Theatre Society · Association of Hungarian Librarians · Corvinus University of Budapest · Hungarian Producers’ Association · Association of History Teachers · Guild of Theatre Critics · FESZ",
+          "hu": "PDSZ · Magyar Színházi Társaság · Magyar Könyvtárosok Egyesülete · Budapesti Corvinus Egyetem · Magyar Producerek Szövetsége · Történelemtanárok Egylete · Színházi Kritikusok Céhe · FESZ"
+        }
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/mit-jelent-ma-a-kozszolgalatisag"
+    },
+    {
+      "id": "hogyan-mukodik-ez-mas-orszagokban",
+      "title": {
+        "en": "How does this work in other countries?",
+        "hu": "Hogyan működik ez más országokban?"
+      },
+      "lead": {
+        "en": "What actually makes a media organisation a public service? The international examples below show the missions, principles and operating guarantees that make public media serve society as a whole — independently, in all its diversity, and accessibly to everyone.",
+        "hu": "Tudj meg róla többet!"
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-09-07",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "en": "BBC Royal Charter · Medienstaatsvertrag · NRK-plakaten · SVT public service-uppdrag · Act on Yleisradio",
+          "hu": "BBC Royal Charter · Medienstaatsvertrag · NRK-plakaten · SVT public service-uppdrag · Yleisradio-törvény"
+        }
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/hogyan-mukodik-ez-mas-orszagokban"
+    },
+    {
+      "id": "kiegyensulyozott-musorkinalat",
+      "title": {
+        "en": "Does a public broadcaster’s programme offering need to be balanced?",
+        "hu": "Fontos, hogy egy közmédia műsorkínálata kiegyensúlyozott legyen?"
+      },
+      "lead": {
+        "en": "A balanced programme offering does not only mean that different viewpoints appear on public media. It also matters which topics and genres get a place, when and on which platform audiences can encounter them, who they reach, and who takes part in making them.",
+        "hu": "A kiegyensúlyozott műsorkínálat nemcsak azt jelenti, hogy különböző álláspontok jelennek meg a közmédiában. Az is számít, milyen témák és műfajok kapnak helyet, mikor és melyik felületen találkozhat velük a közönség, kikhez jutnak el, valamint hogy kik vesznek részt az elkészítésükben."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-09-14",
+      "discussionId": null,
+      "photo": null,
+      "source": null,
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/kiegyensulyozott-musorkinalat"
+    },
+    {
+      "id": "uj-musorotletek-a-szakmatol",
+      "title": {
+        "en": "What gets too little attention today, and what new programmes are needed? – How does the profession see this?",
+        "hu": "Mi kap ma túl kevés figyelmet, és milyen új műsorokra lenne szükség? – Hogy látja ezt ma a szakma?"
+      },
+      "lead": {
+        "en": "The professional opinions received for Közhang’s consultation put forward concrete proposals ranging from contemporary literature and documentary film through science communication and social issues to artificial intelligence. The proposals share a common question: what stories, communities and knowledge could the public media of the future make more visible?",
+        "hu": "A Közhang egyeztetéséhez érkezett szakmai véleményekben konkrét javaslatok fogalmazódtak meg a kortárs irodalomtól és dokumentumfilmtől a tudományos ismeretterjesztésen és társadalmi ügyeken át egészen a mesterséges intelligenciáig. A felvetések közös kérdése: milyen történeteket, közösségeket és tudást tehetne láthatóbbá a jövő közmédiája?"
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-09-14",
+      "discussionId": null,
+      "photo": null,
+      "source": null,
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/uj-musorotletek-a-szakmatol"
+    },
+    {
+      "id": "kozszolgalati-charta",
+      "title": {
+        "hu": "Mi az a Közszolgálati Charta?",
+        "en": "What is the Public Service Charter?"
+      },
+      "lead": {
+        "hu": "A Közszolgálati Charta azt fogalmazza meg, milyen szakmai elvek szerint kell működnie a magyar közmédiának.",
+        "en": "The Public Service Charter sets out the professional principles Hungarian public media has to work by."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Nemzeti Jogszabálytár – 2010. évi CLXXXV. és 2026. évi XXI. törvény",
+          "en": "Hungarian National Legislation Database – Acts CLXXXV of 2010 and XXI of 2026"
+        },
+        "href": "https://njt.hu"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/kozszolgalati-charta"
+    },
+    {
+      "id": "bbc-kozszolgalati-chartaja",
+      "title": {
+        "hu": "A BBC közszolgálati Chartája",
+        "en": "The BBC’s public service Charter"
+      },
+      "lead": {
+        "hu": "A BBC működésének alapját egy királyi charta határozza meg: mi a brit közmédia küldetése, és milyen garanciák védik a függetlenségét.",
+        "en": "A royal charter is the foundation of the BBC: what British public media’s mission is, and what guarantees protect its independence."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "BBC Royal Charter és Framework Agreement",
+          "en": "BBC Royal Charter and Framework Agreement"
+        },
+        "href": "https://www.bbc.com"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/bbc-kozszolgalati-chartaja"
+    },
+    {
+      "id": "nemet-kozmedia-megbizatasa",
+      "title": {
+        "hu": "A német közmédia közszolgálati megbízatása",
+        "en": "The remit of German public media"
+      },
+      "lead": {
+        "hu": "Németországban nincs egyetlen országos közmédia és nincs a BBC-éhez hasonló önálló charta sem: az alapot a tartományok Média-államszerződése adja.",
+        "en": "Germany has neither a single national broadcaster nor a stand-alone charter like the BBC’s: the basis is the states’ Media Interstate Treaty."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Medienstaatsvertrag – a német tartományok média-államszerződése",
+          "en": "Medienstaatsvertrag — the German states’ media interstate treaty"
+        },
+        "href": "https://www.ard.de"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/nemet-kozmedia-megbizatasa"
+    },
+    {
+      "id": "nrk-kozszolgalati-kuldetese",
+      "title": {
+        "hu": "Az NRK közszolgálati küldetése",
+        "en": "The NRK’s public service mission"
+      },
+      "lead": {
+        "hu": "A norvég közmédia legfontosabb feladatait az NRK-plakaten foglalja össze: rövid, közérthető alapdokumentum a demokráciáról, a párbeszédről és a sokszínűségről.",
+        "en": "The NRK-plakaten sums up the core duties of Norwegian public media: a short, plain-language document on democracy, dialogue and diversity."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "NRK-plakaten – az NRK alapszabályának II. része",
+          "en": "NRK-plakaten — Part II of the NRK’s articles of association"
+        },
+        "href": "https://www.nrk.no"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/nrk-kozszolgalati-kuldetese"
+    },
+    {
+      "id": "svt-kozszolgalati-megbizatasa",
+      "title": {
+        "hu": "Az SVT közszolgálati megbízatása",
+        "en": "The SVT’s public service remit"
+      },
+      "lead": {
+        "hu": "Svédországban a közmédia feladatait törvény és több évre szóló megbízatások rögzítik. Az SVT jelenlegi megbízatása 2026-tól 2033-ig szól.",
+        "en": "In Sweden the duties of public media are set by law and by multi-year remits. The SVT’s current remit runs from 2026 to 2033."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Public service-uppdrag för Sveriges Television AB 2026–2033",
+          "en": "Public service-uppdrag för Sveriges Television AB 2026–2033"
+        },
+        "href": "https://www.svt.se"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/svt-kozszolgalati-megbizatasa"
+    },
+    {
+      "id": "yle-kozszolgalati-megbizatasa",
+      "title": {
+        "hu": "Az Yle közszolgálati megbízatása",
+        "en": "The Yle’s public service remit"
+      },
+      "lead": {
+        "hu": "Finnországban a közmédia küldetését az Yle működéséről szóló törvény rögzíti – röviden, mégis átfogóan.",
+        "en": "In Finland the mission of public media is set by the Act on Yleisradio Oy — briefly, yet comprehensively."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Act on Yleisradio Oy – 7. § (Public service)",
+          "en": "Act on Yleisradio Oy — Section 7 (Public service)"
+        },
+        "href": "https://yle.fi"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/yle-kozszolgalati-megbizatasa"
+    },
+    {
+      "id": "france-televisions-kovetelmenyrendszere",
+      "title": {
+        "hu": "A France Télévisions közszolgálati követelményrendszere",
+        "en": "France Télévisions’ public service requirements"
+      },
+      "lead": {
+        "hu": "Franciaországban a közszolgálati televízió feladatait részletes, jogilag kötelező követelményrendszer rögzíti.",
+        "en": "In France the duties of public service television are set by a detailed, legally binding schedule of requirements."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Cahier des charges de la société nationale de programme France Télévisions",
+          "en": "Cahier des charges de la société nationale de programme France Télévisions"
+        },
+        "href": "https://www.francetelevisions.fr"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/france-televisions-kovetelmenyrendszere"
+    },
+    {
+      "id": "abc-kozszolgalati-chartaja",
+      "title": {
+        "hu": "Az ausztrál ABC közszolgálati Chartája",
+        "en": "The Australian ABC’s Charter"
+      },
+      "lead": {
+        "hu": "Az ABC küldetését egy rövid, törvénybe foglalt Charta határozza meg – Ausztráliában és külföldön egyaránt.",
+        "en": "The ABC’s mission is set by a short Charter written into law — at home in Australia and abroad."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Australian Broadcasting Corporation Act 1983, 6. § – Charter of the Corporation",
+          "en": "Australian Broadcasting Corporation Act 1983, s. 6 — Charter of the Corporation"
+        },
+        "href": "https://www.abc.net.au"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/abc-kozszolgalati-chartaja"
+    },
+    {
+      "id": "kozmedia-2030-szakmai-velemenyek",
+      "title": {
+        "hu": "Milyen feladata legyen a közmédiának 2030-ban?",
+        "en": "What should public media’s task be in 2030?"
+      },
+      "lead": {
+        "hu": "Öt szakmai szervezet véleményéből olyan közmédia képe rajzolódik ki, amely hitelesen tájékoztat, gazdagítja a kultúránkat és mindenki számára közös teret alkot.",
+        "en": "Five professional bodies sketch a public media that informs credibly, enriches our culture and forms a shared space open to everyone."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "A közmédia szakmai egyeztetésére beérkezett vélemények",
+          "en": "Submissions received in the public media professional consultation"
+        }
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/kozmedia-2030-szakmai-velemenyek"
+    },
+    {
+      "id": "hirekbe-vetett-bizalom-2026",
+      "title": {
+        "hu": "Mennyire bízunk a hírekben – és mit számít ebben a közmédia?",
+        "en": "How much do we trust the news — and what does public media have to do with it?"
+      },
+      "lead": {
+        "hu": "Magyarországon 2026-ban 17 százalék mondta, hogy általában megbízik a legtöbb hírben. Ez a Reuters által vizsgált 48 piac legalacsonyabb értéke.",
+        "en": "In 2026, 17 per cent in Hungary said they generally trust most news. That is the lowest of the 48 markets Reuters surveyed."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Reuters Institute – Digital News Report 2026",
+          "en": "Reuters Institute — Digital News Report 2026"
+        },
+        "href": "https://reutersinstitute.politics.ox.ac.uk"
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/hirekbe-vetett-bizalom-2026"
+    },
+    {
+      "id": "tarsadalmi-reszvetel",
+      "title": {
+        "hu": "Mit jelenthet a társadalmi részvétel?",
+        "en": "What can public participation mean?"
+      },
+      "lead": {
+        "hu": "A legtöbb európai országban a társadalom is szerepet kap a közmédia küldetésének alakításában – vagy működésének ellenőrzésében.",
+        "en": "In most European countries the public also has a role in shaping the mission of public media — or in overseeing how it works."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": "https://kozhang.hu/kozhang/img/topics/media.webp",
+      "source": null,
+      "featured": true,
+      "url": "https://kozhang.hu/tudaster/tarsadalmi-reszvetel"
+    },
+    {
+      "id": "a-kozmedia-szamokban",
+      "title": {
+        "hu": "A közmédia szerepe a számokban",
+        "en": "The role of public media, in numbers"
+      },
+      "lead": {
+        "hu": "Az európai közszolgálati média nemcsak televíziós és rádiós csatornákat jelent. Online hírszolgáltatásokat működtet, gyermekeknek készít tartalmakat, számos nyelven szólítja meg a közönséget, és jelentős szerepet vállal az európai kulturális tartalmak előállításában.",
+        "en": "European public-service media is more than television and radio channels. It runs online news, makes content for children, speaks to audiences in many languages, and plays a large part in producing European cultural work."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "hu": "Európai Műsorszolgáltatók Szövetsége (EBU)",
+          "en": "European Broadcasting Union (EBU)"
+        }
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/a-kozmedia-szamokban"
+    },
+    {
+      "id": "kozszolgalati-media-a-vilagban",
+      "title": {
+        "hu": "A közszolgálati média mindenhol más – de van, ami közös bennük",
+        "en": "Public-service media is different everywhere — but some things are shared"
+      },
+      "lead": {
+        "hu": "Hét közszolgálati médiaház küldetése, alapelvei, csatornái és egy-egy érdekessége Európából és a világból.",
+        "en": "The mission, principles, channels and one notable fact for seven public-service broadcasters in Europe and beyond."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-08-31",
+      "discussionId": null,
+      "photo": null,
+      "source": null,
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/kozszolgalati-media-a-vilagban"
+    },
+    {
+      "id": "mitol-kozszolgalati-a-kozmedia-europaban",
+      "title": {
+        "en": "What makes public media public service in Europe?",
+        "hu": "Mitől közszolgálati a közmédia Európában?"
+      },
+      "lead": {
+        "en": "Every country defines the mission of its own public media, but European rules lay down clear principles: public media must operate independently and impartially, and must reflect the diversity of society.",
+        "hu": "A közmédia küldetését minden ország maga határozza meg, az európai szabályok azonban világos alapelveket rögzítenek: a közszolgálati médiának függetlenül, pártatlanul és a társadalom sokféleségét bemutatva kell működnie."
+      },
+      "categories": [
+        "public-media"
+      ],
+      "date": "2026-09-07",
+      "discussionId": null,
+      "photo": null,
+      "source": {
+        "name": {
+          "en": "European Media Freedom Act · Amsterdam Protocol · Council of Europe",
+          "hu": "Európai médiaszabadság-rendelet · Amszterdami Jegyzőkönyv · Európa Tanács"
+        }
+      },
+      "featured": false,
+      "url": "https://kozhang.hu/tudaster/mitol-kozszolgalati-a-kozmedia-europaban"
+    }
+  ],
+  "taxonomy": [
+    {
+      "key": "education",
+      "subtopics": [
+        {
+          "key": "education-1",
+          "label": "Mit és hogyan tanítsunk az iskolákban? – tananyag, készségek, gyakorlati tudás"
+        },
+        {
+          "key": "education-2",
+          "label": "A pedagógusok helyzete – megbecsülés, munkaterhelés, utánpótlás"
+        },
+        {
+          "key": "education-3",
+          "label": "Iskolai stressz és mentális egészség – túlterheltség, teljesítménykényszer, segítség"
+        },
+        {
+          "key": "education-4",
+          "label": "Telefonok, AI és digitális eszközök az iskolában – tiltás vagy tudatos használat"
+        },
+        {
+          "key": "education-5",
+          "label": "Idegen nyelvek és használható nyelvtudás"
+        },
+        {
+          "key": "education-6",
+          "label": "Szakképzés és a szakmák jövője"
+        },
+        {
+          "key": "education-7",
+          "label": "Felsőoktatás és egyetemi lehetőségek – hozzáférés, minőség, kollégiumok"
+        },
+        {
+          "key": "education-8",
+          "label": "Pályakezdés és az első munkahely – hogyan segítsük a fiatalokat az elindulásban?"
+        },
+        {
+          "key": "education-9",
+          "label": "Pénzügyi, digitális és állampolgári ismeretek az iskolában"
+        },
+        {
+          "key": "education-10",
+          "label": "Fiatalok itthon tartása és hazatérése – mitől érdemes Magyarországon jövőt tervezni?"
+        }
+      ]
+    },
+    {
+      "key": "health",
+      "subtopics": [
+        {
+          "key": "health-1",
+          "label": "Várólisták és gyorsabb ellátás"
+        },
+        {
+          "key": "health-2",
+          "label": "Háziorvosi rendszer és alapellátás"
+        },
+        {
+          "key": "health-3",
+          "label": "Szakorvosi ellátás elérhetősége"
+        },
+        {
+          "key": "health-4",
+          "label": "Kórházak állapota és az ellátás minősége"
+        },
+        {
+          "key": "health-5",
+          "label": "Egészségügyi dolgozók helyzete – terhelés, utánpótlás, munkakörülmények"
+        },
+        {
+          "key": "health-6",
+          "label": "Megelőzés és szűrővizsgálatok"
+        },
+        {
+          "key": "health-7",
+          "label": "Mentális egészség és pszichológiai ellátás"
+        },
+        {
+          "key": "health-8",
+          "label": "Gyermekegészségügy és gyermekpszichiátria"
+        },
+        {
+          "key": "health-9",
+          "label": "Idősek egészségügyi ellátása és otthonápolás"
+        },
+        {
+          "key": "health-10",
+          "label": "Digitális egészségügy – időpontfoglalás, leletek, telemedicina"
+        }
+      ]
+    },
+    {
+      "key": "family",
+      "subtopics": [
+        {
+          "key": "family-1",
+          "label": "Gyermekvállalás feltételei és családtámogatások"
+        },
+        {
+          "key": "family-2",
+          "label": "Bölcsődék és óvodák elérhetősége"
+        },
+        {
+          "key": "family-3",
+          "label": "Munka és családi élet összeegyeztetése"
+        },
+        {
+          "key": "family-4",
+          "label": "Egyszülős családok helyzete"
+        },
+        {
+          "key": "family-5",
+          "label": "Idősgondozás és méltó időskor"
+        },
+        {
+          "key": "family-6",
+          "label": "Otthonápolás és a hozzátartozójukat gondozók támogatása"
+        },
+        {
+          "key": "family-7",
+          "label": "Fogyatékossággal élők önálló élete és támogatása"
+        },
+        {
+          "key": "family-8",
+          "label": "Gyermekvédelem és állami gondoskodás"
+        },
+        {
+          "key": "family-9",
+          "label": "Szegénységből való kitörés és társadalmi mobilitás"
+        },
+        {
+          "key": "family-10",
+          "label": "Szociális ellátórendszer és segítség krízishelyzetben"
+        }
+      ]
+    },
+    {
+      "key": "living",
+      "subtopics": [
+        {
+          "key": "living-1",
+          "label": "Lakásárak és az első otthon megszerzése"
+        },
+        {
+          "key": "living-2",
+          "label": "Albérletárak és a bérlakáspiac"
+        },
+        {
+          "key": "living-3",
+          "label": "Megfizethető bérlakások"
+        },
+        {
+          "key": "living-4",
+          "label": "Fizetések és megélhetési költségek"
+        },
+        {
+          "key": "living-5",
+          "label": "Élelmiszerárak és mindennapi kiadások"
+        },
+        {
+          "key": "living-6",
+          "label": "Rezsi és energiaárak"
+        },
+        {
+          "key": "living-7",
+          "label": "Fiatalok önálló életkezdése"
+        },
+        {
+          "key": "living-8",
+          "label": "Lakáshitelek és eladósodás"
+        },
+        {
+          "key": "living-9",
+          "label": "Lakásfelújítás és energiahatékony otthonok"
+        },
+        {
+          "key": "living-10",
+          "label": "Hajléktalanság és lakhatási krízis"
+        }
+      ]
+    },
+    {
+      "key": "economy",
+      "subtopics": [
+        {
+          "key": "economy-1",
+          "label": "Kis- és középvállalkozások helyzete"
+        },
+        {
+          "key": "economy-2",
+          "label": "Adók és adminisztráció egyszerűsítése"
+        },
+        {
+          "key": "economy-3",
+          "label": "Bérek, termelékenység és versenyképesség"
+        },
+        {
+          "key": "economy-4",
+          "label": "Magyar vállalkozások növekedése és piacra jutása"
+        },
+        {
+          "key": "economy-5",
+          "label": "Munkahelyek jövője és a változó munkaerőpiac"
+        },
+        {
+          "key": "economy-6",
+          "label": "Kezdő vállalkozások és startupok"
+        },
+        {
+          "key": "economy-7",
+          "label": "Állami támogatások és pályázatok"
+        },
+        {
+          "key": "economy-8",
+          "label": "Tisztességes verseny és átlátható közbeszerzések"
+        },
+        {
+          "key": "economy-9",
+          "label": "Külföldi beruházások és hazai gazdasági érdekek"
+        },
+        {
+          "key": "economy-10",
+          "label": "A magyar gazdaság jövője – milyen ágazatokra építsünk?"
+        }
+      ]
+    },
+    {
+      "key": "digital",
+      "subtopics": [
+        {
+          "key": "digital-1",
+          "label": "Mesterséges intelligencia a mindennapokban"
+        },
+        {
+          "key": "digital-2",
+          "label": "AI a munkahelyeken – milyen munkák változnak meg?"
+        },
+        {
+          "key": "digital-3",
+          "label": "Digitális állam és egyszerűbb ügyintézés"
+        },
+        {
+          "key": "digital-4",
+          "label": "Gyerekek és fiatalok biztonsága az online térben"
+        },
+        {
+          "key": "digital-5",
+          "label": "Közösségi média hatása és felelőssége"
+        },
+        {
+          "key": "digital-6",
+          "label": "Online csalások és kiberbiztonság"
+        },
+        {
+          "key": "digital-7",
+          "label": "Személyes adatok és digitális magánélet"
+        },
+        {
+          "key": "digital-8",
+          "label": "Digitális készségek és digitális lemaradás"
+        },
+        {
+          "key": "digital-9",
+          "label": "Magyar innováció, startupok és technológiai vállalkozások"
+        },
+        {
+          "key": "digital-10",
+          "label": "Automatizáció, robotika és a jövő munkahelyei"
+        }
+      ]
+    },
+    {
+      "key": "transport",
+      "subtopics": [
+        {
+          "key": "transport-1",
+          "label": "Vasút fejlesztése és megbízhatósága"
+        },
+        {
+          "key": "transport-2",
+          "label": "Helyi és helyközi közösségi közlekedés"
+        },
+        {
+          "key": "transport-3",
+          "label": "Budapest és az agglomeráció közlekedése"
+        },
+        {
+          "key": "transport-4",
+          "label": "Utak állapota és felújítása"
+        },
+        {
+          "key": "transport-5",
+          "label": "Kerékpáros közlekedés és kerékpárutak"
+        },
+        {
+          "key": "transport-6",
+          "label": "Autózás a városokban – parkolás, dugók, forgalom"
+        },
+        {
+          "key": "transport-7",
+          "label": "Kistelepülések közlekedési kapcsolatai"
+        },
+        {
+          "key": "transport-8",
+          "label": "Elektromos autózás és töltőhálózat"
+        },
+        {
+          "key": "transport-9",
+          "label": "Akadálymentes és biztonságos közlekedés"
+        },
+        {
+          "key": "transport-10",
+          "label": "Nagy közlekedési beruházások – mit fejlesszünk először?"
+        }
+      ]
+    },
+    {
+      "key": "environment",
+      "subtopics": [
+        {
+          "key": "environment-1",
+          "label": "Tiszta ivóvíz és vízhálózat"
+        },
+        {
+          "key": "environment-2",
+          "label": "Aszály, vízmegtartás és Magyarország vízgazdálkodása"
+        },
+        {
+          "key": "environment-3",
+          "label": "Levegőminőség és légszennyezés"
+        },
+        {
+          "key": "environment-4",
+          "label": "Hulladék, visszaváltás és újrahasznosítás"
+        },
+        {
+          "key": "environment-5",
+          "label": "Erdők, tavak és természetes élőhelyek védelme"
+        },
+        {
+          "key": "environment-6",
+          "label": "Klímaváltozáshoz való alkalmazkodás"
+        },
+        {
+          "key": "environment-7",
+          "label": "Megújuló energia és energiafüggetlenség"
+        },
+        {
+          "key": "environment-8",
+          "label": "Állatvédelem és felelős állattartás"
+        },
+        {
+          "key": "environment-9",
+          "label": "Állatmenhelyek és kóbor állatok helyzete"
+        },
+        {
+          "key": "environment-10",
+          "label": "Zöldebb települések – fák, parkok, zöldterületek"
+        }
+      ]
+    },
+    {
+      "key": "municipality",
+      "subtopics": [
+        {
+          "key": "municipality-1",
+          "label": "Milyen döntéseket hozzanak helyben? – önkormányzati önállóság"
+        },
+        {
+          "key": "municipality-2",
+          "label": "Települések finanszírozása és helyi források"
+        },
+        {
+          "key": "municipality-3",
+          "label": "Falvak és kistelepülések jövője"
+        },
+        {
+          "key": "municipality-4",
+          "label": "Helyi egészségügyi és közszolgáltatások"
+        },
+        {
+          "key": "municipality-5",
+          "label": "Helyi gazdaság és munkahelyteremtés"
+        },
+        {
+          "key": "municipality-6",
+          "label": "Fiatalok vidéken tartása és hazaköltözése"
+        },
+        {
+          "key": "municipality-7",
+          "label": "Helyi közlekedés és elérhetőség"
+        },
+        {
+          "key": "municipality-8",
+          "label": "Elhagyott ingatlanok és településközpontok megújítása"
+        },
+        {
+          "key": "municipality-9",
+          "label": "Helyi turizmus és a térségek értékeinek fejlesztése"
+        },
+        {
+          "key": "municipality-10",
+          "label": "Lakossági részvétel a helyi döntésekben"
+        }
+      ]
+    },
+    {
+      "key": "safety",
+      "subtopics": [
+        {
+          "key": "safety-1",
+          "label": "Biztonság a lakóhelyünkön"
+        },
+        {
+          "key": "safety-2",
+          "label": "Rendőrség jelenléte és elérhetősége"
+        },
+        {
+          "key": "safety-3",
+          "label": "Drogproblémák és új pszichoaktív szerek"
+        },
+        {
+          "key": "safety-4",
+          "label": "Online csalások és digitális bűnözés"
+        },
+        {
+          "key": "safety-5",
+          "label": "Családon belüli erőszak és áldozatvédelem"
+        },
+        {
+          "key": "safety-6",
+          "label": "Gyermekek biztonsága"
+        },
+        {
+          "key": "safety-7",
+          "label": "Közlekedésbiztonság"
+        },
+        {
+          "key": "safety-8",
+          "label": "Közterületek és éjszakai biztonság"
+        },
+        {
+          "key": "safety-9",
+          "label": "Bűnmegelőzés és visszaesés csökkentése"
+        },
+        {
+          "key": "safety-10",
+          "label": "Katasztrófavédelem és felkészülés válsághelyzetekre"
+        }
+      ]
+    },
+    {
+      "key": "culture",
+      "subtopics": [
+        {
+          "key": "culture-1",
+          "label": "Kultúrához való hozzáférés vidéken és a kisebb településeken"
+        },
+        {
+          "key": "culture-2",
+          "label": "Színházak, mozik, múzeumok és kulturális intézmények jövője"
+        },
+        {
+          "key": "culture-3",
+          "label": "Magyar film, zene és kreatív iparágak"
+        },
+        {
+          "key": "culture-4",
+          "label": "Fiatal művészek és új tehetségek támogatása"
+        },
+        {
+          "key": "culture-5",
+          "label": "Kulturális örökség és műemlékeink védelme"
+        },
+        {
+          "key": "culture-6",
+          "label": "Mindennapos sport és mozgás"
+        },
+        {
+          "key": "culture-7",
+          "label": "Iskolai testnevelés és diáksport"
+        },
+        {
+          "key": "culture-8",
+          "label": "Szabadidősport és helyi sportolási lehetőségek"
+        },
+        {
+          "key": "culture-9",
+          "label": "Versenysport és utánpótlás"
+        },
+        {
+          "key": "culture-10",
+          "label": "Sportlétesítmények – mit és kiknek fejlesszünk?"
+        }
+      ]
+    },
+    {
+      "key": "society",
+      "subtopics": [
+        {
+          "key": "society-1",
+          "label": "Magány és társadalmi elszigetelődés"
+        },
+        {
+          "key": "society-2",
+          "label": "Közösségek és helyi kapcsolatok erősítése"
+        },
+        {
+          "key": "society-3",
+          "label": "Generációk együttélése – fiatalok és idősek"
+        },
+        {
+          "key": "society-4",
+          "label": "Társadalmi bizalom és egymás iránti tisztelet"
+        },
+        {
+          "key": "society-5",
+          "label": "Online gyűlölet, zaklatás és közbeszéd"
+        },
+        {
+          "key": "society-6",
+          "label": "Önkéntesség és közösségi szerepvállalás"
+        },
+        {
+          "key": "society-7",
+          "label": "Esélyegyenlőség és társadalmi mobilitás"
+        },
+        {
+          "key": "society-8",
+          "label": "Akadálymentes és befogadó társadalom"
+        },
+        {
+          "key": "society-9",
+          "label": "Állampolgári részvétel – hogyan legyen nagyobb beleszólásunk?"
+        },
+        {
+          "key": "society-10",
+          "label": "Hogyan beszéljünk egymással akkor is, ha nem értünk egyet?"
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "hogy-latjuk-ma",
+      "block": "Hogyan gondolkodnak most erről az emberek?",
+      "chips": [
+        "7:04 perc",
+        "Videó"
+      ],
+      "id": "olga",
+      "name": "Olga",
+      "meta": "tanárnő",
+      "duration": "1:34",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:31",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:02",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "hogy-latjuk-ma",
+      "block": "Hogyan gondolkodnak most erről az emberek?",
+      "chips": [
+        "7:04 perc",
+        "Videó"
+      ],
+      "id": "raul",
+      "name": "Raul",
+      "meta": "vállalkozó",
+      "duration": "1:39",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:33",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:06",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "hogy-latjuk-ma",
+      "block": "Hogyan gondolkodnak most erről az emberek?",
+      "chips": [
+        "7:04 perc",
+        "Videó"
+      ],
+      "id": "nagymamak",
+      "name": "Vali és Ibi",
+      "meta": "nagymamák",
+      "duration": "1:52",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:37",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:15",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "hogy-latjuk-ma",
+      "block": "Hogyan gondolkodnak most erről az emberek?",
+      "chips": [
+        "7:04 perc",
+        "Videó"
+      ],
+      "id": "koczka",
+      "name": "Koczka",
+      "meta": "fodrász",
+      "duration": "1:58",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:39",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:18",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "hogy-latjuk-ma",
+      "block": "Hogyan gondolkodnak most erről az emberek?",
+      "chips": [
+        "7:04 perc",
+        "Videó"
+      ],
+      "id": "tuzolto",
+      "name": "Gábor",
+      "meta": "tűzoltó tagozatvezető",
+      "duration": "0:54",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:18",
+          "label": "2. rész"
+        },
+        {
+          "at": "0:36",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "three-stories",
+      "block": "Három történet – három élethelyzet.",
+      "chips": [
+        "4:43 perc",
+        "Videó"
+      ],
+      "id": "story-flood",
+      "name": "Csalások és átverések",
+      "meta": "Hogyan segíthetne a közmédia ezek elkerülésében?",
+      "duration": "1:53",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:38",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:15",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "three-stories",
+      "block": "Három történet – három élethelyzet.",
+      "chips": [
+        "4:43 perc",
+        "Videó"
+      ],
+      "id": "story-every-evening",
+      "name": "Minden este – Tudásforrás",
+      "meta": "Együtt fedezzük fel a világot, felkelti a kíváncsiságot.",
+      "duration": "1:59",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:40",
+          "label": "2. rész"
+        },
+        {
+          "at": "1:19",
+          "label": "3. rész"
+        }
+      ]
+    },
+    {
+      "discussionId": "kozmedia-2030",
+      "stepId": "three-stories",
+      "block": "Három történet – három élethelyzet.",
+      "chips": [
+        "4:43 perc",
+        "Videó"
+      ],
+      "id": "story-abroad",
+      "name": "Külföldön is számít",
+      "meta": "A magyar hírek és történetek összekötik otthonával.",
+      "duration": "0:51",
+      "chapters": [
+        {
+          "at": "0:00",
+          "label": "1. rész"
+        },
+        {
+          "at": "0:17",
+          "label": "2. rész"
+        },
+        {
+          "at": "0:34",
+          "label": "3. rész"
+        }
+      ]
+    }
+  ]
+}

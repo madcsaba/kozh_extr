@@ -1,0 +1,68 @@
+name: Frissítés
+
+# A kozhang.hu adatai a JavaScript bundle-ökbe vannak égetve, ezért naponta
+# újra kell nyerni őket. Ha tartalmilag semmi sem változott, az extract nem
+# ír fájlt → nincs commit → nincs zaj.
+
+on:
+  schedule:
+    # naponta 04:30 UTC (06:30 magyar idő) — a kozhang.hu buildjei jellemzően
+    # este/éjjel érkeznek, így reggelre friss az adat
+    - cron: "30 4 * * *"
+  workflow_dispatch: {}      # kézi indítás a GitHub Actions fülből
+  push:
+    branches: [main]
+    paths:
+      - "extract.mjs"
+      - "check.mjs"
+      - "public/index.html"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # az alapértelmezett token nem indít új workflow-ot → nincs
+          # végtelen ciklus, ha ez a lépés commitol
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Adatcsomag frissítése
+        id: extract
+        run: node extract.mjs
+
+      - name: Adatcsomag ellenőrzése
+        run: node check.mjs
+
+      - name: Közzététel, ha változott
+        run: |
+          if [ -z "$(git status --porcelain public/data/recommendations.json)" ]; then
+            echo "Nincs változás — nincs közzététel."
+            exit 0
+          fi
+          git config user.name "kozhang-ajanlo[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/recommendations.json
+          git commit -m "Adatfrissítés a kozhang.hu-ról"
+          git push
+          echo "Közzétéve: $(git rev-parse --short HEAD)"
+
+      - name: Hibajelentés, ha az ellenőrzés bukott
+        if: failure()
+        run: |
+          echo "::error::Az adatcsomag-ellenőrzés bukott — a legutóbbi jó adatcsomag maradt érvényben."
+          echo "::error::Valószínűleg a kozhang.hu szerkezete változott, vagy a Cloudflare kihívást adott."
+          echo "::error::Futtasd le kézzel: node extract.mjs --diag"
+          exit 1
