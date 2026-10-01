@@ -10,7 +10,7 @@
     "build": "node build.mjs",
     "serve": "python3 -m http.server 8787 --directory public",
     "start": "node extract.mjs && node build.mjs && python3 -m http.server 8787 --directory public",
-    "check": "node extract.mjs && node -e \"const d=require('./public/data/recommendations.json'); const a=[d.counts.discussions===16,d.counts.knowledge===19,d.counts.taxonomySubtopics===120,d.counts.questions>50,d.discussions.every(x=>x.url.startsWith('https://kozhang.hu/egyeztetesek/'))]; if(a.every(Boolean)){console.log('✓ adatcsomag rendben:',JSON.stringify(d.counts));process.exit(0)} console.error('✗ váratlan adatcsomag:',a,JSON.stringify(d.counts));process.exit(1)\""
+    "check": "node extract.mjs && node check.mjs"
   },
   "engines": { "node": ">=18" }
 }
