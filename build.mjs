@@ -73,7 +73,8 @@ const CATS = {
 
 // ————————————————————————————————————————————————————————— súgók
 
-const place = (d) => d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+const megye = (s) => String(s).replace(/vármegye/g, "megye"); // felirat: „Heves vármegye” → „Heves megye”
+const place = (d) => d.locality ? megye(d.locality.label?.hu || d.locality.town) : "Országos";
 const EXT = `target="_blank" rel="noopener"`;
 const ARROW = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>`;
 
@@ -322,6 +323,21 @@ ${knos.length ? `<section id="tudaster">
 // ——————————————————————————————————————————————————————————— fő
 
 const promo = loadPromo();
+
+// a főoldal és a témaoldalak is le tudják tölteni a kiemelt felhívásokat
+fs.mkdirSync(path.join(PUB, "data"), { recursive: true });
+fs.writeFileSync(
+  path.join(PUB, "data", "kiemelt.json"),
+  JSON.stringify(
+    promo.map((p) => ({
+      discussionId: p.discussionId, label: p.label, title: p.title, pitch: p.pitch,
+      preferred: p.preferred, cta: p.cta, url: p.url, target: p.target,
+      discussionUrl: p.discussion.url,
+    })),
+    null, 2
+  ) + "\n"
+);
+
 fs.rmSync(OUT, { recursive: true, force: true });
 
 let pageCount = 0;

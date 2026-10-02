@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="hu_HU">
 <meta property="og:title" content="Közhang témaajánló – miben vegyél részt?">
-<meta property="og:description" content="Nem hivatalos ajánló a kozhang.hu nyilvános egyeztetéseihez: a te témáid és a vármegyéd szerint.">
+<meta property="og:description" content="Nem hivatalos ajánló a kozhang.hu nyilvános egyeztetéseihez: a te témáid és a megyéd szerint.">
 <link rel="icon" href="https://kozhang.hu/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
         <div class="chips" id="interests"></div>
         <p class="match" id="matchline" aria-live="polite"></p>
         <div class="prof-row">
-          <label class="county" for="region">Vármegyéd
+          <label class="county" for="region">Megyéd
             <select id="region"><option value="">Nem adom meg</option></select>
           </label>
         </div>
@@ -67,6 +67,8 @@
 </div>
 
 <main class="wrap">
+
+<section id="kiemelt" hidden aria-label="Kiemelt felhívás"></section>
 
 <section id="nyitott">
   <div class="sec-head">
@@ -158,7 +160,7 @@
       <a href="https://github.com/madcsaba/kozhang_ajanlo" target="_blank" rel="noopener"><b>A teljes képlet és a forráskód</b></a>
     </div>
     <div>
-      <div class="weights" role="img" aria-label="Súlyok: frissesség 24, népszerűség 20, sürgősség 14, az érdeklődésed 14, a vármegyéd 10, kevés hang 6, korábban megnézted 6, tartalmi mélység 6 százalék">
+      <div class="weights" role="img" aria-label="Súlyok: frissesség 24, népszerűség 20, sürgősség 14, az érdeklődésed 14, a megyéd 10, kevés hang 6, korábban megnézted 6, tartalmi mélység 6 százalék">
         <i style="width:24%"></i><i style="width:20%"></i><i style="width:14%"></i><i style="width:14%"></i><i style="width:10%"></i><i style="width:6%"></i><i style="width:6%"></i><i style="width:6%"></i>
       </div>
       <div class="w-legend">
@@ -166,7 +168,7 @@
         <div><b>20%</b><strong>Népszerűség</strong><span>résztvevők száma, logaritmikusan</span></div>
         <div><b>14%</b><strong>Sürgősség</strong><span>hány nap van hátra</span></div>
         <div><b>14%</b><strong>Érdeklődésed</strong><span>amit bejelöltél, amire kattintottál</span></div>
-        <div><b>10%</b><strong>Vármegyéd</strong><span>helyi egyeztetés a környékeden</span></div>
+        <div><b>10%</b><strong>Megyéd</strong><span>helyi egyeztetés a környékeden</span></div>
         <div><b>6%</b><strong>Kevés hang</strong><span>kis résztvevőszámú nyitott téma</span></div>
         <div><b>6%</b><strong>Megnézted</strong><span>korábbi kattintásaid</span></div>
         <div><b>6%</b><strong>Mélység</strong><span>fejezetek, kérdések, cikkek</span></div>
@@ -224,6 +226,7 @@ const ARROW = `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentC
 const EXT = `target="_blank" rel="noopener"`;
 
 let DATA = null;
+let PROMOS = [];
 const state = { q:"", scope:"all", sort:"due", taxo:null, steps:null, chapter:null, kOpen:new Set() };
 
 // saját kattintás-analitika (localStorage) – a "dinamikus" viselkedés alapja
@@ -240,7 +243,8 @@ const fmt = n => n==null ? "—" : new Intl.NumberFormat("hu-HU").format(n);
 const esc = s => String(s??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const hu = v => typeof v === "string" ? v : (v?.hu || v?.en || "");
 const dayKey = () => new Date().toISOString().slice(0,10);
-const place = d => d.locality ? (d.locality.label?.hu || d.locality.town) : "Országos";
+const megye = s => String(s).replace(/vármegye/g, "megye"); // „Heves vármegye” → „Heves megye”
+const place = d => d.locality ? megye(d.locality.label?.hu || d.locality.town) : "Országos";
 const isMatch = d => INTERESTS.get().includes(d.category);
 const isQuiet = d => d.status==="open" && (d.participants||0) < QUIET;
 const isInCounty = d => { const r = COUNTY.get(); return !!(r && d.locality?.region === r); };
@@ -282,7 +286,7 @@ function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.im
  *  - fresh    frissesség: nyitott téma + hátralévő napok
  *  - urg      sürgősség: kevés hátralévő nap → magasabb
  *  - interest a te érdeklődésed: a bejelölt kategóriáid egyezése
- *  - place    a te vármegyéd: helyi egyeztetés a vármegyédben
+ *  - place    a te megyéd: helyi egyeztetés a megyédben
  *  - quiet    kevés hangot kapott: nyitott téma kevés résztvevővel (ellensúlyozza a népszerűséget)
  *  - mine     korábban megnézted: a te kattintásaid
  *  - depth    tartalmi mélység: kérdések és háttéranyagok
@@ -290,7 +294,7 @@ function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.im
  */
 const W = { pop:.20, fresh:.24, urg:.14, interest:.14, place:.10, quiet:.06, mine:.06, depth:.06 };
 const W_LABEL = { pop:"népszerűség", fresh:"frissesség", urg:"sürgősség", interest:"a te érdeklődésed",
-  place:"a te vármegyéd", quiet:"kevés hang", mine:"korábban megnézted", depth:"tartalmi mélység" };
+  place:"a te megyéd", quiet:"kevés hang", mine:"korábban megnézted", depth:"tartalmi mélység" };
 
 function scoreParts(d, clicks = CLICKS.get()){
   const days = d.daysLeft==null ? 20 : d.daysLeft;
@@ -314,7 +318,7 @@ function score(d, clicks = CLICKS.get()){ return scoreParts(d, clicks).total; }
 /** A 3 legerősebb ok szövegesen – a személyes egyezés mindig elöl. */
 function reasons(d, sp){
   const r = [];
-  if (sp.raw.place) r.push([2, `a te vármegyédben (${COUNTY.get()})`]);
+  if (sp.raw.place) r.push([2, `a te megyédben (${COUNTY.get()})`]);
   if (sp.raw.interest) r.push([1.5, `a te érdeklődésed: ${CAT[d.category]||d.category}`]);
   if (d.status==="open") r.push([sp.parts.fresh+sp.parts.urg, d.daysLeft!=null ? `nyitott, ${d.daysLeft} nap van hátra` : "most nyitott"]);
   else r.push([sp.parts.fresh, "hamarosan nyílik"]);
@@ -375,7 +379,7 @@ function renderNear(){
       `Az országos témák neked is szólnak – a rangsorban a neked ajánlottak előrébb kerülnek.</p>`;
     return;
   }
-  el.innerHTML = `<div class="why-line"><b>A vármegyédben (${esc(region)})</b></div>` + local.map(d => {
+  el.innerHTML = `<div class="why-line"><b>A megyédben (${esc(region)})</b></div>` + local.map(d => {
     const when = d.status==="open"
       ? `nyitott${d.daysLeft!=null ? ` · ${d.daysLeft} nap van hátra` : ""}${isQuiet(d) ? " · kevés hangot kapott" : ""}`
       : "hamarosan nyílik";
@@ -470,7 +474,7 @@ function openRow(d){
   if (d.knowledgeCount) facts.push(`${d.knowledgeCount} háttércikk`);
   const rate = d.completionRate || 0;
   const flags = [];
-  if (isInCounty(d)) flags.push(`<span class="flag home">★ A vármegyédben</span>`);
+  if (isInCounty(d)) flags.push(`<span class="flag home">★ A megyédben</span>`);
   if (isQuiet(d)) flags.push(`<span class="flag" title="Nyitott téma, kevesebb mint ${fmt(QUIET)} résztvevővel">Kevés hangot kapott</span>`);
   return `<article class="panel open-row${match ? " is-match" : ""}">
     <div class="days"><b>${d.daysLeft ?? "—"}</b><span>nap van hátra</span></div>
@@ -501,7 +505,7 @@ function soonRow(d){
       <a href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}" title="${why}">${esc(hu(d.title))}</a>
       <span>${esc(CAT[d.category]||d.category)} · ${esc(hu(d.description))}</span>
     </span>
-    <span class="c-place">${esc(place(d))}${sp.raw.place ? `<span class="flag home" title="A te vármegyédben">★</span>` : ""}</span>
+    <span class="c-place">${esc(place(d))}${sp.raw.place ? `<span class="flag home" title="A te megyédben">★</span>` : ""}</span>
     <span class="c-people">${d.participants ? `${fmt(d.participants)} érdeklődő` : "Új téma"}</span>
     <span class="c-act">
       <a class="btn small" href="${esc(d.url)}" ${EXT} data-track="${esc(d.id)}">Megnézem</a>
@@ -662,6 +666,25 @@ function syncSeg(groupId, key){
   for (const b of $(groupId).querySelectorAll("button")) b.setAttribute("aria-pressed", b.dataset[key] === state[key]);
 }
 
+function renderPromo(){
+  const el = $("kiemelt");
+  if (!el) return;
+  if (!Array.isArray(PROMOS) || !PROMOS.length){ el.remove(); return; }
+  el.innerHTML = PROMOS.map(p => `
+    <div class="panel promo">
+      <span class="tag">${esc(p.label || "Kiemelt felhívás")}</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.pitch)}</p>
+      ${p.preferred ? `<p class="pref"><b>Ajánlott választás:</b> ${esc(p.preferred)}</p>` : ""}
+      <div class="acts">
+        <a class="btn primary" href="${esc(p.url)}" ${EXT} data-track="promo:${esc(p.discussionId)}">${esc(p.cta || "Irány a szavazás")} ${ARROW}</a>
+        <a class="btn" href="${esc(p.discussionUrl)}" ${EXT} data-track="promo:${esc(p.discussionId)}:full">A teljes egyeztetés</a>
+      </div>
+      <p class="discl">Kiemelt szervezői ajánlás (irányított) – a döntés a tiéd. Cél: ${esc(p.target)}. Adat: kozhang.hu</p>
+    </div>`).join("");
+  el.hidden = false;
+}
+
 (async function init(){
   try{
     DATA = await (await fetch("./data/recommendations.json")).json();
@@ -669,10 +692,12 @@ function syncSeg(groupId, key){
     $("herosub").innerHTML = `<b style="color:var(--due)">Nem sikerült betölteni az adatcsomagot.</b> Futtasd: <code>node extract.mjs</code>`;
     return;
   }
+  try{ PROMOS = await (await fetch("./data/kiemelt.json")).json(); }catch{ PROMOS = []; }
   readUrlState();
   renderHero();
   renderFeature();
   renderStats();
+  renderPromo();
   renderLists();
   renderCatPages();
   renderTaxonomy();

@@ -68,6 +68,11 @@ function budapestToIso(ts) {
 // ─────────────────────────────────────────────────────────── adatok ──
 
 const DATA = JSON.parse(await readFile(path.join(PUB, "data", "recommendations.json"), "utf8"));
+// kiemelt felhívások (build.mjs írja; ha nincs, kihagyjuk)
+const PROMOS = await (async () => {
+  try { return JSON.parse(await readFile(path.join(PUB, "data", "kiemelt.json"), "utf8")); }
+  catch { return []; }
+})();
 const GEN = DATA.generatedAt;
 const discussions = DATA.discussions;
 const firstSeen = (d) => d.firstSeen || GEN;
@@ -77,7 +82,7 @@ function knowledgeFor(d) {
   return DATA.knowledge.filter((k) => k.discussionId === d.id || (!k.discussionId && (k.categories || []).includes(d.category)));
 }
 
-/** Kapcsolódó témák: azonos vármegye, aztán azonos kategória; a nyitottak elöl. */
+/** Kapcsolódó témák: azonos megye, aztán azonos kategória; a nyitottak elöl. */
 function related(d) {
   const rank = (x) =>
     (d.locality?.region && x.locality?.region === d.locality.region ? 2 : 0) + (x.category === d.category ? 1 : 0);
@@ -122,13 +127,20 @@ h2{font-size:20px;margin:36px 0 12px}
 .list a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--text)}
 .list a:hover{border-color:#3d5a70;text-decoration:none}.list a span{display:block;color:var(--muted);font-size:13px}
 .note{font-size:13.5px;color:var(--muted)}
+/* kiemelt felhívás (TV-műsoros szavazás) */
+.kp{margin-top:16px;background:var(--panel2);border:2px solid var(--accent2);border-radius:var(--radius);padding:18px 20px}
+.kp-tag{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}
+.kp h3{margin:8px 0 6px;font-size:21px;line-height:1.25}
+.kp p{margin:0 0 10px;font-size:15px;color:#cddae3}
+.kp .kp-pref{background:rgba(94,168,255,.12);border:1px solid rgba(94,168,255,.45);border-radius:10px;padding:10px 12px;color:var(--text)}
 footer{margin-top:44px;border-top:1px solid var(--line);padding-top:20px;font-size:13px;color:var(--muted)}
 `;
 
 function topicPage(d) {
   const title = hu(d.title);
   const desc = hu(d.description) || hu(d.lead);
-  const place = d.locality ? d.locality.label?.hu || d.locality.town : "Országos";
+  const place = d.locality ? String(d.locality.label?.hu || d.locality.town).replace(/vármegye/g, "megye") : "Országos";
+  const promo = PROMOS.find((p) => p.discussionId === d.id);
   const img = d.hero || d.photo;
   const url = `${SITE}/tema/${d.id}/`;
   const status = d.status === "open" ? "Nyitott" : d.status === "soon" ? "Hamarosan" : "Lezárult";
@@ -193,6 +205,17 @@ ${d.lead && hu(d.lead) !== desc ? `<p class="note">${esc(hu(d.lead))}</p>` : ""}
   <a class="btn primary" href="${esc(d.url)}" target="_blank" rel="noopener">${d.status === "open" ? "Részvétel a kozhang.hu-n →" : "Megnézem a kozhang.hu-n →"}</a>
   <button class="btn" id="share" type="button" data-url="${esc(url)}" data-text="${esc(shareText)}">Megosztás</button>
 </div>
+${promo ? `<div class="kp">
+  <span class="kp-tag">${esc(promo.label || "Kiemelt felhívás")}</span>
+  <h3>${esc(promo.title)}</h3>
+  <p>${esc(promo.pitch)}</p>
+  ${promo.preferred ? `<p class="kp-pref"><b>Ajánlott választás:</b> ${esc(promo.preferred)}</p>` : ""}
+  <div class="acts" style="margin-top:12px">
+    <a class="btn primary" href="${esc(promo.url)}" target="_blank" rel="noopener">${esc(promo.cta || "Irány a szavazás")} →</a>
+    <a class="btn" href="${esc(promo.discussionUrl)}" target="_blank" rel="noopener">A teljes egyeztetés</a>
+  </div>
+  <p class="note">Kiemelt szervezői ajánlás (irányított) – a döntés a tiéd. Cél: ${esc(promo.target)}. Adat: kozhang.hu</p>
+</div>` : ""}
 <p class="note">Az ajánló azt segít eldönteni, <b>miről</b> érdemes véleményt mondanod – azt soha, hogy <b>mit</b>.
 A válaszadás a kozhang.hu-n, bejelentkezés után történik.</p>
 
@@ -205,7 +228,7 @@ ${kb.length ? `<h2>Háttéranyagok a Tudástérben (${kb.length})</h2>
 
 ${rel.length ? `<h2>Kapcsolódó témák</h2>
 <div class="list">${rel
-    .map((x) => `<a href="../${esc(x.id)}/">${esc(hu(x.title))}<span>${x.status === "open" ? "nyitott" : "hamarosan"} · ${esc(x.locality ? x.locality.label?.hu || x.locality.town : "Országos")}</span></a>`)
+    .map((x) => `<a href="../${esc(x.id)}/">${esc(hu(x.title))}<span>${x.status === "open" ? "nyitott" : "hamarosan"} · ${esc(x.locality ? String(x.locality.label?.hu || x.locality.town).replace(/vármegye/g, "megye") : "Országos")}</span></a>`)
     .join("")}</div>` : ""}
 
 <footer>

@@ -196,6 +196,7 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
 .promo p{margin:0;max-width:82ch}
 .promo .pref{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;padding:12px 14px}
 .promo .discl{font-size:13.5px;color:var(--muted)}
+#kiemelt{margin:0 0 26px}
 
 /* — témaválasztó — */
 .taxo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px;align-items:start}
@@ -279,7 +280,7 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
   .site-nav a{white-space:nowrap;padding:10px 8px}
 }
 
-/* — személyes választások: vármegye + „A vármegyédben” — */
+/* — személyes választások: megye + „A megyédben” — */
 .prof-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .county{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted)}
 .county select{

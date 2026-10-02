@@ -45,7 +45,7 @@ Nincs függőség, csak Node 18+ (beépített `fetch`).
 
 ```
 score = 0.20·népszerűség + 0.24·frissesség + 0.14·sürgősség
-      + 0.14·a te érdeklődésed + 0.10·a te vármegyéd + 0.06·kevés hang
+      + 0.14·a te érdeklődésed + 0.10·a te megyéd + 0.06·kevés hang
       + 0.06·korábban megnézted + 0.06·tartalmi mélység
 ```
 
@@ -55,14 +55,14 @@ score = 0.20·népszerűség + 0.24·frissesség + 0.14·sürgősség
 - **sürgősség** — kevés hátralévő nap → magasabb
 - **a te érdeklődésed** — a „Mi érdekel?” részben bejelölt kategóriák egyezése az egyeztetés
   kategóriájával
-- **a te vármegyéd** — helyi egyeztetés a választott vármegyében (a kiválasztott vármegyében
+- **a te megyéd** — helyi egyeztetés a választott megyében (a kiválasztott megyében
   megjelenő téma listája a nyitó blokkban is látszik)
 - **kevés hang** — nyitott téma kevesebb mint 1000 résztvevővel; ellensúlyozza a népszerűséget,
   hogy a helyi témák ne essenek ki
 - **korábban megnézted** — a böngésződ `localStorage`-jába tárolt kattintásaid
 - **tartalmi mélység** — kérdések és háttércikkek száma
 
-A kategóriák, a vármegye és a kattintások csak a böngészőben tárolódnak, nem hagyják el a gépet.
+A kategóriák, a megye és a kattintások csak a böngészőben tárolódnak, nem hagyják el a gépet.
 Minden ajánlásnál a **„Miért ajánljuk?”** sor a 3 legerősebb okot mutatja; a sorra mutatva látszik
 a teljes pontszám-bontás. Az ajánló azt segít eldönteni, *miről* érdemes véleményt mondanod –
 soha nem azt, hogy *mit*: a pontszámba nem számít bele, hogy egy téma melyik álláspont felé hajlik.
