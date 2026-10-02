@@ -30,10 +30,7 @@ const CAT = {
   education: "Oktatás", family: "Család", living: "Lakhatás", safety: "Közbiztonság",
   society: "Társadalom",
 };
-const KIND = {
-  video: "videó", infographic: "infografika", question: "kérdés", cinema: "videó",
-  tip: "tipp", likert: "skála", rating: "értékelés",
-};
+// A lépések típusjelölései (kérdés, infografika, videó…) szándékosan nem jelennek meg a témaoldalon.
 
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -95,45 +92,21 @@ function related(d) {
 // ───────────────────────────────────────────────────── témaoldalak ──
 
 const PAGE_CSS = `
-:root{--bg:#0b1014;--panel:#121a20;--panel2:#16212a;--line:#223140;--text:#e8f0f4;--muted:#93a6b3;
-  --accent:#37d19a;--accent2:#5ea8ff;--soon:#f2b73f;--radius:14px}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#16303a 0%,transparent 60%),var(--bg);
-  color:var(--text);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:860px;margin:0 auto;padding:0 20px 60px}
-nav{padding:22px 0;font-size:14px}
-.hero{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/7;background:#12202a}
-.hero img{width:100%;height:100%;object-fit:cover;display:block}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 6px}
-.tag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:7px;
-  border:1px solid var(--line);background:var(--panel);color:var(--muted)}
-.tag.open{color:var(--accent);border-color:#37d19a55}.tag.soon{color:var(--soon);border-color:#f2b73f55}
-h1{font-size:clamp(26px,4.4vw,38px);line-height:1.15;margin:8px 0 10px;letter-spacing:-.02em}
-.lead{color:#b9c9d4;font-size:17.5px;margin:0 0 6px}
-.stats{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:14.5px;margin:14px 0}
-.stats b{color:var(--text)}
-.acts{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}
-.btn{display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:600;padding:10px 16px;border-radius:10px;
-  border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer;font-family:inherit}
-.btn:hover{border-color:#3d5a70;text-decoration:none}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#04120d}
-h2{font-size:20px;margin:36px 0 12px}
-.ch{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.ch h3{margin:0 0 4px;font-size:16px}.ch .m{font-size:13px;color:var(--muted)}
-.ch ol{margin:10px 0 0;padding-left:22px;font-size:14.5px;color:#cddae3}
-.ch li span{color:var(--muted);font-size:12.5px}
-.list{display:grid;gap:8px}
-.list a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--text)}
-.list a:hover{border-color:#3d5a70;text-decoration:none}.list a span{display:block;color:var(--muted);font-size:13px}
-.note{font-size:13.5px;color:var(--muted)}
-/* kiemelt felhívás (TV-műsoros szavazás) */
-.kp{margin-top:16px;background:var(--panel2);border:2px solid var(--accent2);border-radius:var(--radius);padding:18px 20px}
-.kp-tag{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}
-.kp h3{margin:8px 0 6px;font-size:21px;line-height:1.25}
-.kp p{margin:0 0 10px;font-size:15px;color:#cddae3}
-.kp .kp-pref{background:rgba(94,168,255,.12);border:1px solid rgba(94,168,255,.45);border-radius:10px;padding:10px 12px;color:var(--text)}
-footer{margin-top:44px;border-top:1px solid var(--line);padding-top:20px;font-size:13px;color:var(--muted)}
+/* témaoldal – a főoldal designja (site.css) + pár saját szabály */
+.t-tags{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 0}
+.t-tags .tag{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:99px;
+  border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.t-tags .tag.open{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.t-tags .tag.soon{color:var(--due);border-color:var(--due-soft);background:var(--due-soft)}
+.lead{margin:0;font-size:17.5px;color:var(--muted);max-width:64ch}
+.note{margin:14px 0 0;font-size:14.5px;color:var(--muted);max-width:82ch}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px}
+.ch h3{margin:0 0 4px;font-family:var(--display);font-weight:800;font-size:20px;line-height:1.2}
+.ch .m{font-size:13.5px;color:var(--muted)}
+.ch ol{margin:10px 0 0;padding-left:22px;font-size:15px;line-height:1.6;display:flex;flex-direction:column;gap:4px}
+.t-panel{padding:4px 20px}
+.hero-fig{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--surface2);aspect-ratio:16/7}
+.hero-fig img{width:100%;height:100%;object-fit:cover;display:block}
 `;
 
 function topicPage(d) {
@@ -161,7 +134,7 @@ function topicPage(d) {
       return `<div class="ch" id="fejezet-${ch.index + 1}">
   <h3>${ch.index + 1}. ${esc(hu(ch.title))}</h3>
   <div class="m">${ch.minutes ? `kb. ${ch.minutes} perc` : ""}${ch.stepCount ? ` · ${ch.stepCount} lépés` : ""}${unlock}</div>
-  ${qs.length ? `<ol>${qs.map((q) => `<li>${esc(q.title || q.id)} <span>${esc(KIND[q.kind] || q.kind || "")}</span></li>`).join("")}</ol>` : ""}
+  ${qs.length ? `<ol>${qs.map((q) => `<li>${esc(q.title || q.id)}</li>`).join("")}</ol>` : ""}
 </div>`;
     })
     .join("\n");
@@ -186,58 +159,130 @@ function topicPage(d) {
 <meta property="og:url" content="${esc(url)}">
 ${img ? `<meta property="og:image" content="${esc(img)}">\n<meta name="twitter:image" content="${esc(img)}">` : ""}
 <meta name="twitter:card" content="${img ? "summary_large_image" : "summary"}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
 <style>${PAGE_CSS}</style>
 </head>
 <body>
-<div class="wrap">
-<nav><a href="../../">← Közhang témaajánló</a> · <span class="note">nem hivatalos oldal</span></nav>
-${img ? `<div class="hero"><img src="${esc(img)}" alt="" onerror="this.parentNode.remove()"></div>` : ""}
-<div class="tags">
-  <span class="tag ${esc(d.status)}">${status}</span>
-  <span class="tag">${esc(CAT[d.category] || d.category)}</span>
-  <span class="tag">📍 ${esc(place)}</span>
-</div>
-<h1>${esc(title)}</h1>
-<p class="lead">${esc(desc)}</p>
-${d.lead && hu(d.lead) !== desc ? `<p class="note">${esc(hu(d.lead))}</p>` : ""}
-<div class="stats">${stats.join("")}</div>
-<div class="acts">
-  <a class="btn primary" href="${esc(d.url)}" target="_blank" rel="noopener">${d.status === "open" ? "Részvétel a kozhang.hu-n →" : "Megnézem a kozhang.hu-n →"}</a>
-  <button class="btn" id="share" type="button" data-url="${esc(url)}" data-text="${esc(shareText)}">Megosztás</button>
-</div>
-${promo ? `<div class="kp">
-  <span class="kp-tag">${esc(promo.label || "Kiemelt felhívás")}</span>
-  <h3>${esc(promo.title)}</h3>
-  <p>${esc(promo.pitch)}</p>
-  ${promo.preferred ? `<p class="kp-pref"><b>Ajánlott választás:</b> ${esc(promo.preferred)}</p>` : ""}
-  <div class="acts" style="margin-top:12px">
-    <a class="btn primary" href="${esc(promo.url)}" target="_blank" rel="noopener">${esc(promo.cta || "Irány a szavazás")} →</a>
-    <a class="btn" href="${esc(promo.discussionUrl)}" target="_blank" rel="noopener">A teljes egyeztetés</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../../">
+      <span class="brand-mark"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h3l3-7 4 14 3-7h3"/></svg></span>
+      <span class="brand-name"><b>Témaajánló</b><span>független segédlet a kozhang.hu egyeztetéseihez</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Fő navigáció">
+      <a href="../../#nyitott">Most nyitott</a>
+      <a href="../../#hamarosan">Hamarosan</a>
+      <a href="../../#temak">Témaszavazás</a>
+      <a href="../../#tudaster">Tudástér</a>
+      <a href="../../feed.xml">Hírcsatorna</a>
+    </nav>
   </div>
-  <p class="note">Kiemelt szervezői ajánlás (irányított) – a döntés a tiéd. Cél: ${esc(promo.target)}. Adat: kozhang.hu</p>
-</div>` : ""}
-<p class="note">Az ajánló azt segít eldönteni, <b>miről</b> érdemes véleményt mondanod – azt soha, hogy <b>mit</b>.
-A válaszadás a kozhang.hu-n, bejelentkezés után történik.</p>
+</header>
 
-${chapters ? `<h2>Fejezetek és lépések</h2>\n${chapters}` : `<h2>Fejezetek</h2><p class="note">A részletes fejezetlista a téma megnyílásakor lesz elérhető.</p>`}
-
-${kb.length ? `<h2>Háttéranyagok a Tudástérben (${kb.length})</h2>
-<div class="list">${kb
-    .map((k) => `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(hu(k.title))}<span>${esc(clip(hu(k.lead), 140))}</span></a>`)
-    .join("")}</div>` : ""}
-
-${rel.length ? `<h2>Kapcsolódó témák</h2>
-<div class="list">${rel
-    .map((x) => `<a href="../${esc(x.id)}/">${esc(hu(x.title))}<span>${x.status === "open" ? "nyitott" : "hamarosan"} · ${esc(x.locality ? String(x.locality.label?.hu || x.locality.town).replace(/vármegye/g, "megye") : "Országos")}</span></a>`)
-    .join("")}</div>` : ""}
-
-<footer>
-  Forrás: <a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.url.replace("https://", ""))}</a> ·
-  adat: ${esc(huDate(GEN.slice(0, 19)) || GEN)} (UTC) · build ${esc(DATA.sourceBuild || "—")}<br>
-  A tartalom a Közhang Nonprofit Kft. tulajdona. Ez az oldal nem hivatalos, nem a Közhang terméke.
-  · <a href="../../feed.xml">Hírcsatorna</a> · <a href="../../naptar.ics">Naptár</a>
-</footer>
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-main">
+      <p class="crumbs"><a href="../../">Főoldal</a> › <a href="../../kategoria/${esc(d.category)}/">${esc(CAT[d.category] || d.category)}</a> › <b>${esc(title)}</b></p>
+      <div class="t-tags">
+        <span class="tag ${esc(d.status)}">${status}</span>
+        <span class="tag">📍 ${esc(place)}</span>
+      </div>
+      <h1>${esc(title)}</h1>
+      <p class="lead">${esc(desc)}</p>
+      ${d.lead && hu(d.lead) !== desc ? `<p class="note">${esc(hu(d.lead))}</p>` : ""}
+      <div class="acts">
+        <a class="btn primary" href="${esc(d.url)}" target="_blank" rel="noopener">${d.status === "open" ? "Részvétel a kozhang.hu-n →" : "Megnézem a kozhang.hu-n →"}</a>
+        <button class="btn" id="share" type="button" data-url="${esc(url)}" data-text="${esc(shareText)}">Megosztás</button>
+      </div>
+    </div>
+    ${img ? `<figure class="hero-fig"><img src="${esc(img)}" alt="" onerror="this.closest('.hero-fig').remove()"></figure>` : ""}
+  </div>
 </div>
+
+<div class="statline" aria-label="Számok">
+  <div class="wrap">${stats.join("")}</div>
+</div>
+
+<main class="wrap">
+${promo ? `<section id="kiemelt" aria-label="Kiemelt felhívás">
+  <div class="panel promo">
+    <span class="tag">${esc(promo.label || "Kiemelt felhívás")}</span>
+    <h3>${esc(promo.title)}</h3>
+    <p>${esc(promo.pitch)}</p>
+    ${promo.preferred ? `<p class="pref"><b>Ajánlott választás:</b> ${esc(promo.preferred)}</p>` : ""}
+    <div class="acts">
+      <a class="btn primary" href="${esc(promo.url)}" target="_blank" rel="noopener">${esc(promo.cta || "Irány a szavazás")} →</a>
+      <a class="btn" href="${esc(promo.discussionUrl)}" target="_blank" rel="noopener">A teljes egyeztetés</a>
+    </div>
+    <p class="discl">Kiemelt szervezői ajánlás (irányított) – a döntés a tiéd. Cél: ${esc(promo.target)}. Adat: kozhang.hu</p>
+  </div>
+</section>` : ""}
+<section id="fejezetek">
+  <div class="sec-head">
+    <div>
+      <h2 class="sec">Fejezetek és lépések</h2>
+      <span class="hint">${chapters ? `${d.chapterCount || d.chapters.length} fejezet${d.stepCount ? ` · ${d.stepCount} lépés` : ""}` : "a részletes fejezetlista a téma megnyílásakor lesz elérhető"}</span>
+    </div>
+  </div>
+  <p class="note">Az ajánló azt segít eldönteni, <b>miről</b> érdemes véleményt mondanod – azt soha, hogy <b>mit</b>. A válaszadás a kozhang.hu-n, bejelentkezés után történik.</p>
+  ${chapters || `<p class="note">A részletes fejezetlista a téma megnyílásakor lesz elérhető.</p>`}
+</section>
+
+${kb.length ? `<section id="tudaster-tema">
+  <div class="sec-head">
+    <div>
+      <h2 class="sec">Háttéranyagok a Tudástérben</h2>
+      <span class="hint">${kb.length} cikk ehhez a témához</span>
+    </div>
+    <a class="btn small" href="https://kozhang.hu/tudaster" target="_blank" rel="noopener">A Tudástér a kozhang.hu-n</a>
+  </div>
+  <div class="panel t-panel">
+    ${kb.map((k) => {
+      const dt = k.date ? new Date(k.date + "T00:00:00") : null;
+      const dateTxt = dt && !isNaN(dt) ? dt.toLocaleDateString("hu-HU", { month: "short", day: "numeric" }) : "";
+      const src = k.source ? (typeof k.source === "string" ? k.source : hu(k.source.name ?? k.source)) : "";
+      const sub = src || clip(hu(k.lead), 110);
+      return `<a class="k-item" href="${esc(k.url)}" target="_blank" rel="noopener">
+      <span class="k-date">${esc(dateTxt)}</span>
+      <span class="k-text"><span class="k-title">${esc(hu(k.title))}</span><span class="k-src">${esc(sub)}</span></span>
+    </a>`;
+    }).join("\n    ")}
+  </div>
+</section>` : ""}
+
+${rel.length ? `<section id="kapcsolodo">
+  <div class="sec-head">
+    <div><h2 class="sec">Kapcsolódó témák</h2></div>
+  </div>
+  <div class="panel t-panel">
+    ${rel.map((x) => `<a class="k-item" href="../${esc(x.id)}/">
+      <span class="k-date">${x.status === "open" ? "nyitott" : "hamarosan"}</span>
+      <span class="k-text"><span class="k-title">${esc(hu(x.title))}</span><span class="k-src">${esc(x.locality ? String(x.locality.label?.hu || x.locality.town).replace(/vármegye/g, "megye") : "Országos")}</span></span>
+    </a>`).join("\n    ")}
+  </div>
+</section>` : ""}
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <span class="brand-foot">Témaajánló</span>
+      <span>Nem hivatalos, nem a Közhang terméke. A tartalom és a témaadatok a <a href="https://kozhang.hu" target="_blank" rel="noopener">Közhang Nonprofit Kft.</a> tulajdona.</span>
+    </div>
+    <div>
+      <b>Adatok</b>
+      <span>Forrás: <a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.url.replace("https://", ""))}</a> · frissítve: ${esc(huDate(GEN.slice(0, 19)) || GEN)} · build ${esc(DATA.sourceBuild || "—")}</span>
+      <span>Kövesd az új témákat és fejezetnyitásokat: <a href="../../feed.xml">hírcsatorna (Atom)</a> · <a href="../../naptar.ics">naptár (.ics)</a></span>
+    </div>
+    <div>
+      <b>Kapcsolat</b>
+      <a href="mailto:info@kozhang.hu">info@kozhang.hu</a>
+      <a href="https://kozhang.hu/egyeztetesek" target="_blank" rel="noopener">kozhang.hu/egyeztetesek</a>
+    </div>
+  </div>
+</footer>
 <script>
 document.getElementById("share").addEventListener("click", async (e) => {
   const b = e.currentTarget, url = b.dataset.url, text = b.dataset.text;
