@@ -27,6 +27,7 @@
     <nav class="site-nav" aria-label="Fő navigáció">
       <a href="#nyitott">Most nyitott</a>
       <a href="#hamarosan">Hamarosan</a>
+      <a href="#naptar">Naptár</a>
       <a href="#temak">Témaszavazás</a>
       <a href="#tudaster">Tudástér</a>
       <a href="#modszertan">Hogyan rangsorolunk?</a>
@@ -118,6 +119,21 @@
   </div>
 </section>
 
+<section id="naptar">
+  <div class="sec-head">
+    <div>
+      <h2 class="sec">Naptár</h2>
+      <span class="hint" id="calhint">Események betöltése…</span>
+    </div>
+    <div class="acts">
+      <a class="btn primary" href="./naptar.ics"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg> Naptár (.ics)</a>
+      <a class="btn" href="./feed.xml"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg> Hírcsatorna (Atom)</a>
+    </div>
+  </div>
+  <div class="cal" id="cal"></div>
+  <div class="panel ev-list" id="evlist" hidden></div>
+</section>
+
 <section id="kategoriak">
   <div class="sec-head">
     <div>
@@ -189,7 +205,6 @@
       <b>Adatok</b>
       <span>A kozhang.hu nyilvános JavaScript bundle-jeiből, mert nincs nyilvános tartalom-API, és a böngészőoldali lekérést a CORS tiltja.</span>
       <span id="footmeta"></span>
-      <span>Kövesd az új témákat és fejezetnyitásokat: <a href="feed.xml">hírcsatorna (Atom)</a> · <a href="naptar.ics">naptár (.ics)</a></span>
     </div>
     <div>
       <b>Kapcsolat</b>
@@ -227,6 +242,7 @@ const EXT = `target="_blank" rel="noopener"`;
 
 let DATA = null;
 let PROMOS = [];
+let EVENTS = [];
 const state = { q:"", scope:"all", sort:"due", taxo:null, steps:null, chapter:null, kOpen:new Set() };
 
 // saját kattintás-analitika (localStorage) – a "dinamikus" viselkedés alapja
@@ -685,6 +701,53 @@ function renderPromo(){
   el.hidden = false;
 }
 
+function renderCal(){
+  const hint = $("calhint"), cal = $("cal"), list = $("evlist");
+  const d0 = new Date();
+  const today = `${d0.getFullYear()}-${String(d0.getMonth()+1).padStart(2,"0")}-${String(d0.getDate()).padStart(2,"0")}`;
+  const all = Array.isArray(EVENTS) ? EVENTS : [];
+  if (!all.length){
+    hint.textContent = "nincs megjeleníthető esemény – iratkozz fel a hírcsatornára";
+    cal.remove(); list.remove(); return;
+  }
+  const up = all.filter(e => e.date >= today);
+  const past = all.filter(e => e.date < today).reverse();
+  hint.textContent = `${up.length} közelgő · ${past.length} legutóbbi esemény – fejezetnyitások és megnyílások`;
+  const months = [...new Set(all.map(e => e.date.slice(0,7)))].sort().slice(0,3);
+  const evByDate = {};
+  for (const e of all) (evByDate[e.date] = evByDate[e.date] || []).push(e);
+  const MON = ["január","február","március","április","május","június","július","augusztus","szeptember","október","november","december"];
+  const KINDL = { open:"megnyílás", chapter:"új fejezet", new:"új téma" };
+  const shortDate = ds => { const [,m,d] = ds.split("-").map(Number); return `${["jan.","febr.","márc.","ápr.","máj.","jún.","júl.","aug.","szept.","okt.","nov.","dec."][m-1]} ${d}.`; };
+  cal.innerHTML = months.map(ym => {
+    const [y, m] = ym.split("-").map(Number);
+    const startDow = (new Date(y, m-1, 1).getDay() + 6) % 7; // hétfő = 0
+    const days = new Date(y, m, 0).getDate();
+    const cnt = all.filter(e => e.date.startsWith(ym)).length;
+    let cells = "";
+    for (let i = 0; i < startDow; i++) cells += `<span class="cal-empty"></span>`;
+    for (let day = 1; day <= days; day++){
+      const ds = `${ym}-${String(day).padStart(2,"0")}`;
+      const evs = evByDate[ds];
+      const cls = ["cal-d"];
+      if (evs) cls.push("has-ev", ds < today ? "past" : "");
+      if (ds === today) cls.push("today");
+      cells += `<span class="${cls.filter(Boolean).join(" ")}"${evs ? ` title="${esc(evs.map(e=>e.title).join(" · "))}"` : ""}>${day}${evs ? "<i></i>" : ""}</span>`;
+    }
+    return `<div class="cal-month panel">
+      <div class="cal-mhead"><b>${y}. ${MON[m-1]}</b><span>${cnt} esemény</span></div>
+      <div class="cal-week"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+      <div class="cal-grid">${cells}</div>
+    </div>`;
+  }).join("");
+  const row = e => `<a class="k-item${e.date < today ? " ev-past" : ""}" href="${esc(e.page)}">
+      <span class="k-date">${esc(shortDate(e.date))}${e.time ? `<br>${e.time}` : ""}</span>
+      <span class="k-text"><span class="k-title">${esc(e.title)}</span><span class="k-src">${esc((KINDL[e.kind] || "") + (e.cat ? " · " + e.cat : ""))}</span></span>
+    </a>`;
+  list.hidden = false;
+  list.innerHTML = up.map(row).join("") + (past.length ? `<div class="ev-sep">Legutóbbi események</div>` + past.map(row).join("") : "");
+}
+
 (async function init(){
   try{
     DATA = await (await fetch("./data/recommendations.json")).json();
@@ -693,11 +756,13 @@ function renderPromo(){
     return;
   }
   try{ PROMOS = await (await fetch("./data/kiemelt.json")).json(); }catch{ PROMOS = []; }
+  try{ EVENTS = await (await fetch("./data/esemenyek.json")).json(); }catch{ EVENTS = []; }
   readUrlState();
   renderHero();
   renderFeature();
   renderStats();
   renderPromo();
+  renderCal();
   renderLists();
   renderCatPages();
   renderTaxonomy();

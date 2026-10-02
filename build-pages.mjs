@@ -327,6 +327,23 @@ for (const d of discussions) {
   }
 }
 
+// a főoldali Naptár szekció adatfájlja (legutóbbi 2 hét + közelgő események)
+const calCutoff = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
+await writeFile(
+  path.join(PUB, "data", "esemenyek.json"),
+  JSON.stringify(
+    events
+      .filter((e) => e.local && e.local.slice(0, 10) >= calCutoff)
+      .map((e) => ({
+        date: e.local.slice(0, 10), time: e.local.slice(11, 16) || null, kind: e.kind,
+        title: e.title, page: e.page, cat: CAT[e.d.category] || e.d.category,
+      }))
+      .sort((a, b) => a.date.localeCompare(b.date) || (a.time || "").localeCompare(b.time || ""))
+      .slice(0, 40),
+    null, 2
+  ) + "\n"
+);
+
 // ─────────────────────────────────────────────────────────── Atom ──
 
 function atom() {

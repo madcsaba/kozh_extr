@@ -197,6 +197,27 @@ h2.sec{margin:0;font-family:var(--display);font-weight:800;font-stretch:90%;font
 .promo .pref{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;padding:12px 14px}
 .promo .discl{font-size:13.5px;color:var(--muted)}
 #kiemelt{margin:0 0 26px}
+/* — naptár szekció: hónap-nézet + eseménylista — */
+.cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px;margin-bottom:22px}
+.cal-month{padding:16px 18px}
+.cal-mhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:12px}
+.cal-mhead b{font-family:var(--display);font-weight:800;font-size:18px}
+.cal-mhead span{font-size:13px;color:var(--muted)}
+.cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-week span{font-size:12px;font-weight:700;color:var(--muted);text-align:center;padding-bottom:4px}
+.cal-d{position:relative;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;border-radius:8px}
+.cal-empty{aspect-ratio:1}
+.cal-d.has-ev{background:var(--scarlet-soft);color:var(--scarlet-ink);font-weight:700}
+.cal-d.has-ev i{width:5px;height:5px;border-radius:50%;background:var(--scarlet);margin-top:2px}
+.cal-d.past{background:var(--line2);color:var(--muted)}
+.cal-d.past i{background:var(--soft)}
+.cal-d.today{box-shadow:inset 0 0 0 2px var(--text);font-weight:700}
+.cal-d.today.has-ev{box-shadow:inset 0 0 0 2px var(--scarlet-ink)}
+.ev-list{padding:4px 20px}
+.ev-list .k-date{width:76px}
+.ev-list .k-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-past{opacity:.62}
+.ev-sep{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:10px}
 
 /* — témaválasztó — */
 .taxo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px;align-items:start}
